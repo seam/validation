@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project 
+	xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<artifactId>seam-parent</artifactId>
+		<groupId>org.jboss.seam</groupId>
+   		<version>7</version>
+	</parent>
+   
+	<groupId>org.jboss.seam.validation</groupId>
+	<artifactId>seam-validation-parent</artifactId>
+	<packaging>pom</packaging>
+	<version>3.0.0-SNAPSHOT</version>
+
+	<name>Seam Validation Module Parent</name>
+
+	<description>
+		The parent POM for all sub modules of the Seam Validation module.
+	</description>
+	
+	<developers>
+		<developer>
+			<name>Gunnar Morling</name>
+		</developer>
+	</developers>
+
+	<properties>
+		<seam.version>3.0.0.b04</seam.version>
+		<weld.version>1.1.0.Beta1</weld.version>
+		<weld.api.version>1.1.Beta1</weld.api.version>
+	</properties>
+	
+	<!-- Declares dependency versions -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>1.0.0.GA</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>4.2.0-SNAPSHOT</version>
+			</dependency>		
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.8.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-jdk14</artifactId>
+				<version>1.5.6</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+	<!-- Dependencies common to all child projects -->
+	<dependencies>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<!-- Specifies the plug-in versions to be used -->
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>com.mycila.maven-license-plugin</groupId>
+					<artifactId>maven-license-plugin</artifactId>
+					<version>1.9.0</version>
+					<configuration>
+						<header>etc/license.txt</header>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		
+		<!-- Specifies the plug-ins that shall be executed for all child projects -->
+		<plugins> 
+			<plugin>
+				<groupId>com.mycila.maven-license-plugin</groupId>
+				<artifactId>maven-license-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project 
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.jboss.seam.validation</groupId>
+		<artifactId>seam-validation-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath>../seam-validation-parent/pom.xml</relativePath>
+	</parent>
+	
+	<artifactId>seam-validation-impl</artifactId>
+
+	<name>Seam Validation Module Implementation</name>
+
+	<description>
+		The implementation of the Seam Validation Module.
+	</description>
+
+	<properties>
+		<arquillian.version>1.0.0-SNAPSHOT</arquillian.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+    	        <groupId>org.jboss.seam</groupId>
+        	    <artifactId>seam-bom</artifactId>
+            	<version>${seam.version}</version>
+	            <type>pom</type>
+    	        <scope>import</scope>
+        	 </dependency>
+        	 <!-- 
+        	 <dependency>
+				<groupId>org.jboss.weld</groupId>
+				<artifactId>weld-api</artifactId>
+				<version>${weld.version}</version>
+				<scope>test</scope>
+			</dependency>
+			-->
+        </dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<version>1.0-SP2</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- Arquillian -->
+		<dependency>
+			<groupId>org.jboss.arquillian</groupId>
+			<artifactId>arquillian-junit</artifactId>
+			<version>${arquillian.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.arquillian.container</groupId>
+			<artifactId>arquillian-weld-se-embedded-1.1</artifactId>
+			<version>${arquillian.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Weld -->
+		<dependency>
+			<groupId>org.jboss.weld</groupId>
+			<artifactId>weld-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency> 
+			<groupId>org.jboss.weld</groupId>
+			<artifactId>weld-api</artifactId>
+			<scope>test</scope>  
+		</dependency>
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>el-api</artifactId>
+			<version>2.2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
