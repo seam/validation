@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project 
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.jboss.seam.validation</groupId>
+		<artifactId>seam-validation-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath>../seam-validation-parent/pom.xml</relativePath>
+	</parent>
+	
+	<artifactId>seam-validation-api</artifactId>
+
+	<name>Seam Validation Module API</name>
+
+	<description>
+		The public API of the Seam Validation Module.
+	</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<version>1.0-SP2</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+      <plugins>
+         <!-- No tests in the api, skip phase -->
+         <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+               <skipTests>true</skipTests>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+</project>
