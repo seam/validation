@@ -25,14 +25,12 @@
 		<dependency>
 			<groupId>javax.enterprise</groupId>
 			<artifactId>cdi-api</artifactId>
-			<version>1.0-SP2</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	
 	<build>
       <plugins>
-         <!-- No tests in the api, skip phase -->
          <plugin>
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
