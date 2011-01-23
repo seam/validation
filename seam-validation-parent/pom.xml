@@ -40,12 +40,22 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-    	        <groupId>org.jboss.seam</groupId>
-        	    <artifactId>seam-bom</artifactId>
-            	<version>${seam.version}</version>
-	            <type>pom</type>
-    	        <scope>import</scope>
-        	 </dependency>
+				<groupId>org.jboss.seam</groupId>
+				<artifactId>seam-bom</artifactId>
+				<version>${seam.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.seam.validation</groupId>
+				<artifactId>seam-validation-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.seam.validation</groupId>
+				<artifactId>seam-validation-impl</artifactId>
+				<version>${project.version}</version>
+			</dependency>			
 		</dependencies>
 	</dependencyManagement>
 	
