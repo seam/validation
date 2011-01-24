@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project 
-	xmlns="http://maven.apache.org/POM/4.0.0" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<artifactId>seam-parent</artifactId>
 		<groupId>org.jboss.seam</groupId>
-   		<version>7</version>
+		<version>7</version>
 	</parent>
-   
+
 	<groupId>org.jboss.seam.validation</groupId>
 	<artifactId>seam-validation-parent</artifactId>
 	<packaging>pom</packaging>
@@ -22,7 +20,7 @@
 	<description>
 		The parent POM for all sub modules of the Seam Validation module.
 	</description>
-	
+
 	<developers>
 		<developer>
 			<name>Gunnar Morling</name>
@@ -35,7 +33,7 @@
 		<weld.api.version>1.1.Beta1</weld.api.version>
 		<hibernate.validator.version>4.2.0-SNAPSHOT</hibernate.validator.version>
 	</properties>
-	
+
 	<!-- Declares dependency versions -->
 	<dependencyManagement>
 		<dependencies>
@@ -55,10 +53,26 @@
 				<groupId>org.jboss.seam.validation</groupId>
 				<artifactId>seam-validation-impl</artifactId>
 				<version>${project.version}</version>
-			</dependency>			
+			</dependency>
+
+			<dependency>
+				<groupId>javax.enterprise</groupId>
+				<artifactId>cdi-api</artifactId>
+				<version>1.0-SP2</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>jboss-interceptor-api</artifactId>
+						<groupId>org.jboss.interceptor</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>jsr250-api</artifactId>
+						<groupId>javax.annotation</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<build>
 		<!-- Specifies the plug-in versions to be used -->
 		<pluginManagement>
@@ -88,9 +102,9 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		
+
 		<!-- Specifies the plug-ins that shall be executed for all child projects -->
-		<plugins> 
+		<plugins>
 			<plugin>
 				<groupId>com.mycila.maven-license-plugin</groupId>
 				<artifactId>maven-license-plugin</artifactId>
