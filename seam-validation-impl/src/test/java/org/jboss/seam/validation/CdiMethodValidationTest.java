@@ -24,6 +24,7 @@ package org.jboss.seam.validation;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -33,7 +34,6 @@ import org.hibernate.validator.MethodConstraintViolation;
 import org.hibernate.validator.MethodConstraintViolationException;
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.validation.ValidationInterceptor;
 import org.jboss.seam.validation.domain.Movie;
 import org.jboss.seam.validation.service.MovieRepository;
 import org.jboss.shrinkwrap.api.ArchivePaths;
@@ -56,7 +56,8 @@ public class CdiMethodValidationTest {
 	public static JavaArchive createTestArchive() throws Exception {
 		return ShrinkWrap
 			.create(JavaArchive.class, "test.jar")
-			.addManifestResource("beans.xml", ArchivePaths.create("beans.xml"))
+			.addManifestResource("META-INF/beans.xml", ArchivePaths.create("beans.xml"))
+			.addManifestResource(new File("src/main/resources/META-INF/services/javax.enterprise.inject.spi.Extension"))
 			.addPackage(MovieRepository.class.getPackage())
 			.addPackage(ValidationInterceptor.class.getPackage())
 			.addPackage(Movie.class.getPackage());
