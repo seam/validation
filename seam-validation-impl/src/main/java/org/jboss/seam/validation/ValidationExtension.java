@@ -314,7 +314,7 @@ public class ValidationExtension implements Extension {
 			@Override
 			public MethodValidator create(CreationalContext<MethodValidator> ctx) {
 
-				return getReference(bm, Validator.class).unwrap(MethodValidator.class);
+				return getReference(bm, ValidatorFactory.class).getValidator().unwrap(MethodValidator.class);
 			}
 
 			@Override
