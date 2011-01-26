@@ -16,6 +16,7 @@
 		<module>seam-validation-parent</module>
 		<module>seam-validation-api</module>
 		<module>seam-validation-impl</module>
+		<module>seam-validation-example</module>
 		<module>seam-validation-combined</module>	
   </modules>
 </project>

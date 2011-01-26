@@ -7,7 +7,7 @@
 	<parent>
 		<artifactId>seam-parent</artifactId>
 		<groupId>org.jboss.seam</groupId>
-		<version>7</version>
+		<version>8</version>
 	</parent>
 
 	<groupId>org.jboss.seam.validation</groupId>
@@ -28,9 +28,14 @@
 	</developers>
 
 	<properties>
-		<seam.version>3.0.0.b04</seam.version>
+		<seam.version>3.0.0.b07</seam.version>
+		
+		<!-- Necessary until there is a new Arquillian version working
+			properly with Weld 1.1.0.Final -->
+		<cdi-api.version>1.0-SP2</cdi-api.version>
 		<weld.version>1.1.0.Beta1</weld.version>
 		<weld.api.version>1.1.Beta1</weld.api.version>
+		
 		<hibernate.validator.version>4.2.0-SNAPSHOT</hibernate.validator.version>
 	</properties>
 
@@ -58,7 +63,7 @@
 			<dependency>
 				<groupId>javax.enterprise</groupId>
 				<artifactId>cdi-api</artifactId>
-				<version>1.0-SP2</version>
+				<version>${cdi-api.version}</version>
 				<exclusions>
 					<exclusion>
 						<artifactId>jboss-interceptor-api</artifactId>
