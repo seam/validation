@@ -27,7 +27,6 @@ import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
-import javax.validation.ValidatorFactory;
 
 import org.hibernate.validator.MethodConstraintViolation;
 import org.hibernate.validator.MethodConstraintViolationException;
@@ -38,13 +37,10 @@ import org.hibernate.validator.MethodValidator;
 public class ValidationInterceptor {
 
 	@Inject
-	private ValidatorFactory validatorFactory;
-
+	private MethodValidator validator;
+	
 	@AroundInvoke
-	public Object manageTransaction(InvocationContext ctx) throws Exception {
-
-		MethodValidator validator = validatorFactory.getValidator().unwrap(
-			MethodValidator.class);
+	public Object validateMethodInvocation(InvocationContext ctx) throws Exception {
 
 		Set<MethodConstraintViolation<Object>> violations = validator
 			.validateParameters(

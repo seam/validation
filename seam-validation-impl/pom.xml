@@ -58,10 +58,16 @@
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.arquillian.container</groupId>
-			<artifactId>arquillian-weld-se-embedded-1.1</artifactId>
+			<artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-6.0</artifactId>
+			<scope>provided</scope>
+			<type>pom</type>
+		</dependency>
+      
 		<!-- Weld -->
 		<dependency>
 			<groupId>org.jboss.weld</groupId>

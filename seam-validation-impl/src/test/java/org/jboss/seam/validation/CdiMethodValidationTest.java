@@ -68,7 +68,7 @@ public class CdiMethodValidationTest {
 		ResourceBundle bundle = ResourceBundle.getBundle("org.hibernate.validator.ValidationMessages");
 		notNullMessage = bundle.getString("javax.validation.constraints.NotNull.message");
 	}
-
+	
 	@Test
 	public void validMethodCall() {
 
