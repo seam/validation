@@ -38,10 +38,19 @@ public class HelloWorldServlet extends HttpServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-    	String name = request.getParameter("name");
-    	
     	response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().println("<h1>" + service.sayHello(name) + "</h1>");
+    	response.setStatus(HttpServletResponse.SC_OK);
+
+    	String name = request.getParameter("name");
+        if(name != null) {
+        	response.getWriter().println("<h1>" + service.sayHello(name) + "</h1>");
+        }
+        else {
+        	response.getWriter().println("<h1>Hi, what's your name?</h1>");
+	        response.getWriter().println("<form action=\"HelloWorld\"");
+	        response.getWriter().println("Name: <input name=\"name\" type=\"text\" size=\"30\">");
+	        response.getWriter().println("<input type=\"submit\" value=\" OK \">");
+	        response.getWriter().println("</form>");
+        }
     }
 }
