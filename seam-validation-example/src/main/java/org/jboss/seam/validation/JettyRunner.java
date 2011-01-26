@@ -52,7 +52,7 @@ public class JettyRunner {
 		server.setHandler(wac);
 		server.setStopAtShutdown(true);
 		server.start();
-		System.out.println("Started Seam Validation Example Application on http://localhost:8080/seam-validation/");
+		System.out.println("Started Seam Validation Example Application on http://localhost:8080/seam-validation/HelloWorld");
 
 		server.join();
 	}
