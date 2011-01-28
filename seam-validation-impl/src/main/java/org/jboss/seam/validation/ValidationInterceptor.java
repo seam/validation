@@ -29,6 +29,7 @@ import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
+import javax.validation.Validator;
 
 import org.hibernate.validator.MethodConstraintViolation;
 import org.hibernate.validator.MethodConstraintViolationException;
@@ -39,12 +40,12 @@ import org.hibernate.validator.MethodValidator;
 public class ValidationInterceptor {
 
 	@Inject
-	private MethodValidator validator;
+	private Validator validator;
 	
 	@AroundInvoke
 	public Object validateMethodInvocation(InvocationContext ctx) throws Exception {
 
-		Set<MethodConstraintViolation<Object>> violations = validator
+		Set<MethodConstraintViolation<Object>> violations = validator.unwrap(MethodValidator.class)
 			.validateParameters(
 				ctx.getTarget(), ctx.getMethod(), ctx.getParameters());
 
@@ -54,7 +55,7 @@ public class ValidationInterceptor {
 
 		Object result = ctx.proceed();
 
-		violations = validator.validateReturnValue(ctx.getTarget(), ctx.getMethod(), result);
+		violations = validator.unwrap(MethodValidator.class).validateReturnValue(ctx.getTarget(), ctx.getMethod(), result);
 
 		if (!violations.isEmpty()) {
 			throw new MethodConstraintViolationException(getMessage(ctx.getMethod(), ctx.getParameters(), violations), violations);

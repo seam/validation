@@ -33,10 +33,12 @@ import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.spi.AfterBeanDiscovery;
+import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.InjectionPoint;
+import javax.enterprise.inject.spi.InjectionTarget;
 import javax.enterprise.util.AnnotationLiteral;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -62,10 +64,10 @@ public class ValidationExtension implements Extension {
 		addMethodValidator(abd, bm);
 	}
 
-	private void addValidatorFactoryIfRequired(AfterBeanDiscovery abd, BeanManager bm) {
+	private void addValidatorFactoryIfRequired(AfterBeanDiscovery abd, final BeanManager beanManager) {
 		
 		//do nothing, if ValidatorFactory already exists
-		if (!bm.getBeans(ValidatorFactory.class).isEmpty()) {
+		if (!beanManager.getBeans(ValidatorFactory.class).isEmpty()) {
 			return;
 		}
 		
@@ -141,7 +143,16 @@ public class ValidationExtension implements Extension {
 			@Override
 			public ValidatorFactory create(CreationalContext<ValidatorFactory> ctx) {
 
-				return Validation.buildDefaultValidatorFactory();
+				AnnotatedType<InjectingConstraintValidatorFactory> type = beanManager.createAnnotatedType(InjectingConstraintValidatorFactory.class);
+				InjectionTarget<InjectingConstraintValidatorFactory> it = beanManager.createInjectionTarget(type);
+				CreationalContext<InjectingConstraintValidatorFactory> cvfCtx = beanManager.createCreationalContext(null);
+
+				InjectingConstraintValidatorFactory constraintValidatorFactory = it.produce(cvfCtx);
+				it.inject(constraintValidatorFactory, cvfCtx);
+				it.postConstruct(constraintValidatorFactory);
+
+				
+				return Validation.byDefaultProvider().configure().constraintValidatorFactory(constraintValidatorFactory).buildValidatorFactory();
 			}
 
 			@Override
