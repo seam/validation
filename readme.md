@@ -20,35 +20,35 @@ This module provides a CDI portable extension, which offers the following servic
 	
 * Dependency injection in `javax.validation.ConstraintValidator` instances:
 
-	public class MyConstraintValidator implements ConstraintValidator<MyConstraint, String> {
+		public class MyConstraintValidator implements ConstraintValidator<MyConstraint, String> {
 
-		@Inject
-		private FooService foo;
+			@Inject
+			private FooService foo;
 	
-		@Override
-		public void initialize(MyConstraint constraintAnnotation) {	}
+			@Override
+			public void initialize(MyConstraint constraintAnnotation) {	}
 
-		@Override
-		public boolean isValid(String value, ConstraintValidatorContext context) {
+			@Override
+			public boolean isValid(String value, ConstraintValidatorContext context) {
 		
-			if(value == null) {
-				return true;
+				if(value == null) {
+					return true;
+				}
+		
+				return foo.isValid(value);
 			}
-		
-			return foo.isValid(value);
-		}
 
-	}
+		}
 
 * Integration with the method validation feature of Hibernate Validator. Annotate any CDI bean with `@AutoValidating` to trigger automatic validation of invocation of it's methods:
 
-	@AutoValidating
-	public class FooService {
+		@AutoValidating
+		public class FooService {
 	
-		public void bar(@NotNull @Size(min=3) String baz) {
-			
+			public void bar(@NotNull @Size(min=3) String baz) {
+				//...
+			}
+	
 		}
-	
-	}
 
-If FooService#bar() is invoked with null or a String shorter than three characters as value for the `baz` parameter this call will be intercepted and a `MethodConstraintViolationException`will be thrown.
+If `FooService#bar()` is invoked with null or a String shorter than three characters as value for the `baz` parameter this call will be intercepted and a `MethodConstraintViolationException`will be thrown.
