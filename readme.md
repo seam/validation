@@ -7,16 +7,16 @@ This module provides a CDI portable extension, which offers the following servic
 
 * Dependency injection of `javax.validation.ValidatorFactory` and `javax.validation.Validator` instances in Non-Java-EE environments:
 
-	public class MyBean {
-	
-		@Inject
-		private Validator validator;
+		public class MyBean {
+
+			@Inject
+			private Validator validator;
 		
-		public void foo(Bar bar) {
-			Set<ConstraintViolation<Bar>> violations = validator.validate(bar);
-			//...
+			public void foo(Bar bar) {
+				Set<ConstraintViolation<Bar>> violations = validator.validate(bar);
+				//...
+			}
 		}
-	}
 	
 * Dependency injection in `javax.validation.ConstraintValidator` instances:
 
