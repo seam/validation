@@ -40,7 +40,7 @@ This module provides a CDI portable extension, which offers the following servic
 
 		}
 
-* Integration with the method validation feature of Hibernate Validator. Annotate any CDI bean with `@AutoValidating` to trigger automatic validation of invocation of it's methods:
+* Integration with the method validation feature of Hibernate Validator. Annotate any CDI bean with `@AutoValidating` to trigger automatic validation of invocations of it's methods:
 
 		@AutoValidating
 		public class FooService {
