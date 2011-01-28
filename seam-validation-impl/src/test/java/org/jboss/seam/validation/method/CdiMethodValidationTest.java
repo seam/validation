@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.validation;
+package org.jboss.seam.validation.method;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -34,8 +34,9 @@ import org.hibernate.validator.MethodConstraintViolation;
 import org.hibernate.validator.MethodConstraintViolationException;
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.validation.domain.Movie;
-import org.jboss.seam.validation.service.MovieRepository;
+import org.jboss.seam.validation.ValidationInterceptor;
+import org.jboss.seam.validation.method.domain.Movie;
+import org.jboss.seam.validation.method.service.MovieRepository;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;

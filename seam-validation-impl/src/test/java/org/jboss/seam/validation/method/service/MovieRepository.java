@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.validation.service;
+package org.jboss.seam.validation.method.service;
 
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -32,7 +32,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.jboss.seam.validation.AutoValidating;
-import org.jboss.seam.validation.domain.Movie;
+import org.jboss.seam.validation.method.domain.Movie;
 
 
 /**
