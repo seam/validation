@@ -38,10 +38,10 @@
 
 	<artifactId>seam-validation</artifactId>
 
-	<name>Seam Validation</name>
+	<name>Seam Validation Combined</name>
 
 	<description>
-		The Seam Validation Module.
+		Combines seam-validation-api and seam-validation-impl to one artifact.
 	</description>
 
    <build>
@@ -88,4 +88,22 @@
       </dependency>
    </dependencies>
 
+   <!-- 
+      For some reason repositories defined in settings.xml are ignored by the shade build,
+      causing the Seam parent POM not be found when building this module. Adding the JBoss repo
+      here circumvents this issue. -->
+   <repositories>      
+     <repository>
+       <id>jboss-public-repository-group</id>
+       <name>JBoss Public Maven Repository Group</name>
+       <url>https://repository.jboss.org/nexus/content/groups/public</url>
+       <layout>default</layout>
+       <releases>
+         <enabled>true</enabled>
+       </releases>
+       <snapshots>
+         <enabled>false</enabled>
+       </snapshots>
+     </repository>
+   </repositories>
 </project>
