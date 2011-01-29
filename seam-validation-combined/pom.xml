@@ -22,25 +22,23 @@
     02110-1301 USA, or see the FSF site: http://www.fsf.org.
 
 -->
-<project 
-	xmlns="http://maven.apache.org/POM/4.0.0" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-   
-   	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<parent>
-		<groupId>org.jboss.seam.validation</groupId>
-		<artifactId>seam-validation-parent</artifactId>
-		<version>3.0.0-SNAPSHOT</version>
-		<relativePath>../seam-validation-parent/pom.xml</relativePath>
-	</parent>
+   <modelVersion>4.0.0</modelVersion>
 
-	<artifactId>seam-validation</artifactId>
+   <parent>
+      <groupId>org.jboss.seam.validation</groupId>
+      <artifactId>seam-validation-parent</artifactId>
+      <version>3.0.0-SNAPSHOT</version>
+      <relativePath>../seam-validation-parent/pom.xml</relativePath>
+   </parent>
 
-	<name>Seam Validation Combined</name>
+   <artifactId>seam-validation</artifactId>
 
-	<description>
+   <name>Seam Validation Combined</name>
+
+   <description>
 		Combines seam-validation-api and seam-validation-impl to one artifact.
 	</description>
 
@@ -88,22 +86,20 @@
       </dependency>
    </dependencies>
 
-   <!-- 
-      For some reason repositories defined in settings.xml are ignored by the shade build,
-      causing the Seam parent POM not be found when building this module. Adding the JBoss repo
-      here circumvents this issue. -->
-   <repositories>      
-     <repository>
-       <id>jboss-public-repository-group</id>
-       <name>JBoss Public Maven Repository Group</name>
-       <url>https://repository.jboss.org/nexus/content/groups/public</url>
-       <layout>default</layout>
-       <releases>
-         <enabled>true</enabled>
-       </releases>
-       <snapshots>
-         <enabled>false</enabled>
-       </snapshots>
-     </repository>
+   <!-- For some reason repositories defined in settings.xml are ignored by the shade build, causing the Seam parent POM 
+      not be found when building this module. Adding the JBoss repo here circumvents this issue. -->
+   <repositories>
+      <repository>
+         <id>jboss-public-repository-group</id>
+         <name>JBoss Public Maven Repository Group</name>
+         <url>https://repository.jboss.org/nexus/content/groups/public</url>
+         <layout>default</layout>
+         <releases>
+            <enabled>true</enabled>
+         </releases>
+         <snapshots>
+            <enabled>false</enabled>
+         </snapshots>
+      </repository>
    </repositories>
 </project>

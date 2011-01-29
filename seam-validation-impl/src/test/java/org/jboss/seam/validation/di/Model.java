@@ -29,12 +29,13 @@ import org.jboss.seam.validation.di.constraint.ValidHello;
  * @author Gunnar Morling
  * 
  */
-public class Model {
+public class Model
+{
 
-	/**
-	 * Validation of this field fails, "Hello, Bob" would be the valid value.
-	 */
-	@ValidHello("Bob")
-	public String helloTest = "Hello, Bill";
+   /**
+    * Validation of this field fails, "Hello, Bob" would be the valid value.
+    */
+   @ValidHello("Bob")
+   public String helloTest = "Hello, Bill";
 
 }

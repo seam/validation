@@ -34,27 +34,31 @@ import org.jboss.seam.validation.di.service.HelloWorldService;
  * @author Gunnar Morling
  * 
  */
-public class ValidHelloValidator implements ConstraintValidator<ValidHello, String> {
+public class ValidHelloValidator implements ConstraintValidator<ValidHello, String>
+{
 
-	private String name;
+   private String name;
 
-	@Inject
-	private HelloWorldService service;
-	
-	@Override
-	public void initialize(ValidHello constraintAnnotation) {
-		this.name = constraintAnnotation.value();
-		
-	}
+   @Inject
+   private HelloWorldService service;
 
-	@Override
-	public boolean isValid(String value, ConstraintValidatorContext context) {
-		
-		if(value == null) {
-			return true;
-		}
-		
-		return value.equals(service.sayHello(this.name));
-	}
+   @Override
+   public void initialize(ValidHello constraintAnnotation)
+   {
+      this.name = constraintAnnotation.value();
+
+   }
+
+   @Override
+   public boolean isValid(String value, ConstraintValidatorContext context)
+   {
+
+      if (value == null)
+      {
+         return true;
+      }
+
+      return value.equals(service.sayHello(this.name));
+   }
 
 }

@@ -29,110 +29,122 @@ import javax.validation.constraints.NotNull;
  * An exemplary model class representing a movie.
  * 
  * @author Gunnar Morling
- *
+ * 
  */
-public class Movie {
+public class Movie
+{
 
-	private final long id;
-	
-	private final String title;
-	
-	private final int runTime;
-	
-	private final String director;
-	
-	@NotNull
-	private final Date releaseDate;
+   private final long id;
 
-	public Movie(long id, String title, int runTime, String director,
-			Date releaseDate) {
+   private final String title;
 
-		this.id = id;
-		this.title = title;
-		this.runTime = runTime;
-		this.director = director;
-		this.releaseDate = releaseDate;
-	}
+   private final int runTime;
 
-	public Movie(long id, String title, int runTime) {
+   private final String director;
 
-		this.id = id;
-		this.title = title;
-		this.runTime = runTime;
-		this.director = null;
-		this.releaseDate = null;
-	}
+   @NotNull
+   private final Date releaseDate;
 
-	public long getId() {
-		return id;
-	}
+   public Movie(long id, String title, int runTime, String director, Date releaseDate)
+   {
 
-	public String getTitle() {
-		return title;
-	}
+      this.id = id;
+      this.title = title;
+      this.runTime = runTime;
+      this.director = director;
+      this.releaseDate = releaseDate;
+   }
 
-	public int getRunTime() {
-		return runTime;
-	}
+   public Movie(long id, String title, int runTime)
+   {
 
-	public String getDirector() {
-		return director;
-	}
+      this.id = id;
+      this.title = title;
+      this.runTime = runTime;
+      this.director = null;
+      this.releaseDate = null;
+   }
 
-	public Date getReleaseDate() {
-		return releaseDate;
-	}
+   public long getId()
+   {
+      return id;
+   }
 
-	@Override
-	public String toString() {
-		return "Movie [id=" + id + ", title=" + title + ", runTime=" + runTime
-				+ ", director=" + director + ", releaseDate=" + releaseDate
-				+ "]";
-	}
+   public String getTitle()
+   {
+      return title;
+   }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((director == null) ? 0 : director.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result
-				+ ((releaseDate == null) ? 0 : releaseDate.hashCode());
-		result = prime * result + runTime;
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		return result;
-	}
+   public int getRunTime()
+   {
+      return runTime;
+   }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Movie other = (Movie) obj;
-		if (director == null) {
-			if (other.director != null)
-				return false;
-		} else if (!director.equals(other.director))
-			return false;
-		if (id != other.id)
-			return false;
-		if (releaseDate == null) {
-			if (other.releaseDate != null)
-				return false;
-		} else if (!releaseDate.equals(other.releaseDate))
-			return false;
-		if (runTime != other.runTime)
-			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		return true;
-	}
-	
+   public String getDirector()
+   {
+      return director;
+   }
+
+   public Date getReleaseDate()
+   {
+      return releaseDate;
+   }
+
+   @Override
+   public String toString()
+   {
+      return "Movie [id=" + id + ", title=" + title + ", runTime=" + runTime + ", director=" + director + ", releaseDate=" + releaseDate + "]";
+   }
+
+   @Override
+   public int hashCode()
+   {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + ((director == null) ? 0 : director.hashCode());
+      result = prime * result + (int) (id ^ (id >>> 32));
+      result = prime * result + ((releaseDate == null) ? 0 : releaseDate.hashCode());
+      result = prime * result + runTime;
+      result = prime * result + ((title == null) ? 0 : title.hashCode());
+      return result;
+   }
+
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (this == obj)
+         return true;
+      if (obj == null)
+         return false;
+      if (getClass() != obj.getClass())
+         return false;
+      Movie other = (Movie) obj;
+      if (director == null)
+      {
+         if (other.director != null)
+            return false;
+      }
+      else if (!director.equals(other.director))
+         return false;
+      if (id != other.id)
+         return false;
+      if (releaseDate == null)
+      {
+         if (other.releaseDate != null)
+            return false;
+      }
+      else if (!releaseDate.equals(other.releaseDate))
+         return false;
+      if (runTime != other.runTime)
+         return false;
+      if (title == null)
+      {
+         if (other.title != null)
+            return false;
+      }
+      else if (!title.equals(other.title))
+         return false;
+      return true;
+   }
+
 }

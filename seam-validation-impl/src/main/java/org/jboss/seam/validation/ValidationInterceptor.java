@@ -37,67 +37,69 @@ import org.hibernate.validator.MethodValidator;
 
 @AutoValidating
 @Interceptor
-public class ValidationInterceptor {
+public class ValidationInterceptor
+{
 
-	@Inject
-	private Validator validator;
-	
-	@AroundInvoke
-	public Object validateMethodInvocation(InvocationContext ctx) throws Exception {
+   @Inject
+   private Validator validator;
 
-		Set<MethodConstraintViolation<Object>> violations = validator.unwrap(MethodValidator.class)
-			.validateParameters(
-				ctx.getTarget(), ctx.getMethod(), ctx.getParameters());
+   @AroundInvoke
+   public Object validateMethodInvocation(InvocationContext ctx) throws Exception
+   {
 
-		if (!violations.isEmpty()) {
-			throw new MethodConstraintViolationException(getMessage(ctx.getMethod(), ctx.getParameters(), violations), violations);
-		}
+      Set<MethodConstraintViolation<Object>> violations = validator.unwrap(MethodValidator.class).validateParameters(ctx.getTarget(), ctx.getMethod(), ctx.getParameters());
 
-		Object result = ctx.proceed();
+      if (!violations.isEmpty())
+      {
+         throw new MethodConstraintViolationException(getMessage(ctx.getMethod(), ctx.getParameters(), violations), violations);
+      }
 
-		violations = validator.unwrap(MethodValidator.class).validateReturnValue(ctx.getTarget(), ctx.getMethod(), result);
+      Object result = ctx.proceed();
 
-		if (!violations.isEmpty()) {
-			throw new MethodConstraintViolationException(getMessage(ctx.getMethod(), ctx.getParameters(), violations), violations);
-		}
+      violations = validator.unwrap(MethodValidator.class).validateReturnValue(ctx.getTarget(), ctx.getMethod(), result);
 
-		return result;
-	}
-	
-	private String getMessage(Method method, Object[] args, Set<? extends MethodConstraintViolation<?>> violations) {
+      if (!violations.isEmpty())
+      {
+         throw new MethodConstraintViolationException(getMessage(ctx.getMethod(), ctx.getParameters(), violations), violations);
+      }
 
-			StringBuilder message = new StringBuilder();
-			message.append(violations.size());
-			message
-				.append(" constraint violation(s) occurred during method invocation.");
-			message.append("\nMethod: ");
-			message.append(method);
-			message.append("\nArgument values: ");
-			message.append(Arrays.toString(args));
-			message.append("\nConstraint violations: ");
+      return result;
+   }
 
-			int i = 1;
-			for (MethodConstraintViolation<?> oneConstraintViolation : violations) {
-				message.append("\n  (");
-				message.append(i);
-				message.append(") Kind: ");
-				message.append(oneConstraintViolation.getKind());
-				message.append("\n      parameter index: ");
-				message.append(oneConstraintViolation.getParameterIndex());
-				message.append("\n      message: ");
-				message.append(oneConstraintViolation.getMessage());
-				message.append("\n      root bean: ");
-				message.append(oneConstraintViolation.getRootBean());
-				message.append("\n      property path: ");
-				message.append(oneConstraintViolation.getPropertyPath());
-				message.append("\n      constraint: ");
-				message.append(oneConstraintViolation.getConstraintDescriptor()
-					.getAnnotation());
+   private String getMessage(Method method, Object[] args, Set<? extends MethodConstraintViolation<?>> violations)
+   {
 
-				i++;
-			}
+      StringBuilder message = new StringBuilder();
+      message.append(violations.size());
+      message.append(" constraint violation(s) occurred during method invocation.");
+      message.append("\nMethod: ");
+      message.append(method);
+      message.append("\nArgument values: ");
+      message.append(Arrays.toString(args));
+      message.append("\nConstraint violations: ");
 
-			return message.toString();
-		}
+      int i = 1;
+      for (MethodConstraintViolation<?> oneConstraintViolation : violations)
+      {
+         message.append("\n  (");
+         message.append(i);
+         message.append(") Kind: ");
+         message.append(oneConstraintViolation.getKind());
+         message.append("\n      parameter index: ");
+         message.append(oneConstraintViolation.getParameterIndex());
+         message.append("\n      message: ");
+         message.append(oneConstraintViolation.getMessage());
+         message.append("\n      root bean: ");
+         message.append(oneConstraintViolation.getRootBean());
+         message.append("\n      property path: ");
+         message.append(oneConstraintViolation.getPropertyPath());
+         message.append("\n      constraint: ");
+         message.append(oneConstraintViolation.getConstraintDescriptor().getAnnotation());
+
+         i++;
+      }
+
+      return message.toString();
+   }
 
 }

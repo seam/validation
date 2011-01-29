@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     JBoss, Home of Professional Open Source
@@ -21,13 +22,11 @@
     02110-1301 USA, or see the FSF site: http://www.fsf.org.
 
 -->
-<beans 
-	xmlns="http://java.sun.com/xml/ns/javaee" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
+<beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
 
-	<interceptors>
-		<class>org.jboss.seam.validation.ValidationInterceptor</class>
-	</interceptors>
+   <interceptors>
+      <class>org.jboss.seam.validation.ValidationInterceptor</class>
+   </interceptors>
 </beans>
 

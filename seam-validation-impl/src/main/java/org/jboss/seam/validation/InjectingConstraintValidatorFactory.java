@@ -36,23 +36,25 @@ import javax.validation.ConstraintValidatorFactory;
  * @author Gunnar Morling
  * 
  */
-public class InjectingConstraintValidatorFactory implements ConstraintValidatorFactory {
+public class InjectingConstraintValidatorFactory implements ConstraintValidatorFactory
+{
 
-	@Inject
-	private BeanManager beanManager;
-	
-	@Override
-	public <T extends ConstraintValidator<?, ?>> T getInstance(Class<T> key) {
-		
-		AnnotatedType<T> type = beanManager.createAnnotatedType(key);
-		InjectionTarget<T> it = beanManager.createInjectionTarget(type);
-		CreationalContext<T> ctx = beanManager.createCreationalContext(null);
+   @Inject
+   private BeanManager beanManager;
 
-		T instance = it.produce(ctx);
-		it.inject(instance, ctx);
-		it.postConstruct(instance);
-		
-		return instance;
-	}
+   @Override
+   public <T extends ConstraintValidator<?, ?>> T getInstance(Class<T> key)
+   {
+
+      AnnotatedType<T> type = beanManager.createAnnotatedType(key);
+      InjectionTarget<T> it = beanManager.createInjectionTarget(type);
+      CreationalContext<T> ctx = beanManager.createCreationalContext(null);
+
+      T instance = it.produce(ctx);
+      it.inject(instance, ctx);
+      it.postConstruct(instance);
+
+      return instance;
+   }
 
 }

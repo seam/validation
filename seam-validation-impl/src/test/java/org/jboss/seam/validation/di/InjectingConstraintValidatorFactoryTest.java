@@ -49,27 +49,24 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class InjectingConstraintValidatorFactoryTest {
+public class InjectingConstraintValidatorFactoryTest
+{
 
-    @Inject
-    private Validator validator;
-    
-	@Deployment
-	public static JavaArchive createTestArchive() throws Exception {
-		return ShrinkWrap
-			.create(JavaArchive.class, "test.jar")
-			.addManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-			.addManifestResource(new File("src/main/resources/META-INF/services/javax.enterprise.inject.spi.Extension"))
-			.addPackage(InjectingConstraintValidatorFactoryTest.class.getPackage())
-			.addPackage(HelloWorldService.class.getPackage())
-			.addPackage(ValidHello.class.getPackage());
-	}
-	
-	@Test
-	public void testConstraintValidatorWithInjectedDependency() {
-		
-    	Set<ConstraintViolation<Model>> violations = validator.validate(new Model());
-    	assertEquals(1, violations.size());
-	}
-	
+   @Inject
+   private Validator validator;
+
+   @Deployment
+   public static JavaArchive createTestArchive() throws Exception
+   {
+      return ShrinkWrap.create(JavaArchive.class, "test.jar").addManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml")).addManifestResource(new File("src/main/resources/META-INF/services/javax.enterprise.inject.spi.Extension")).addPackage(InjectingConstraintValidatorFactoryTest.class.getPackage()).addPackage(HelloWorldService.class.getPackage()).addPackage(ValidHello.class.getPackage());
+   }
+
+   @Test
+   public void testConstraintValidatorWithInjectedDependency()
+   {
+
+      Set<ConstraintViolation<Model>> violations = validator.validate(new Model());
+      assertEquals(1, violations.size());
+   }
+
 }

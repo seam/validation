@@ -32,9 +32,11 @@ import javax.interceptor.InterceptorBinding;
  * Activates automatic method-level validation for any annotated bean.
  * 
  * @author Gunnar Morling
- *
+ * 
  */
 @InterceptorBinding
-@Target({ElementType.METHOD, ElementType.TYPE})
+@Target({ ElementType.METHOD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface AutoValidating {}
+public @interface AutoValidating
+{
+}

@@ -29,28 +29,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class HelloWorldServlet extends HttpServlet {
+public class HelloWorldServlet extends HttpServlet
+{
 
-	private static final long serialVersionUID = -8659615639253408826L;
+   private static final long serialVersionUID = -8659615639253408826L;
 
-    @Inject
-    private HelloWorldService service;
-    
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-    	response.setContentType("text/html");
-    	response.setStatus(HttpServletResponse.SC_OK);
+   @Inject
+   private HelloWorldService service;
 
-    	String name = request.getParameter("name");
-        if(name != null) {
-        	response.getWriter().println("<h1>" + service.sayHello(name) + "</h1>");
-        }
-        else {
-        	response.getWriter().println("<h1>Hi, what's your name?</h1>");
-	        response.getWriter().println("<form action=\"HelloWorld\"");
-	        response.getWriter().println("Name: <input name=\"name\" type=\"text\" size=\"30\">");
-	        response.getWriter().println("<input type=\"submit\" value=\" OK \">");
-	        response.getWriter().println("</form>");
-        }
-    }
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+   {
+
+      response.setContentType("text/html");
+      response.setStatus(HttpServletResponse.SC_OK);
+
+      String name = request.getParameter("name");
+      if (name != null)
+      {
+         response.getWriter().println("<h1>" + service.sayHello(name) + "</h1>");
+      }
+      else
+      {
+         response.getWriter().println("<h1>Hi, what's your name?</h1>");
+         response.getWriter().println("<form action=\"HelloWorld\"");
+         response.getWriter().println("Name: <input name=\"name\" type=\"text\" size=\"30\">");
+         response.getWriter().println("<input type=\"submit\" value=\" OK \">");
+         response.getWriter().println("</form>");
+      }
+   }
 }

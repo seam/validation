@@ -45,84 +45,72 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class CdiMethodValidationTest {
+public class CdiMethodValidationTest
+{
 
-	private static String notNullMessage;
+   private static String notNullMessage;
 
-	@Inject
-	private MovieRepository movieRepository;
+   @Inject
+   private MovieRepository movieRepository;
 
-	@Deployment
-	public static JavaArchive createTestArchive() throws Exception {
-		return ShrinkWrap
-			.create(JavaArchive.class, "test.jar")
-			.addManifestResource("META-INF/beans.xml", ArchivePaths.create("beans.xml"))
-			.addManifestResource(new File("src/main/resources/META-INF/services/javax.enterprise.inject.spi.Extension"))
-			.addPackage(MovieRepository.class.getPackage())
-			.addPackage(ValidationInterceptor.class.getPackage())
-			.addPackage(Movie.class.getPackage());
-	}
+   @Deployment
+   public static JavaArchive createTestArchive() throws Exception
+   {
+      return ShrinkWrap.create(JavaArchive.class, "test.jar").addManifestResource("META-INF/beans.xml", ArchivePaths.create("beans.xml")).addManifestResource(new File("src/main/resources/META-INF/services/javax.enterprise.inject.spi.Extension")).addPackage(MovieRepository.class.getPackage()).addPackage(ValidationInterceptor.class.getPackage()).addPackage(Movie.class.getPackage());
+   }
 
-	@BeforeClass
-	public static void setUpClass() {
-		ResourceBundle bundle = ResourceBundle.getBundle("org.hibernate.validator.ValidationMessages");
-		notNullMessage = bundle.getString("javax.validation.constraints.NotNull.message");
-	}
-	
-	@Test
-	public void validMethodCall() {
+   @BeforeClass
+   public static void setUpClass()
+   {
+      ResourceBundle bundle = ResourceBundle.getBundle("org.hibernate.validator.ValidationMessages");
+      notNullMessage = bundle.getString("javax.validation.constraints.NotNull.message");
+   }
 
-		Set<Movie> moviesByBryanSinger = movieRepository
-			.findMoviesByDirector("Bryan Singer");
+   @Test
+   public void validMethodCall()
+   {
 
-		assertEquals(1, moviesByBryanSinger.size());
-		assertEquals(
-			"The Usual Suspects",
-			moviesByBryanSinger.iterator().next().getTitle());
-	}
+      Set<Movie> moviesByBryanSinger = movieRepository.findMoviesByDirector("Bryan Singer");
 
-	@Test
-	public void methodCallFailsDueToIllegalParameter() {
+      assertEquals(1, moviesByBryanSinger.size());
+      assertEquals("The Usual Suspects", moviesByBryanSinger.iterator().next().getTitle());
+   }
 
-		try {
-			movieRepository.findMoviesByDirector(null);
-			fail("Expected "
-				+ MethodConstraintViolationException.class.getSimpleName()
-				+ " wasn't thrown.");
-		}
-		catch (MethodConstraintViolationException e) {
-			Set<MethodConstraintViolation<?>> violations = e
-				.getConstraintViolations();
-			assertEquals(1, violations.size());
-			MethodConstraintViolation<?> constraintViolation = violations
-				.iterator().next();
-			assertEquals(notNullMessage, constraintViolation.getMessage());
-		}
-	}
-	
-	@Test
-	public void methodCallFailsDueToIllegalReturnValue() {
+   @Test
+   public void methodCallFailsDueToIllegalParameter()
+   {
 
-		try {
-			movieRepository.findMoviesByDirector( "John Hillcoat" );
-			fail(
-					"Expected "
-							+ MethodConstraintViolationException.class.getSimpleName()
-							+ " wasn't thrown."
-			);
-		}
-		catch ( MethodConstraintViolationException e ) {
-			Set<MethodConstraintViolation<?>> violations = e
-					.getConstraintViolations();
-			assertEquals( 1, violations.size() );
-			MethodConstraintViolation<?> constraintViolation = violations
-					.iterator().next();
-			assertEquals( notNullMessage, constraintViolation.getMessage() );
-			assertEquals(
-					"MovieRepository#findMoviesByDirector()[].releaseDate",
-					constraintViolation.getPropertyPath().toString()
-			);
-		}
-	}
-	
+      try
+      {
+         movieRepository.findMoviesByDirector(null);
+         fail("Expected " + MethodConstraintViolationException.class.getSimpleName() + " wasn't thrown.");
+      }
+      catch (MethodConstraintViolationException e)
+      {
+         Set<MethodConstraintViolation<?>> violations = e.getConstraintViolations();
+         assertEquals(1, violations.size());
+         MethodConstraintViolation<?> constraintViolation = violations.iterator().next();
+         assertEquals(notNullMessage, constraintViolation.getMessage());
+      }
+   }
+
+   @Test
+   public void methodCallFailsDueToIllegalReturnValue()
+   {
+
+      try
+      {
+         movieRepository.findMoviesByDirector("John Hillcoat");
+         fail("Expected " + MethodConstraintViolationException.class.getSimpleName() + " wasn't thrown.");
+      }
+      catch (MethodConstraintViolationException e)
+      {
+         Set<MethodConstraintViolation<?>> violations = e.getConstraintViolations();
+         assertEquals(1, violations.size());
+         MethodConstraintViolation<?> constraintViolation = violations.iterator().next();
+         assertEquals(notNullMessage, constraintViolation.getMessage());
+         assertEquals("MovieRepository#findMoviesByDirector()[].releaseDate", constraintViolation.getPropertyPath().toString());
+      }
+   }
+
 }

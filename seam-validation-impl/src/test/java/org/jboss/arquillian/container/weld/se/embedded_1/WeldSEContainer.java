@@ -54,99 +54,115 @@ import org.jboss.weld.manager.api.WeldManager;
  */
 public class WeldSEContainer implements DeployableContainer
 {
-   /* (non-Javadoc)
-    * @see org.jboss.arquillian.spi.DeployableContainer#setup(org.jboss.arquillian.spi.Context, org.jboss.arquillian.spi.Configuration)
+   /*
+    * (non-Javadoc)
+    * 
+    * @see
+    * org.jboss.arquillian.spi.DeployableContainer#setup(org.jboss.arquillian
+    * .spi.Context, org.jboss.arquillian.spi.Configuration)
     */
    public void setup(Context context, Configuration configuration)
    {
    }
-   
-   /* (non-Javadoc)
-    * @see org.jboss.arquillian.spi.DeployableContainer#start(org.jboss.arquillian.spi.Context)
+
+   /*
+    * (non-Javadoc)
+    * 
+    * @see
+    * org.jboss.arquillian.spi.DeployableContainer#start(org.jboss.arquillian
+    * .spi.Context)
     */
    public void start(Context context) throws LifecycleException
    {
    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.arquillian.spi.DeployableContainer#stop(org.jboss.arquillian.spi.Context)
+   /*
+    * (non-Javadoc)
+    * 
+    * @see
+    * org.jboss.arquillian.spi.DeployableContainer#stop(org.jboss.arquillian
+    * .spi.Context)
     */
    public void stop(Context context) throws LifecycleException
    {
    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.arquillian.spi.DeployableContainer#deploy(org.jboss.arquillian.spi.Context, org.jboss.shrinkwrap.api.Archive)
+   /*
+    * (non-Javadoc)
+    * 
+    * @see
+    * org.jboss.arquillian.spi.DeployableContainer#deploy(org.jboss.arquillian
+    * .spi.Context, org.jboss.shrinkwrap.api.Archive)
     */
-   public ContainerMethodExecutor deploy(Context context, final Archive<?> archive)
-         throws DeploymentException
+   public ContainerMethodExecutor deploy(Context context, final Archive<?> archive) throws DeploymentException
    {
       final ShrinkwrapBeanDeploymentArchive beanArchive = archive.as(ShrinkwrapBeanDeploymentArchive.class);
 
-      final Deployment deployment = new Deployment() 
+      final Deployment deployment = new Deployment()
       {
          public Collection<BeanDeploymentArchive> getBeanDeploymentArchives()
          {
-            return Arrays.asList((BeanDeploymentArchive)beanArchive);
+            return Arrays.asList((BeanDeploymentArchive) beanArchive);
          }
-         
+
          public ServiceRegistry getServices()
          {
             return beanArchive.getServices();
          }
-         
-         public BeanDeploymentArchive loadBeanDeploymentArchive(	
-               Class<?> beanClass)
+
+         public BeanDeploymentArchive loadBeanDeploymentArchive(Class<?> beanClass)
          {
             return beanArchive;
          }
-         
-         /* (non-Javadoc)
+
+         /*
+          * (non-Javadoc)
+          * 
           * @see org.jboss.weld.bootstrap.spi.Deployment#getExtensions()
           */
          public Iterable<Metadata<Extension>> getExtensions()
          {
-        	 ServiceLoader<Extension> serviceLoader = ServiceLoader.load(Extension.class);
-        	 return transform(serviceLoader);
+            ServiceLoader<Extension> serviceLoader = ServiceLoader.load(Extension.class);
+            return transform(serviceLoader);
          }
       };
-      
+
       ContextClassLoaderManager classLoaderManager = new ContextClassLoaderManager(beanArchive.getClassLoader());
       classLoaderManager.enable();
 
       context.add(ContextClassLoaderManager.class, classLoaderManager);
-      
+
       WeldBootstrap bootstrap = new WeldBootstrap();
       beanArchive.setBootstrap(bootstrap);
-      
-      bootstrap.startContainer(Environments.SE, deployment, new ConcurrentHashMapBeanStore())
-                  .startInitialization()
-                  .deployBeans()
-                  .validateBeans()
-                  .endInitialization();
+
+      bootstrap.startContainer(Environments.SE, deployment, new ConcurrentHashMapBeanStore()).startInitialization().deployBeans().validateBeans().endInitialization();
 
       WeldManager manager = bootstrap.getManager(beanArchive);
-      
+
       context.add(WeldBootstrap.class, bootstrap);
       context.add(WeldManager.class, manager);
-      
+
       return new LocalMethodExecutor();
    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.arquillian.spi.DeployableContainer#undeploy(org.jboss.arquillian.spi.Context, org.jboss.shrinkwrap.api.Archive)
+   /*
+    * (non-Javadoc)
+    * 
+    * @see
+    * org.jboss.arquillian.spi.DeployableContainer#undeploy(org.jboss.arquillian
+    * .spi.Context, org.jboss.shrinkwrap.api.Archive)
     */
    public void undeploy(Context context, Archive<?> archive) throws DeploymentException
    {
       WeldBootstrap bootstrap = context.get(WeldBootstrap.class);
-      if(bootstrap != null)
+      if (bootstrap != null)
       {
          bootstrap.shutdown();
       }
       ContextClassLoaderManager classLoaderManager = context.get(ContextClassLoaderManager.class);
       classLoaderManager.disable();
    }
-   
+
    public static Iterable<Metadata<Extension>> transform(Iterable<Extension> extensions)
    {
       List<Metadata<Extension>> result = new ArrayList<Metadata<Extension>>();
@@ -154,19 +170,19 @@ public class WeldSEContainer implements DeployableContainer
       {
          result.add(new Metadata<Extension>()
          {
-            
+
             public String getLocation()
             {
                return "unknown";
             }
-            
+
             public Extension getValue()
             {
                return extension;
             }
-            
+
          });
       }
       return result;
-   }  
+   }
 }

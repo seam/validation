@@ -41,20 +41,21 @@ import javax.validation.Payload;
  * Applies to Strings.
  * 
  * @author Gunnar Morling
- *
+ * 
  */
 @Documented
 @Constraint(validatedBy = { ValidHelloValidator.class })
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
-public @interface ValidHello {
-	
-	String message() default "{org.jboss.seam.validation.ValidHello.message}";
+public @interface ValidHello
+{
 
-	Class<?>[] groups() default { };
+   String message() default "{org.jboss.seam.validation.ValidHello.message}";
 
-	Class<? extends Payload>[] payload() default { };
-	
-	String value();
+   Class<?>[] groups() default {};
+
+   Class<? extends Payload>[] payload() default {};
+
+   String value();
 
 }
