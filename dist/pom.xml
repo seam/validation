@@ -91,6 +91,13 @@
          <optional>true</optional>
       </dependency>
 
+      <dependency>
+         <groupId>org.jboss.seam.validation</groupId>
+         <artifactId>seam-validation-reference-guide</artifactId>
+         <type>war</type>
+         <optional>true</optional>
+      </dependency>
+      
    </dependencies>
 
    <build>

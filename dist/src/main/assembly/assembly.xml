@@ -95,9 +95,8 @@
       </dependencySet>
 
       <!-- Pull in docbook artifacts -->
-      <!--
       <dependencySet>
-         <outputDirectory>doc/reference</outputDirectory>
+         <outputDirectory>docs/reference</outputDirectory>
          <unpack>true</unpack>
          <useProjectArtifact>false</useProjectArtifact>
          <includes>
@@ -109,6 +108,5 @@
             </excludes>
          </unpackOptions>
       </dependencySet>
-       -->
    </dependencySets>
 </assembly>

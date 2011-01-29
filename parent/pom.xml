@@ -98,15 +98,21 @@
          </dependency>
          <dependency>
             <groupId>org.jboss.seam.validation</groupId>
+            <artifactId>seam-validation</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.seam.validation</groupId>
             <artifactId>seam-validation-example</artifactId>
             <version>${project.version}</version>
          </dependency>
          <dependency>
             <groupId>org.jboss.seam.validation</groupId>
-            <artifactId>seam-validation</artifactId>
+            <artifactId>seam-validation-reference-guide</artifactId>
+            <type>war</type>
             <version>${project.version}</version>
          </dependency>
-
+         
          <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
