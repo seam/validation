@@ -13,10 +13,10 @@
 	<name>Seam Validation Module Aggregator</name>
 
 	<modules>
-		<module>seam-validation-parent</module>
-		<module>seam-validation-api</module>
-		<module>seam-validation-impl</module>
-		<module>seam-validation-example</module>
-		<module>seam-validation-combined</module>
+		<module>parent</module>
+		<module>api</module>
+		<module>impl</module>
+		<module>example</module>
+		<module>combined</module>
   </modules>
 </project>

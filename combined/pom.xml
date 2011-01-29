@@ -31,7 +31,7 @@
       <groupId>org.jboss.seam.validation</groupId>
       <artifactId>seam-validation-parent</artifactId>
       <version>3.0.0-SNAPSHOT</version>
-      <relativePath>../seam-validation-parent/pom.xml</relativePath>
+      <relativePath>../parent/pom.xml</relativePath>
    </parent>
 
    <artifactId>seam-validation</artifactId>
