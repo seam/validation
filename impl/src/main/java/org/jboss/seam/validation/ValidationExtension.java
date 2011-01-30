@@ -249,6 +249,7 @@ public class ValidationExtension implements Extension
 
             Set<Type> types = new HashSet<Type>();
 
+            types.add(MethodValidator.class);
             types.add(Validator.class);
             types.add(Object.class);
 

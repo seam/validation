@@ -41,7 +41,7 @@ public class JettyRunner
 
       WebAppContext wac = new WebAppContext();
       wac.setContextPath("/seam-validation");
-      wac.setBaseResource(new ResourceCollection(new String[] { "./src/main/webapp" }));
+      wac.setBaseResource(new ResourceCollection(new String[] { "./src/main/webapp-jetty" }));
 
       wac.setConfigurationClasses(new String[] {
 
