@@ -48,11 +48,19 @@ public class HelloWorldServlet extends HttpServlet
       }
       else
       {
-         response.getWriter().println("<h1>Hi, what's your name?</h1>");
-         response.getWriter().println("<form action=\"HelloWorld\"");
-         response.getWriter().println("Name: <input name=\"name\" type=\"text\" size=\"30\">");
-         response.getWriter().println("<input type=\"submit\" value=\" OK \">");
-         response.getWriter().println("</form>");
+         response.getWriter().println("<?xml version=\"1.0\" ?>");
+         response.getWriter().println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+         response.getWriter().println("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
+         response.getWriter().println("   <head><title>Seam Validation Module Example</title></head>");
+         response.getWriter().println("   <body>");
+         response.getWriter().println("      <h1>Seam Validation Module Example - Method Validation</h1>");
+         response.getWriter().println("      <p>Hi, what's your name? Enter at least three characters.</p>");         
+         response.getWriter().println("      <form action=\"HelloWorld\"");
+         response.getWriter().println("         Name: <input name=\"name\" type=\"text\" size=\"30\">");
+         response.getWriter().println("         <input type=\"submit\" value=\" OK \">");
+         response.getWriter().println("      </form>");
+         response.getWriter().println("   </body>");
+         response.getWriter().println("</html>");
       }
    }
 }
