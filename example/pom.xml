@@ -121,8 +121,11 @@
                   <configuration>
                      <webResources>
                         <resource>
-                           <directory>src/main/webapp-jetty</directory>
+                           <directory>src/main/webapp</directory>
                         </resource>
+                        <resource>
+                           <directory>src/main/webapp-jetty</directory>
+                        </resource>                        
                      </webResources>
                   </configuration>
                </plugin>
@@ -134,6 +137,11 @@
                   <version>${mortbay.jetty.version}</version>
                   <configuration>
                      <contextPath>seam-validation-example</contextPath>
+                     <connectors>
+                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                           <port>8080</port>
+                        </connector>
+                     </connectors>
                   </configuration>
                </plugin>
             </plugins>
@@ -155,6 +163,9 @@
                   <artifactId>maven-war-plugin</artifactId>
                   <configuration>
                      <webResources>
+                        <resource>
+                           <directory>src/main/webapp</directory>
+                        </resource>                     
                         <resource>
                            <directory>src/main/webapp-jee</directory>
                         </resource>
