@@ -38,6 +38,7 @@ import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.enterprise.inject.spi.InjectionTarget;
 import javax.enterprise.util.AnnotationLiteral;
+import javax.validation.ConstraintValidatorFactory;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -67,9 +68,17 @@ public class ValidationExtension implements Extension
    private void addValidatorFactoryIfRequired(AfterBeanDiscovery abd, final BeanManager beanManager)
    {
 
-      // do nothing, if ValidatorFactory already exists
+      // if a ValidatorFactory already exists, only inject it's ConstraintValidatorFactory if required
       if (!beanManager.getBeans(ValidatorFactory.class).isEmpty())
       {
+         
+         ValidatorFactory validatorFactory = getReference(beanManager, ValidatorFactory.class);
+         
+         ConstraintValidatorFactory constraintValidatorFactory = validatorFactory.getConstraintValidatorFactory();
+         if(constraintValidatorFactory instanceof InjectingConstraintValidatorFactory) {
+            inject(beanManager, InjectingConstraintValidatorFactory.class, (InjectingConstraintValidatorFactory)constraintValidatorFactory);
+         }
+
          return;
       }
 
@@ -157,16 +166,15 @@ public class ValidationExtension implements Extension
          @Override
          public ValidatorFactory create(CreationalContext<ValidatorFactory> ctx)
          {
-
-            AnnotatedType<InjectingConstraintValidatorFactory> type = beanManager.createAnnotatedType(InjectingConstraintValidatorFactory.class);
-            InjectionTarget<InjectingConstraintValidatorFactory> it = beanManager.createInjectionTarget(type);
-            CreationalContext<InjectingConstraintValidatorFactory> cvfCtx = beanManager.createCreationalContext(null);
-
-            InjectingConstraintValidatorFactory constraintValidatorFactory = it.produce(cvfCtx);
-            it.inject(constraintValidatorFactory, cvfCtx);
-            it.postConstruct(constraintValidatorFactory);
-
-            return Validation.byDefaultProvider().configure().constraintValidatorFactory(constraintValidatorFactory).buildValidatorFactory();
+            
+            ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+            
+            ConstraintValidatorFactory constraintValidatorFactory = validatorFactory.getConstraintValidatorFactory();
+            if(constraintValidatorFactory instanceof InjectingConstraintValidatorFactory) {
+               inject(beanManager, InjectingConstraintValidatorFactory.class, (InjectingConstraintValidatorFactory)constraintValidatorFactory);
+            }
+            
+            return validatorFactory;
          }
 
          @Override
@@ -272,7 +280,9 @@ public class ValidationExtension implements Extension
          public Validator create(CreationalContext<Validator> ctx)
          {
 
-            return getReference(bm, ValidatorFactory.class).getValidator();
+            ValidatorFactory validatorFactory = getReference(bm, ValidatorFactory.class);
+            
+            return validatorFactory.getValidator();
          }
 
          @Override
@@ -390,6 +400,17 @@ public class ValidationExtension implements Extension
       CreationalContext<T> context = bm.createCreationalContext(bean);
 
       return (T) bm.getReference(bean, clazz, context);
+   }
+   
+   private <T> void inject(final BeanManager beanManager, Class<T> type, T constraintValidatorFactory)
+   {
+
+      AnnotatedType<T> annotatedType = beanManager.createAnnotatedType(type);
+      InjectionTarget<T> it = beanManager.createInjectionTarget(annotatedType);
+      CreationalContext<T> cvfCtx = beanManager.createCreationalContext(null);
+
+      it.inject(constraintValidatorFactory, cvfCtx);
+      it.postConstruct(constraintValidatorFactory);
    }
 
 }
