@@ -2,32 +2,216 @@
 <!--
 
     JBoss, Home of Professional Open Source
+
     Copyright 2011, Red Hat, Inc., and individual contributors
     by the @authors tag. See the copyright.txt in the distribution for a
     full listing of individual contributors.
 
-    This is free software; you can redistribute it and/or modify it
-    under the terms of the GNU Lesser General Public License as
-    published by the Free Software Foundation; either version 2.1 of
-    the License, or (at your option) any later version.
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
-    This software is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-    Lesser General Public License for more details.
+            http://www.apache.org/licenses/LICENSE-2.0
 
-    You should have received a copy of the GNU Lesser General Public
-    License along with this software; if not, write to the Free
-    Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
-    02110-1301 USA, or see the FSF site: http://www.fsf.org.
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
 
 -->
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="dependency-injection">
-   <title>Dependency Injection</title>
-   <para>
-      The Seam Validation module provides ...
-   </para>
+  <title>Dependency Injection</title>
 
+  <para>The Seam Validation module provides enhanced support for dependency
+  injection services related to bean validation. This support falls into two
+  areas:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Retrieval of
+      <classname>javax.validation.ValidatorFactory</classname> and
+      <classname>javax.validation.Validator</classname> via dependency
+      injection in non-Java EE environments</para>
+    </listitem>
+
+    <listitem>
+      <para>Dependency injection for constraint validators</para>
+    </listitem>
+  </itemizedlist>
+
+  <section>
+    <title>Retrieving of validator factory and validators via dependency
+    injection</title>
+
+    <para>As the Bean Validation API is part of Java EE 6 there is an
+    out-of-the-box support for retrieving validator factories and validators
+    instances via dependency injection in any Java EE 6 container.</para>
+
+    <para>The Seam Validation module provides the same service for non-Java EE
+    environements such as for instance stand-alone web containers. Just
+    annotate any field of type
+    <classname>javax.validation.ValidatorFactory</classname> with
+    <classname>@Inject</classname> to have the default validator factory
+    injected:</para>
+
+    <example id="example-injecting-validatorfactory">
+      <title>Injection of default validator factory</title>
+
+      <programlisting language="JAVA" role="JAVA">package com.mycompany;
+
+import javax.inject.Inject;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
+public class MyBean {
+
+    @Inject
+    private ValidatorFactory validatorFactory;
+
+    public void doSomething() {
+        
+        Validator validator = validatorFactory.getValidator();
+        //...
+    }
+}</programlisting>
+    </example>
+
+    <note>
+      <para>The injected factory is the default validator factory returned by
+      the Bean Validation bootstrapping mechanism. This factory can customized
+      with help of the configuration file
+      <filename>META-INF/validation.xml</filename>. The Hibernate Validator
+      Reference Guide <ulink
+      url="http://docs.jboss.org/hibernate/stable/validator/reference/en-US/html/validator-xmlconfiguration.html">describes
+      in detail</ulink> the available configuration options.</para>
+    </note>
+
+    <para>It is also possible to directly inject a validator created by the
+    default validator factory: </para>
+
+    <example id="example-injecting-validator">
+      <title>Injection of a validator from the default validator
+      factory</title>
+
+      <programlisting language="JAVA" role="JAVA">package com.mycompany;
+
+import java.util.Set;
+
+import javax.inject.Inject;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+
+public class MyBean {
+
+    @Inject
+    private Validator validator;
+
+    public void doSomething(Foo bar) {
+        
+        Set&lt;ConstraintViolation&lt;Foo&gt;&gt; constraintViolations = validator.validate(bar);
+        //...
+    }
+}</programlisting>
+    </example>
+  </section>
+
+  <section>
+    <title>Dependency injection for constraint validators</title>
+
+    <para>The Seam Validation module provides support for dependency injection
+    within <classname>javax.validation.ConstraintValidator</classname>
+    implementations. This is very useful if you need to access other CDI beans
+    within you constraint validator such as business services etc.</para>
+
+    <warning>
+      <para>Relying on dependency injection reduces portability of a validator
+      implementation, i.e. it won't function properly without the Seam
+      Validation module or a similar solution.</para>
+    </warning>
+
+    <para>To make use of dependency injection in constraint validators you
+    have to configure
+    <classname>org.jboss.seam.validation.InjectingConstraintValidatorFactory</classname>
+    as the constraint validator factory to be used by the bean validation
+    provider. To do so create the file
+    <filename>META-INF/validation.xml</filename> with the following
+    contents:</para>
+
+    <example id="example-configuring-constraintvalidatorfactoryl">
+      <title>Configuration of InjectingConstraintValidatorFactory in
+      META-INF/validation.xml</title>
+
+      <programlisting language="JAVA" role="JAVA">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;validation-config 
+   xmlns="http://jboss.org/xml/ns/javax/validation/configuration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://jboss.org/xml/ns/javax/validation/configuration validation-configuration-1.0.xsd"&gt;
+
+   &lt;constraint-validator-factory&gt;
+      org.jboss.seam.validation.InjectingConstraintValidatorFactory
+   &lt;/constraint-validator-factory&gt;
+   
+&lt;/validation-config&gt;</programlisting>
+    </example>
+
+    <para>Having configured the constraint validator factory you can inject
+    arbitrary CDI beans into you validator implementions. Listing <xref
+    linkend="example-di-in-constraintvalidator" /> shows a
+    <classname>ConstraintValidator</classname> implementation for the
+    <classname>@Past</classname> constraint which uses an injected time
+    service instead of relying on the JVM's current time to determine whether
+    a given date is in the past or not.</para>
+
+    <example id="example-di-in-constraintvalidator">
+      <title>Dependency injection within ConstraintValidator
+      implementation</title>
+
+      <programlisting language="JAVA" role="JAVA">package com.mycompany;
+
+import java.util.Date;
+
+import javax.inject.Inject;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+import javax.validation.constraints.Past;
+
+import com.mycompany.services.TimeService;
+
+public class CustomPastValidator implements ConstraintValidator&lt;Past, Date&gt;
+{
+
+   @Inject
+   private TimeService timeService;
+
+   @Override
+   public void initialize(Past constraintAnnotation)
+   {
+   }
+
+   @Override
+   public boolean isValid(Date value, ConstraintValidatorContext context)
+   {
+
+      if (value == null)
+      {
+         return true;
+      }
+
+      return value.before(timeService.getCurrentTime());
+   }
+
+}</programlisting>
+    </example>
+
+    <note>
+      <para>If you want to redefine the constraint validators for built-in
+      constraints such as <classname>@Past</classname> these validator
+      implementations have to be registered with a custom constraint mapping.
+      More information can be found in the <ulink
+      url="http://docs.jboss.org/hibernate/stable/validator/reference/en-US/html/validator-xmlconfiguration.html#d0e2024">Hibernate
+      Validator Reference Guide</ulink>.</para>
+    </note>
+  </section>
 </chapter>
