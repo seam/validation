@@ -144,7 +144,7 @@
                            <!-- use this for 'mvn jetty:run' -->
                            <resourcesAsCSV>src/main/webapp-jetty,src/main/webapp</resourcesAsCSV>
                            
-                           <!-- OR use this for 'mvn jetty:run' -->
+                           <!-- OR use this for 'mvn jetty:run-war' -->
                            <!-- <resourcesAsCSV>src/main/webapp-jetty,src/main/webapp,${project.build.directory}/${project.build.finalName}</resourcesAsCSV>  -->
                         </baseResource>
                      </webAppConfig>
