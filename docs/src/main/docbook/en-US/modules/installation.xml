@@ -2,32 +2,138 @@
 <!--
 
     JBoss, Home of Professional Open Source
+
     Copyright 2011, Red Hat, Inc., and individual contributors
     by the @authors tag. See the copyright.txt in the distribution for a
     full listing of individual contributors.
 
-    This is free software; you can redistribute it and/or modify it
-    under the terms of the GNU Lesser General Public License as
-    published by the Free Software Foundation; either version 2.1 of
-    the License, or (at your option) any later version.
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
-    This software is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-    Lesser General Public License for more details.
+            http://www.apache.org/licenses/LICENSE-2.0
 
-    You should have received a copy of the GNU Lesser General Public
-    License along with this software; if not, write to the Free
-    Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
-    02110-1301 USA, or see the FSF site: http://www.fsf.org.
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
 
 -->
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="installation">
-   <title>Installation</title>
-   <para>
-      To use the Seam Validation module ...
-   </para>
+  <title>Installation</title>
 
+  <para>This chapter describes the steps required to getting started with the
+  Seam Validation Module.</para>
+
+  <section>
+    <title>Prerequisites</title>
+
+    <para>Not very much is needed in order to use the Seam Validation Module.
+    Just be sure to run on JDK 5 or later, as the Bean Validation API and
+    therefore this Seam module are heavily based on Java annotations.</para>
+  </section>
+
+  <section>
+    <title>Maven setup</title>
+
+    <para>The recommended way for setting up Seam Validation is using <ulink
+    url="http://maven.apache.org/">Apache Maven</ulink>. The Seam Validation
+    Module artifacts are deployed to the JBoss Maven repository. If not yet
+    the case, therefore add this repository to your
+    <filename>settings.xml</filename> file (typically in
+    <filename>~/.m2/settings.xml</filename>) in order to download the
+    dependencies from there:</para>
+
+    <example id="example-settingup-repo">
+      <title>Setting up the JBoss Maven repository in settings.xml</title>
+
+      <programlisting language="JAVA" role="JAVA">...
+&lt;profiles&gt;
+    &lt;profile&gt;
+        &lt;repositories&gt;
+            &lt;repository&gt;
+                &lt;id&gt;jboss-public&lt;/id&gt;
+                &lt;url&gt;http://repository.jboss.org/nexus/content/groups/public-jboss/&lt;/url&gt;
+                &lt;releases&gt;
+                    &lt;enabled&gt;true&lt;/enabled&gt;
+                &lt;/releases&gt;
+                &lt;snapshots&gt;
+                    &lt;enabled&gt;false&lt;/enabled&gt;
+                &lt;/snapshots&gt;
+            &lt;/repository&gt;
+        &lt;/repositories&gt;
+    &lt;/profile&gt;
+&lt;/profiles&gt;
+
+&lt;activeProfiles&gt;
+    &lt;activeProfile&gt;jboss-public&lt;/activeProfile&gt;
+&lt;/activeProfiles&gt;
+...</programlisting>
+    </example>
+
+    <para>General information on the JBoss Maven repository is available in
+    the <ulink
+    url="http://community.jboss.org/wiki/MavenGettingStarted-Users">JBoss
+    community wiki</ulink>, more information on Maven's
+    <filename>settings.xml</filename> file can be found in the <ulink
+    url="???">settings reference</ulink>.</para>
+
+    <para>Having set up the repository you can add the Seam Validation Module
+    as dependency to the <filename>pom.xml</filename> of your project. As most
+    Seam modules the validation module is split into two parts, API and
+    implementation. Generally you should be using only the types from the API
+    within your application code. In order to avoid unintended imports from
+    the implementation it is recommended to add the API as compile-time
+    dependency, while the implementation should be added as runtime dependency
+    only:</para>
+
+    <example id="example-adding-dependencies">
+      <title>Specifying the Seam Validation Module dependencies in
+      pom.xml</title>
+
+      <programlisting language="JAVA" role="JAVA">...
+&lt;properties&gt;
+    &lt;seam.validation.version&gt;x.y.z&lt;/weld.version&gt;
+&lt;/properties&gt;
+
+...
+
+&lt;dependencies&gt;    
+    ...
+    &lt;dependency&gt;
+        &lt;groupId&gt;${project.groupId}&lt;/groupId&gt;
+        &lt;artifactId&gt;seam-validation-api&lt;/artifactId&gt;
+        &lt;version&gt;${seam.validation.version}&lt;/version&gt;
+        &lt;scope&gt;compile&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;${project.groupId}&lt;/groupId&gt;
+        &lt;artifactId&gt;seam-validation-impl&lt;/artifactId&gt;
+        &lt;version&gt;${seam.validation.version}&lt;/version&gt;
+        &lt;scope&gt;runtime&lt;/scope&gt;
+    &lt;/dependency&gt;
+    ...
+&lt;/dependencies&gt;
+...</programlisting>
+    </example>
+
+    <note>
+      <para>Replace "x.y.z" in the properties block with the Seam Validation
+      version you want to use.</para>
+    </note>
+  </section>
+
+  <section>
+    <title>Manual setup</title>
+
+    <para>TODO GM: add correct links/file names</para>
+
+    <para>In case you are not working with Maven or a comparable build
+    management tool you can also add Seam Validation manually to you project.
+    Download the distribution file from http://..., un-zip it and add the JARs
+    api and impl to the classpath of your project.</para>
+  </section>
 </chapter>
