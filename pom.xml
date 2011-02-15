@@ -36,8 +36,9 @@
       <module>api</module>
       <module>impl</module>
       <module>combined</module>
-      <module>example</module>
+      <module>example/helloworld</module>
       <module>docs</module>
       <module>dist</module>
    </modules>
+
 </project>
