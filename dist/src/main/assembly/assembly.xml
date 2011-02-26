@@ -36,6 +36,7 @@
       <fileSet>
          <directory>src/main/assembly</directory>
          <outputDirectory>.</outputDirectory>
+         <filtered>true</filtered>
          <includes>
             <include>readme.txt</include>
             <include>license.txt</include>
@@ -52,9 +53,12 @@
          <outputDirectory>artifacts</outputDirectory>
          <useProjectArtifact>false</useProjectArtifact>
          <includes>
-            <include>org.jboss.seam.validation:seam-validation-api</include>
-            <include>org.jboss.seam.validation:seam-validation-impl</include>
+            <include>org.jboss.seam.validation:seam-validation</include>
          </includes>
+         <excludes>
+            <exclude>org.jboss.seam.validation:*:*:javadoc</exclude>
+            <exclude>org.jboss.seam.validation:*:*:sources</exclude>
+         </excludes>
          <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       </dependencySet>
 
@@ -72,7 +76,7 @@
       <!-- Pull in the example projects -->
       <dependencySet>
          <outputDirectory>examples</outputDirectory>
-         <!-- <unpack>true</unpack> -->
+         <unpack>true</unpack>
          <useProjectArtifact>false</useProjectArtifact>
          <includes>
             <include>org.jboss.seam.validation:seam-validation-example</include>
@@ -108,5 +112,21 @@
             </excludes>
          </unpackOptions>
       </dependencySet>
+      
+      <!-- Source code -->
+      <dependencySet>
+         <outputDirectory>source</outputDirectory>
+         <unpack>true</unpack>
+         <useProjectArtifact>false</useProjectArtifact>
+         <includes>
+            <include>org.jboss.seam.validation:seam-validation-api:*:sources</include>
+            <include>org.jboss.seam.validation:seam-validation-impl:*:sources</include>
+         </includes>
+         <unpackOptions>
+            <excludes>
+               <exclude>META-INF/</exclude>
+            </excludes>
+         </unpackOptions>
+      </dependencySet>        
    </dependencySets>
 </assembly>

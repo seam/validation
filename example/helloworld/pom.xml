@@ -29,7 +29,7 @@
       <groupId>org.jboss.seam.validation</groupId>
       <artifactId>seam-validation-parent</artifactId>
       <version>3.0.0-SNAPSHOT</version>
-      <relativePath>../../parent/pom.xml</relativePath>
+      <relativePath>../../pom.xml</relativePath>
    </parent>
 
    <artifactId>seam-validation-example</artifactId>
@@ -47,6 +47,12 @@
    </properties>
 
    <dependencies>
+
+      <dependency>
+         <groupId>javax.enterprise</groupId>
+         <artifactId>cdi-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
 
       <dependency>
          <groupId>${project.groupId}</groupId>
@@ -93,15 +99,37 @@
       </dependency>
    </dependencies>
    
+
    <build>
-      <plugins>
+      <finalName>validation-helloworld</finalName>
+      
+      <!-- We don't force license headers -->
+      <!--plugins>
          <plugin>
             <groupId>com.mycila.maven-license-plugin</groupId>
             <artifactId>maven-license-plugin</artifactId>
          </plugin>      
-      </plugins>
+      </plugins-->
    </build>
+   
    <profiles>
+      <profile>
+         <id>distribution</id>
+         <activation>
+            <property>
+               <name>release</name>
+            </property>
+         </activation>
+         <build>
+            <plugins>
+               <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-assembly-plugin</artifactId>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>     
+   
       <profile>
          <id>servlet</id>
          <activation>
@@ -158,15 +186,9 @@
             </plugins>
          </build>         
       </profile>
+      
       <profile>
          <id>jee</id>
-         <dependencies>
-            <dependency>
-               <groupId>javax.enterprise</groupId>
-               <artifactId>cdi-api</artifactId>
-               <scope>provided</scope>
-            </dependency>
-         </dependencies>
          <build>
             <plugins>
                <plugin>

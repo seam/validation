@@ -28,7 +28,7 @@
       <groupId>org.jboss.seam.validation</groupId>
       <artifactId>seam-validation-parent</artifactId>
       <version>3.0.0-SNAPSHOT</version>
-      <relativePath>../parent/pom.xml</relativePath>
+      <relativePath>../pom.xml</relativePath>
    </parent>
 
    <artifactId>seam-validation-distribution</artifactId>
@@ -86,6 +86,8 @@
       <dependency>
          <groupId>org.jboss.seam.validation</groupId>
          <artifactId>seam-validation-example</artifactId>
+         <version>${project.version}</version>
+         <type>zip</type>         
          <optional>true</optional>
       </dependency>
 
