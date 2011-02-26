@@ -224,4 +224,10 @@
          </pluginRepositories>
       </profile>
    </profiles>   
+   
+   <scm>
+      <connection>scm:git:git://github.com/seam/validation.git</connection>
+      <developerConnection>scm:git:git@github.com:seam/validation.git</developerConnection>
+      <url>http://github.com/seam/validation</url>
+   </scm>   
 </project>
