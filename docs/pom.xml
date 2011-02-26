@@ -26,13 +26,13 @@
    <parent>
       <groupId>org.jboss.seam.validation</groupId>
       <artifactId>seam-validation-parent</artifactId>
-      <version>3.0.0.CR1</version>
+      <version>3.0.0-SNAPSHOT</version>
       <relativePath>../pom.xml</relativePath>
    </parent>
 
    <groupId>org.jboss.seam.validation</groupId>
    <artifactId>seam-validation-reference-guide</artifactId>
-   <version>3.0.0.CR1</version>
+   <version>3.0.0-SNAPSHOT</version>
    <packaging>jdocbook</packaging>
    <name>Seam Validation Module Reference Guide</name>
 
