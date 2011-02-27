@@ -32,7 +32,6 @@
 
    <groupId>org.jboss.seam.validation</groupId>
    <artifactId>seam-validation-reference-guide</artifactId>
-   <version>3.0.0-SNAPSHOT</version>
    <packaging>jdocbook</packaging>
    <name>Seam Validation Module Reference Guide</name>
 
@@ -68,6 +67,19 @@
                      </artifacts>
                   </configuration>
                </execution>
+               
+               <execution>
+                 <id>attach-source</id>
+                 <phase>generate-sources</phase>
+                 <goals>
+                   <goal>add-source</goal>
+                 </goals>
+                 <configuration>
+                   <sources>
+                     <source>src/main/docbook/en-US</source>
+                   </sources>
+                 </configuration>
+               </execution>                 
             </executions>
          </plugin>
       </plugins>

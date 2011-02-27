@@ -22,7 +22,7 @@
 -->
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<chapter id="installation">
+<chapter id="validation-installation">
   <title>Installation</title>
 
   <para>This chapter describes the steps required to getting started with the

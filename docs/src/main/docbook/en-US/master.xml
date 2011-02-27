@@ -27,7 +27,7 @@
 %BOOK_ENTITIES;
 ]>
 
-<book lang="en">
+<book lang="en" xmlns:xi="http://www.w3.org/2001/XInclude">
    <bookinfo>
         <title>Seam Validation Module</title>
         <subtitle>Reference Guide</subtitle>
@@ -48,8 +48,8 @@
 
    <toc/>
 
-   <xi:include href="modules/introduction.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-   <xi:include href="modules/installation.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-   <xi:include href="modules/dependency-injection.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-   <xi:include href="modules/method-validation.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+   <xi:include href="validation-introduction.xml"/>
+   <xi:include href="validation-installation.xml"/>
+   <xi:include href="validation-dependency-injection.xml"/>
+   <xi:include href="validation-method-validation.xml"/>
 </book>

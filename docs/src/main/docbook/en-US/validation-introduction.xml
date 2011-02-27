@@ -21,11 +21,10 @@
 
 -->
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
-<chapter id="method-validation">
-   <title>Method Validation</title>
-   <para>
-      The Seam Validation module provides ...
-   </para>
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="validation-introduction">
+  <title>Introduction</title>
 
+  <para>The Seam Validation module provides CDI support for Hibernate
+  Validator ... </para>
 </chapter>
