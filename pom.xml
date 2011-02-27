@@ -179,7 +179,7 @@
          </activation>
          <modules>
             <module>docs</module>
-            <module>example/helloworld</module>
+            <module>examples/helloworld</module>
             <module>dist</module>
          </modules>
       </profile>
