@@ -35,7 +35,8 @@
    <packaging>war</packaging>
 
    <name>Seam Validation Module Example</name>
-
+   <url>${project.parent.url}</url>
+   
    <description>
 		An example of using Seam Validation with a Servlet.
 	</description>

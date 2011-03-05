@@ -32,8 +32,9 @@
    </parent>
 
    <artifactId>seam-validation-impl</artifactId>
-
+   
    <name>Seam Validation Module Implementation</name>
+   <url>${project.parent.url}</url>
 
    <description>
 		The implementation of the Seam Validation Module.

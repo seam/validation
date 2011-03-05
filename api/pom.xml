@@ -34,7 +34,8 @@
    <artifactId>seam-validation-api</artifactId>
 
    <name>Seam Validation Module API</name>
-
+   <url>${project.parent.url}</url>
+   
    <description>
 		The public API of the Seam Validation Module.
 	</description>

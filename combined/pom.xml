@@ -34,7 +34,8 @@
    <artifactId>seam-validation</artifactId>
 
    <name>Seam Validation Module API/Impl Combined</name>
-
+   <url>${project.parent.url}</url>
+   
    <description>
 		Combines seam-validation-api and seam-validation-impl to one artifact.
 	</description>

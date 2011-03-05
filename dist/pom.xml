@@ -32,6 +32,7 @@
 
    <artifactId>seam-validation-distribution</artifactId>
    <name>Seam Validation Module Distribution</name>
+   <url>${project.parent.url}</url>
    <description>Builds the Seam Validation module release distribution</description>
    <packaging>pom</packaging>
 

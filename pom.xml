@@ -36,7 +36,8 @@
    <version>3.0.0-SNAPSHOT</version>
 
    <name>Seam Validation Module Parent</name>
-
+   <url>http://seamframework.org/Seam3/ValidationModule</url>
+   
    <description>
       The parent POM for all sub modules of the Seam Validation module.
    </description>
