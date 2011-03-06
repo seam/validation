@@ -39,12 +39,7 @@
    
    <description>
 		An example of using Seam Validation with a Servlet.
-	</description>
-
-   <!-- Explicitly set Weld version until it is updated in Seam parent POM -->
-   <properties>
-      <weld.version>1.1.0.Final</weld.version>
-   </properties>
+   </description>
 
    <dependencies>
 
