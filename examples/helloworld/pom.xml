@@ -41,6 +41,10 @@
 		An example of using Seam Validation with a Servlet.
    </description>
 
+   <properties>
+      <finalName>validation-helloworld</finalName>
+   </properties>
+   
    <dependencies>
 
       <dependency>
@@ -96,7 +100,7 @@
    
 
    <build>
-      <finalName>validation-helloworld</finalName>
+      <finalName>${finalName}</finalName>
       
       <!-- We don't force license headers -->
       <!--plugins>
@@ -159,7 +163,7 @@
                   <artifactId>maven-jetty-plugin</artifactId>
                   <version>${mortbay.jetty.version}</version>
                   <configuration>
-                     <contextPath>seam-validation-example</contextPath>
+                     <contextPath>${finalName}</contextPath>
                      <jettyEnvXml>${basedir}/src/main/webapp-jetty/WEB-INF/jetty-env.xml</jettyEnvXml>
                      <webAppConfig>
                         <baseResource implementation="org.mortbay.resource.ResourceCollection">

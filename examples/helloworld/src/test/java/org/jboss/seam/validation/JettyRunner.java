@@ -38,7 +38,7 @@ public class JettyRunner
       server.addConnector(connector);
 
       WebAppContext wac = new WebAppContext();
-      wac.setContextPath("/seam-validation-example");
+      wac.setContextPath("/validation-helloworld");
       wac.setBaseResource(new ResourceCollection(new String[] { "./src/main/webapp", "./src/main/webapp-jetty" }));
 
       wac.setConfigurationClasses(new String[] {
@@ -48,7 +48,7 @@ public class JettyRunner
       server.setHandler(wac);
       server.setStopAtShutdown(true);
       server.start();
-      System.out.println("Started Seam Validation Example Application on http://localhost:8080/seam-validation-example/HelloWorld");
+      System.out.println("Started Seam Validation Example Application on http://localhost:8080/validation-helloworld/HelloWorld");
 
       server.join();
    }
