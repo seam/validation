@@ -25,6 +25,43 @@
 <chapter id="validation-introduction">
   <title>Introduction</title>
 
-  <para>The Seam Validation module provides CDI support for Hibernate
-  Validator ... </para>
+  <para>The Seam Validation module aims at providing a close integration for
+  CDI (<ulink url="http://jcp.org/en/jsr/detail?id=299">JSR 299</ulink>) and
+  <ulink url="http://validator.hibernate.org/">Hibernate Validator</ulink>,
+  the reference implementation for the Bean Validation API (<ulink
+  url="http://jcp.org/en/jsr/detail?id=303">JSR 303</ulink>).</para>
+
+  <para>This integration falls into two main areas:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Enhanced dependency injection services for validators, validator
+      factories and constraint validators</para>
+    </listitem>
+
+    <listitem>
+      <para>Automatic validation of method parameters and return values based
+      on the method validation feature part of Hibernate Validator 4.2</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>The remainder of this reference guide covers the following
+  topics:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><link linkend="validation-installation">Installation</link> of
+      Seam Validation</para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="validation-dependency-injection">Dependency
+      injection</link> services for Hibernate Validator</para>
+    </listitem>
+
+    <listitem>
+      <para>Automatic <link linkend="validation-method-validation">method
+      validation</link></para>
+    </listitem>
+  </itemizedlist>
 </chapter>

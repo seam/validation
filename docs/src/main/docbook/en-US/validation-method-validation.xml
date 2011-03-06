@@ -21,11 +21,124 @@
 
 -->
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <chapter id="validation-method-validation">
-   <title>Method Validation</title>
-   <para>
-      The Seam Validation module provides ...
-   </para>
+  <title>Method Validation</title>
 
+  <para>Hibernate Validator provides several advanced validation features and
+  related functionality which go beyond what is defined by JSR 303 ("Bean
+  Validation API"). One of these additional features is a facility for the
+  validation of method parameters and return values. With that API a style of
+  program design known as "Programming by Contract" can be implemented using
+  the concepts defined by the Bean Validation API.</para>
+
+  <para>This means that any Bean Validation constraints can be used to
+  describe</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>any preconditions that must be met before a method may legally be
+      invoked (by annotating method parameters with constraints) and</para>
+    </listitem>
+
+    <listitem>
+      <para>any postconditions that are guaranteed after a method invocation
+      returns (by annotating methods)</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>To give an example listing <xref
+  linkend="example-service-with-constraints" /> shows a fictional repository
+  class which retrieves customer objects for a given name. Constraint
+  annotations are used here to express the following
+  pre-/postconditions:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>The value for the name parameter may not be null and must be at
+      least three characters long</para>
+    </listitem>
+
+    <listitem>
+      <para>The method may never return null and each Customer object
+      contained in the returned set is valid with respect to all constraints
+      it hosts</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><example id="example-service-with-constraints">
+      <title>Exemplary repository with constraint annotations</title>
+
+      <programlisting language="JAVA" role="JAVA">@AutoValidating
+public class CustomerRepository {
+
+    @NotNull @Valid Set&lt;Customer&gt; findCustomersByName(@NotNull @Size(min=3) String name);
+
+}</programlisting>
+    </example>Hibernate Validator itself provides only an API for validating
+  method parameters and return values, but it does not trigger this validation
+  itself. </para>
+
+  <para>This is where Seam Validation comes into play. Seam Validation
+  provides a so called business method interceptor which intercepts client
+  invocations of a method and performs a validation of the method arguments
+  before as well as a validation of the return value after the actual method
+  invocation.</para>
+
+  <para>To control to which types these validation steps applies, Seam
+  Validation provides an interceptor binding,
+  <classname>@AutoValidating</classname>. If this annotation is declared on a
+  given type an automatic validation of each invocation of any this type's
+  methods will be performed. </para>
+
+  <para>If either during the parameter or the return value validation at least
+  one constraint violation is detected (e.g. because
+  <methodname>findCustomersByName()</methodname> from listing <xref
+  linkend="example-service-with-constraints" /> was invoked with a String only
+  two characters long), a
+  <classname>MethodConstraintViolationException</classname> is thrown. That
+  way it is ensured that all parameter constraints are fulfilled when the call
+  flow comes to the method implementation (so it is not neccessary to perform
+  any parameter null checks manually for instance) and all return value
+  constraints are fulfilled when the call flow returns to the caller of the
+  method.</para>
+
+  <para>The exception thrown by Seam Validation (which would typically be
+  written to a log file) gives a clear overview what went wrong during method
+  invocation:</para>
+
+  <para><example id="example-methodconstraintviolationexception">
+      <title>Output of MethodConstraintViolationException</title>
+
+      <programlisting language="JAVA" role="JAVA">org.hibernate.validator.MethodConstraintViolationException: 1 constraint violation(s) occurred during method invocation.
+Method: public java.lang.Set com.mycompany.service.CustomerRepository.findCustomersByName(java.lang.String)
+Argument values: [B]
+Constraint violations: 
+  (1) Kind: PARAMETER
+      parameter index: 0
+      message: size must be between 3 and 2147483647
+      root bean: com.mycompany.service.org$jboss$weld$bean-flat-ManagedBean-class_com$mycompany$service$$CustomerRepository_$$_WeldSubclass@3f72c47b
+      property path: CustomerRepository#findCustomersByName(arg0)
+      constraint: @javax.validation.constraints.Size(message={javax.validation.constraints.Size.message}, min=3, max=2147483647, payload=[], groups=[])</programlisting>
+    </example>To make use of Seam Validation's validation interceptor it has
+  to be registered in your component's beans.xml descriptor as shown in
+  listing <xref linkend="example-beans-xml" />:</para>
+
+  <para><example id="example-beans-xml">
+      <title>Registering the validation interceptor in beans.xml</title>
+
+      <programlisting language="JAVA" role="JAVA">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/beans_1_0.xsd"&gt;
+
+   &lt;interceptors&gt;
+      &lt;class&gt;org.jboss.seam.validation.ValidationInterceptor&lt;/class&gt;
+   &lt;/interceptors&gt;
+&lt;/beans&gt;</programlisting>
+    </example>It is recommended that you consult the Hibernate Validator
+  <ulink
+  url="http://docs.jboss.org/hibernate/stable/validator/reference/en-US/html/">reference
+  guide</ulink> to learn more about the method validation feature in general
+  or for instance the rules that apply for constraining methods in inheritence
+  hierarchies in particular.</para>
 </chapter>
