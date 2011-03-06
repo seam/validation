@@ -189,6 +189,17 @@
       
       <profile>
          <id>glassfish</id>
+         <dependencies>
+            <!-- Put a binding for slf4j into the resulting WAR as this example
+               bundles Hibernate Validator instead of using the version provided
+               by GlassFish. -->
+            <dependency>
+               <groupId>org.slf4j</groupId>
+               <artifactId>slf4j-jdk14</artifactId>
+               <version>${slf4j.version}</version>
+               <scope>runtime</scope>
+            </dependency>
+         </dependencies>         
          <build>
             <plugins>
                <plugin>
@@ -202,6 +213,9 @@
                         <resource>
                            <directory>src/main/webapp-jee</directory>
                         </resource>
+                        <resource>
+                           <directory>src/main/webapp-glassfish</directory>
+                        </resource>                        
                      </webResources>
                   </configuration>
                </plugin>
@@ -212,6 +226,7 @@
       <profile>
          <id>jbossas</id>
          <dependencies>
+            <!-- Don't put slf4j into the resulting WAR, as JBoss contains it already -->
             <dependency>
                <groupId>org.slf4j</groupId>
                <artifactId>slf4j-api</artifactId>
