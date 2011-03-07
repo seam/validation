@@ -129,11 +129,12 @@
   <section>
     <title>Manual setup</title>
 
-    <para>TODO GM: add correct links/file names</para>
-
     <para>In case you are not working with Maven or a comparable build
     management tool you can also add Seam Validation manually to you project.
-    Download the distribution file from http://..., un-zip it and add the JARs
-    api and impl to the classpath of your project.</para>
+    Download the latest distribution file from <ulink
+    url="http://sourceforge.net/projects/jboss/files/Seam/Validation/">SourceForge</ulink>,
+    un-zip it and add seam-validation.jar api as well as all JARs contained in
+    the lib folder of the distribution to the classpath of your
+    project.</para>
   </section>
 </chapter>
