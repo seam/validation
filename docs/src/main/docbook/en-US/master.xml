@@ -29,7 +29,7 @@
 
 <book lang="en" xmlns:xi="http://www.w3.org/2001/XInclude">
    <bookinfo>
-        <title>Seam Validation Module</title>
+        <title>Seam Validation Module (TECHNOLOGY PREVIEW)</title>
         <subtitle>Reference Guide</subtitle>
         <releaseinfo>&version;</releaseinfo>
         <pubdate>&today;</pubdate>

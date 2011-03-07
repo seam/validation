@@ -50,7 +50,7 @@
     <example id="example-settingup-repo">
       <title>Setting up the JBoss Maven repository in settings.xml</title>
 
-      <programlisting language="JAVA" role="JAVA">...
+      <programlisting role="XML">...
 &lt;profiles&gt;
     &lt;profile&gt;
         &lt;repositories&gt;
@@ -94,7 +94,7 @@
       <title>Specifying the Seam Validation Module dependencies in
       pom.xml</title>
 
-      <programlisting language="JAVA" role="JAVA">...
+      <programlisting role="XML">...
 &lt;properties&gt;
     &lt;seam.validation.version&gt;x.y.z&lt;/weld.version&gt;
 &lt;/properties&gt;
@@ -131,7 +131,9 @@
 
     <para>In case you are not working with Maven or a comparable build
     management tool you can also add Seam Validation manually to you project.
-    Download the latest distribution file from <ulink
+    </para>
+
+    <para>Just download the latest distribution file from <ulink
     url="http://sourceforge.net/projects/jboss/files/Seam/Validation/">SourceForge</ulink>,
     un-zip it and add seam-validation.jar api as well as all JARs contained in
     the lib folder of the distribution to the classpath of your

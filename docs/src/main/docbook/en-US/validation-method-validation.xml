@@ -87,7 +87,7 @@ public class CustomerRepository {
   before as well as a validation of the return value after the actual method
   invocation.</para>
 
-  <para>To control to which types these validation steps applies, Seam
+  <para>To control for which types such a validation shall be performed, Seam
   Validation provides an interceptor binding,
   <classname>@AutoValidating</classname>. If this annotation is declared on a
   given type an automatic validation of each invocation of any this type's

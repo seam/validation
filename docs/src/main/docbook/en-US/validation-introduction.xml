@@ -25,11 +25,11 @@
 <chapter id="validation-introduction">
   <title>Introduction</title>
 
-  <para>The Seam Validation module aims at providing a close integration for
-  CDI (<ulink url="http://jcp.org/en/jsr/detail?id=299">JSR 299</ulink>) and
-  <ulink url="http://validator.hibernate.org/">Hibernate Validator</ulink>,
-  the reference implementation for the Bean Validation API (<ulink
-  url="http://jcp.org/en/jsr/detail?id=303">JSR 303</ulink>).</para>
+  <para>The Seam Validation module aims at integrating <ulink
+  url="http://validator.hibernate.org/">Hibernate Validator</ulink>, the
+  reference implementation for the Bean Validation API (<ulink
+  url="http://jcp.org/en/jsr/detail?id=303">JSR 303</ulink>), with CDI (<ulink
+  url="http://jcp.org/en/jsr/detail?id=299">JSR 299</ulink>).</para>
 
   <para>This integration falls into two main areas:</para>
 
@@ -41,9 +41,24 @@
 
     <listitem>
       <para>Automatic validation of method parameters and return values based
-      on the method validation feature part of Hibernate Validator 4.2</para>
+      on Hibernate Validator's method validation feature</para>
     </listitem>
   </itemizedlist>
+
+  <note>
+    <para>The Seam Validation module is based on version 4.2 or later of
+    Hibernate Validator. As of March 2011 Hibernate Validator 4.2 is still in
+    the works and no final release exists yet.</para>
+
+    <para>This means that - though unlikely - also changes to the API of the
+    Seam Validation module might become neccessary. </para>
+
+    <para>The Seam Validation module is therefore released as a technology
+    preview with the Seam 3 release train, with a final version following
+    soon. Nevertheless you should give it a try already today and see what the
+    Seam Validation module and espcially the automatic method validation
+    feature can do for you.</para>
+  </note>
 
   <para>The remainder of this reference guide covers the following
   topics:</para>
