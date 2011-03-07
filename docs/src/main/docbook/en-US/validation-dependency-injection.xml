@@ -144,7 +144,7 @@ public class MyBean {
       <title>Configuration of InjectingConstraintValidatorFactory in
       META-INF/validation.xml</title>
 
-      <programlisting language="JAVA" role="JAVA">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+      <programlisting role="XML">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;validation-config 
    xmlns="http://jboss.org/xml/ns/javax/validation/configuration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://jboss.org/xml/ns/javax/validation/configuration validation-configuration-1.0.xsd"&gt;

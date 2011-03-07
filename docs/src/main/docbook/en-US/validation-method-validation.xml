@@ -66,18 +66,20 @@
     </listitem>
   </itemizedlist>
 
-  <para><example id="example-service-with-constraints">
-      <title>Exemplary repository with constraint annotations</title>
+  <example id="example-service-with-constraints">
+    <title>Exemplary repository with constraint annotations</title>
 
-      <programlisting language="JAVA" role="JAVA">@AutoValidating
+    <programlisting language="JAVA" role="JAVA">@AutoValidating
 public class CustomerRepository {
 
     @NotNull @Valid Set&lt;Customer&gt; findCustomersByName(@NotNull @Size(min=3) String name);
 
 }</programlisting>
-    </example>Hibernate Validator itself provides only an API for validating
-  method parameters and return values, but it does not trigger this validation
-  itself. </para>
+  </example>
+
+  <para>Hibernate Validator itself provides only an API for validating method
+  parameters and return values, but it does not trigger this validation
+  itself.</para>
 
   <para>This is where Seam Validation comes into play. Seam Validation
   provides a so called business method interceptor which intercepts client
@@ -89,7 +91,7 @@ public class CustomerRepository {
   Validation provides an interceptor binding,
   <classname>@AutoValidating</classname>. If this annotation is declared on a
   given type an automatic validation of each invocation of any this type's
-  methods will be performed. </para>
+  methods will be performed.</para>
 
   <para>If either during the parameter or the return value validation at least
   one constraint violation is detected (e.g. because
@@ -107,10 +109,10 @@ public class CustomerRepository {
   written to a log file) gives a clear overview what went wrong during method
   invocation:</para>
 
-  <para><example id="example-methodconstraintviolationexception">
-      <title>Output of MethodConstraintViolationException</title>
+  <example id="example-methodconstraintviolationexception">
+    <title>Output of MethodConstraintViolationException</title>
 
-      <programlisting language="JAVA" role="JAVA">org.hibernate.validator.MethodConstraintViolationException: 1 constraint violation(s) occurred during method invocation.
+    <programlisting>org.hibernate.validator.MethodConstraintViolationException: 1 constraint violation(s) occurred during method invocation.
 Method: public java.lang.Set com.mycompany.service.CustomerRepository.findCustomersByName(java.lang.String)
 Argument values: [B]
 Constraint violations: 
@@ -120,14 +122,16 @@ Constraint violations:
       root bean: com.mycompany.service.org$jboss$weld$bean-flat-ManagedBean-class_com$mycompany$service$$CustomerRepository_$$_WeldSubclass@3f72c47b
       property path: CustomerRepository#findCustomersByName(arg0)
       constraint: @javax.validation.constraints.Size(message={javax.validation.constraints.Size.message}, min=3, max=2147483647, payload=[], groups=[])</programlisting>
-    </example>To make use of Seam Validation's validation interceptor it has
-  to be registered in your component's beans.xml descriptor as shown in
-  listing <xref linkend="example-beans-xml" />:</para>
+  </example>
 
-  <para><example id="example-beans-xml">
-      <title>Registering the validation interceptor in beans.xml</title>
+  <para>To make use of Seam Validation's validation interceptor it has to be
+  registered in your component's beans.xml descriptor as shown in listing
+  <xref linkend="example-beans-xml" />:</para>
 
-      <programlisting language="JAVA" role="JAVA">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  <example id="example-beans-xml">
+    <title>Registering the validation interceptor in beans.xml</title>
+
+    <programlisting role="XML">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/beans_1_0.xsd"&gt;
 
@@ -135,8 +139,9 @@ Constraint violations:
       &lt;class&gt;org.jboss.seam.validation.ValidationInterceptor&lt;/class&gt;
    &lt;/interceptors&gt;
 &lt;/beans&gt;</programlisting>
-    </example>It is recommended that you consult the Hibernate Validator
-  <ulink
+  </example>
+
+  <para>It is recommended that you consult the Hibernate Validator <ulink
   url="http://docs.jboss.org/hibernate/stable/validator/reference/en-US/html/">reference
   guide</ulink> to learn more about the method validation feature in general
   or for instance the rules that apply for constraining methods in inheritence
