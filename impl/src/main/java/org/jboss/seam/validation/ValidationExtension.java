@@ -43,7 +43,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.hibernate.validator.MethodValidator;
+import org.hibernate.validator.method.MethodValidator;
 
 /**
  * A CDI portable extension which registers beans for {@link ValidatorFactory}
