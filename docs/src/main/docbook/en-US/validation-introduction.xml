@@ -51,13 +51,15 @@
     the works and no final release exists yet.</para>
 
     <para>This means that - though unlikely - also changes to the API of the
-    Seam Validation module might become neccessary. </para>
+    Seam Validation module might become neccessary.</para>
 
     <para>The Seam Validation module is therefore released as a technology
     preview with the Seam 3 release train, with a final version following
     soon. Nevertheless you should give it a try already today and see what the
     Seam Validation module and espcially the automatic method validation
-    feature can do for you.</para>
+    feature can do for you. Please refer to the <ulink
+    url="http://seamframework.org/Seam3/ValidationModule">module home
+    page</ulink> for any news on Seam Validation.</para>
   </note>
 
   <para>The remainder of this reference guide covers the following
