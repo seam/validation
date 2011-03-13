@@ -19,6 +19,8 @@
  */
 package org.jboss.seam.validation.di;
 
+import javax.validation.constraints.Max;
+
 import org.jboss.seam.validation.di.constraint.ValidHello;
 
 /**
@@ -35,5 +37,8 @@ public class Model
     */
    @ValidHello("Bob")
    public String helloTest = "Hello, Bill";
+   
+   @Max(5)
+   public int integer = 10;
 
 }

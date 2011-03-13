@@ -64,7 +64,7 @@ public class InjectingConstraintValidatorFactoryTest
    {
 
       Set<ConstraintViolation<Model>> violations = validator.validate(new Model());
-      assertEquals(1, violations.size());
+      assertEquals(2, violations.size());
    }
 
 }

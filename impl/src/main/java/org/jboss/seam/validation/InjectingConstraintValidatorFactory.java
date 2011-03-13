@@ -19,17 +19,21 @@
  */
 package org.jboss.seam.validation;
 
+import java.util.Set;
+
 import javax.enterprise.context.spi.CreationalContext;
-import javax.enterprise.inject.spi.AnnotatedType;
+import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
-import javax.enterprise.inject.spi.InjectionTarget;
 import javax.inject.Inject;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorFactory;
+import javax.validation.Validation;
 
 /**
- * A {@link ConstraintValidatorFactory} which enables dependency injection for
- * the created {@link ConstraintValidator}s.
+ * A {@link ConstraintValidatorFactory} which enables CDI based dependency
+ * injection for the created {@link ConstraintValidator}s. Validator types must
+ * be valid CDI beans - in particular they must be defined in a bean deployment
+ * archive (BDA) - in order to make use of DI services.
  * 
  * @author Gunnar Morling
  * 
@@ -37,22 +41,45 @@ import javax.validation.ConstraintValidatorFactory;
 public class InjectingConstraintValidatorFactory implements ConstraintValidatorFactory
 {
 
+   /**
+    * The default constraint validator factory. The creation of validators which
+    * are no compliant CDI bean (not contained in a BDA etc.) will be delegated
+    * to this factory.
+    */
+   private final ConstraintValidatorFactory delegate;
+
    @Inject
    private BeanManager beanManager;
 
-   @Override
+   public InjectingConstraintValidatorFactory()
+   {
+
+      delegate = Validation.byDefaultProvider().configure().getDefaultConstraintValidatorFactory();
+   }
+
+   @SuppressWarnings("unchecked")
    public <T extends ConstraintValidator<?, ?>> T getInstance(Class<T> key)
    {
 
-      AnnotatedType<T> type = beanManager.createAnnotatedType(key);
-      InjectionTarget<T> it = beanManager.createInjectionTarget(type);
-      CreationalContext<T> ctx = beanManager.createCreationalContext(null);
+      T theValue;
 
-      T instance = it.produce(ctx);
-      it.inject(instance, ctx);
-      it.postConstruct(instance);
+      Set<Bean<?>> beans = beanManager.getBeans(key);
 
-      return instance;
+      //The given type is a CDI bean, so the container will deal with injection etc.
+      if (!beans.isEmpty())
+      {
+         Bean<?> bean = beanManager.resolve(beans);
+         CreationalContext<?> ctx = beanManager.createCreationalContext(bean);
+         
+         theValue = (T) beanManager.getReference(bean, key, ctx);
+      }
+      //The given type is no CDI bean, so delegate the creation to the default factory
+      else
+      {
+         theValue = delegate.getInstance(key);
+      }
+
+      return theValue;
    }
 
 }
