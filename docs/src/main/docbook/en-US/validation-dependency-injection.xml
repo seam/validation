@@ -90,7 +90,7 @@ public class MyBean {
     </note>
 
     <para>It is also possible to directly inject a validator created by the
-    default validator factory: </para>
+    default validator factory:</para>
 
     <example id="example-injecting-validator">
       <title>Injection of a validator from the default validator
@@ -124,7 +124,11 @@ public class MyBean {
     <para>The Seam Validation module provides support for dependency injection
     within <classname>javax.validation.ConstraintValidator</classname>
     implementations. This is very useful if you need to access other CDI beans
-    within you constraint validator such as business services etc.</para>
+    within you constraint validator such as business services etc. In order to
+    make use of dependency injection within a constraint validator
+    implementation it must be a valid bean type as described by the CDI
+    specification, in particular it must be defined within a bean deployment
+    archive.</para>
 
     <warning>
       <para>Relying on dependency injection reduces portability of a validator
