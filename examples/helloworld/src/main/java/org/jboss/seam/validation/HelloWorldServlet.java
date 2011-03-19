@@ -55,7 +55,7 @@ public class HelloWorldServlet extends HttpServlet
          response.getWriter().println("   <body>");
          response.getWriter().println("      <h1>Seam Validation Module Example - Method Validation</h1>");
          response.getWriter().println("      <p>Hi, what's your name? Enter at least three characters.</p>");         
-         response.getWriter().println("      <form action=\"HelloWorld\"");
+         response.getWriter().println("      <form action=\"HelloWorld\">");
          response.getWriter().println("         Name: <input name=\"name\" type=\"text\" size=\"30\">");
          response.getWriter().println("         <input type=\"submit\" value=\" OK \">");
          response.getWriter().println("      </form>");
