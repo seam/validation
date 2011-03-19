@@ -102,7 +102,7 @@
          </dependency>
          <dependency>
             <groupId>org.jboss.seam.validation</groupId>
-            <artifactId>seam-validation-example</artifactId>
+            <artifactId>seam-validation-example-helloworld</artifactId>
             <version>${project.version}</version>
          </dependency>
          <dependency>
