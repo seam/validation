@@ -55,11 +55,7 @@
 
       <dependency>
          <groupId>${project.groupId}</groupId>
-         <artifactId>seam-validation-api</artifactId>
-      </dependency>
-      <dependency>
-         <groupId>${project.groupId}</groupId>
-         <artifactId>seam-validation-impl</artifactId>
+         <artifactId>seam-validation</artifactId>
       </dependency>
 
       <dependency>
