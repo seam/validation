@@ -27,4 +27,6 @@ Running the example from within your IDE
 Open the project within your IDE, e.g. Eclipse
 Execute java.org.jboss.seam.validation.JettyRunner.java (in src/test/java)
 
+** Important Note - If your IDE has Maven support, you will need to configure it to use the "servlet" profile to execute the example successfully. 
+
 After launching the example open your browser and access the example page at http://localhost:8080/validation-helloworld/HelloWorld
