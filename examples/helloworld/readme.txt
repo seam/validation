@@ -9,12 +9,11 @@ This service invocation is intercepted by the Seam Validation interceptor and de
 
 Running the example on Jetty
 =========================================
-mvn clean jetty:run
+mvn clean jetty:run -Pservlet
 
 Running the example on JBoss AS 6
 =========================================
-mvn clean package -Pjbossas
-cp target/validation-helloworld.war $JBOSS_HOME/server/default/deploy
+mvn clean package jboss:hard-deploy
 $JBOSS_HOME/bin/run.sh
 
 Running the example on GlassFish V3
