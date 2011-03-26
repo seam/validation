@@ -38,7 +38,6 @@ import org.jboss.seam.validation.method.service.MovieRepository;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -46,7 +45,11 @@ import org.junit.runner.RunWith;
 public class CdiMethodValidationTest
 {
 
-   private static String notNullMessage;
+   private static final String VALIDATION_MESSAGES_BUNDLE = "org.hibernate.validator.ValidationMessages";
+
+   private static final String NOT_NULL_KEY = "javax.validation.constraints.NotNull.message";
+
+   private final String notNullMessage = ResourceBundle.getBundle(VALIDATION_MESSAGES_BUNDLE).getString(NOT_NULL_KEY);
 
    @Inject
    private MovieRepository movieRepository;
@@ -54,14 +57,12 @@ public class CdiMethodValidationTest
    @Deployment
    public static JavaArchive createTestArchive() throws Exception
    {
-      return ShrinkWrap.create(JavaArchive.class, "test.jar").addManifestResource("META-INF/beans.xml", ArchivePaths.create("beans.xml")).addManifestResource(new File("src/main/resources/META-INF/services/javax.enterprise.inject.spi.Extension")).addPackage(MovieRepository.class.getPackage()).addPackage(ValidationInterceptor.class.getPackage()).addPackage(Movie.class.getPackage());
-   }
-
-   @BeforeClass
-   public static void setUpClass()
-   {
-      ResourceBundle bundle = ResourceBundle.getBundle("org.hibernate.validator.ValidationMessages");
-      notNullMessage = bundle.getString("javax.validation.constraints.NotNull.message");
+      return ShrinkWrap.create(JavaArchive.class, "test.jar").
+         addAsManifestResource("META-INF/beans.xml", ArchivePaths.create("beans.xml")).
+         addAsManifestResource(new File("src/main/resources/META-INF/services/javax.enterprise.inject.spi.Extension")).
+         addPackage(MovieRepository.class.getPackage()).
+         addPackage(ValidationInterceptor.class.getPackage()).
+         addPackage(Movie.class.getPackage());
    }
 
    @Test

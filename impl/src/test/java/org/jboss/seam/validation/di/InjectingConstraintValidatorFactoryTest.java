@@ -56,7 +56,12 @@ public class InjectingConstraintValidatorFactoryTest
    @Deployment
    public static JavaArchive createTestArchive() throws Exception
    {
-      return ShrinkWrap.create(JavaArchive.class, "test.jar").addManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml")).addManifestResource(new File("src/main/resources/META-INF/services/javax.enterprise.inject.spi.Extension")).addPackage(InjectingConstraintValidatorFactoryTest.class.getPackage()).addPackage(HelloWorldService.class.getPackage()).addPackage(ValidHello.class.getPackage());
+      return ShrinkWrap.create(JavaArchive.class, "test.jar").
+         addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml")).
+         addAsManifestResource(new File("src/main/resources/META-INF/services/javax.enterprise.inject.spi.Extension")).
+         addPackage(InjectingConstraintValidatorFactoryTest.class.getPackage()).
+         addPackage(HelloWorldService.class.getPackage()).
+         addPackage(ValidHello.class.getPackage());
    }
 
    @Test
