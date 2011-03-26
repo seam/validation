@@ -24,10 +24,11 @@ import java.util.Set;
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
-import javax.inject.Inject;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorFactory;
 import javax.validation.Validation;
+
+import org.jboss.seam.solder.beanManager.BeanManagerAware;
 
 /**
  * A {@link ConstraintValidatorFactory} which enables CDI based dependency
@@ -38,7 +39,7 @@ import javax.validation.Validation;
  * @author Gunnar Morling
  * 
  */
-public class InjectingConstraintValidatorFactory implements ConstraintValidatorFactory
+public class InjectingConstraintValidatorFactory extends BeanManagerAware implements ConstraintValidatorFactory
 {
 
    /**
@@ -47,9 +48,6 @@ public class InjectingConstraintValidatorFactory implements ConstraintValidatorF
     * to this factory.
     */
    private final ConstraintValidatorFactory delegate;
-
-   @Inject
-   private BeanManager beanManager;
 
    public InjectingConstraintValidatorFactory()
    {
@@ -63,6 +61,14 @@ public class InjectingConstraintValidatorFactory implements ConstraintValidatorF
 
       T theValue;
 
+      if (!isBeanManagerAvailable()) {
+         throw new IllegalStateException(
+            "No bean manager is available. In order to use InjectingConstraintValidatorFactory, the javax.validation.Validator " +
+            "must either be retrieved via dependency injection or a bean manager must be available via JNDI.");
+      }
+
+      BeanManager beanManager = getBeanManager();
+  
       Set<Bean<?>> beans = beanManager.getBeans(key);
 
       //The given type is a CDI bean, so the container will deal with injection etc.
@@ -70,7 +76,7 @@ public class InjectingConstraintValidatorFactory implements ConstraintValidatorF
       {
          Bean<?> bean = beanManager.resolve(beans);
          CreationalContext<?> ctx = beanManager.createCreationalContext(bean);
-         
+     
          theValue = (T) beanManager.getReference(bean, key, ctx);
       }
       //The given type is no CDI bean, so delegate the creation to the default factory
