@@ -217,9 +217,9 @@
 
       <profile>
          <id>jbossas</id>
-         <activation>
+         <!--activation>
             <activeByDefault>true</activeByDefault>
-         </activation>         
+         </activation-->         
          <dependencies>
             <!-- Don't put slf4j into the resulting WAR, as JBoss contains it already -->
             <dependency>
