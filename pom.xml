@@ -27,7 +27,7 @@
    <parent>
       <artifactId>seam-parent</artifactId>
       <groupId>org.jboss.seam</groupId>
-      <version>9</version>
+      <version>10</version>
    </parent>
 
    <groupId>org.jboss.seam.validation</groupId>
@@ -68,7 +68,7 @@
    </developers>
 
    <properties>
-      <seam.version>3.0.0.CR8</seam.version>
+      <seam.version>3.0.0.Final</seam.version>
       <cdi-api.version>1.0-SP3</cdi-api.version>
       <hibernate.validator.version>4.2.0.Beta2</hibernate.validator.version>
    </properties>
