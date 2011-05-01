@@ -46,371 +46,321 @@ import javax.validation.ValidatorFactory;
 import org.hibernate.validator.method.MethodValidator;
 
 /**
- * A CDI portable extension which registers beans for {@link ValidatorFactory}
- * and {@link Validator}, if such beans not yet exist (which for instance would
- * be the case in a Java EE 6 container). Furthermore a {@link MethodValidator}
- * bean is registered. All registered beans will be {@link ApplicationScoped}.
+ * A CDI portable extension which registers beans for {@link ValidatorFactory} and {@link Validator}, if such beans not yet
+ * exist (which for instance would be the case in a Java EE 6 container). Furthermore a {@link MethodValidator} bean is
+ * registered. All registered beans will be {@link ApplicationScoped}.
  * 
  * @author Gunnar Morling
  * 
  */
-public class ValidationExtension implements Extension
-{
+public class ValidationExtension implements Extension {
 
-   public void afterBeanDiscovery(@Observes AfterBeanDiscovery abd, BeanManager bm)
-   {
+    public void afterBeanDiscovery(@Observes AfterBeanDiscovery abd, BeanManager bm) {
 
-      addValidatorFactoryIfRequired(abd, bm);
-      addValidatorIfRequired(abd, bm);
-      addMethodValidator(abd, bm);
-   }
+        addValidatorFactoryIfRequired(abd, bm);
+        addValidatorIfRequired(abd, bm);
+        addMethodValidator(abd, bm);
+    }
 
-   private void addValidatorFactoryIfRequired(AfterBeanDiscovery abd, final BeanManager beanManager)
-   {
+    private void addValidatorFactoryIfRequired(AfterBeanDiscovery abd, final BeanManager beanManager) {
 
-      // if a ValidatorFactory already exists, only inject it's ConstraintValidatorFactory if required
-      if (!beanManager.getBeans(ValidatorFactory.class).isEmpty())
-      {
-         
-         ValidatorFactory validatorFactory = getReference(beanManager, ValidatorFactory.class);
-         
-         ConstraintValidatorFactory constraintValidatorFactory = validatorFactory.getConstraintValidatorFactory();
-         if(constraintValidatorFactory instanceof InjectingConstraintValidatorFactory) {
-            inject(beanManager, InjectingConstraintValidatorFactory.class, (InjectingConstraintValidatorFactory)constraintValidatorFactory);
-         }
+        // if a ValidatorFactory already exists, only inject it's ConstraintValidatorFactory if required
+        if (!beanManager.getBeans(ValidatorFactory.class).isEmpty()) {
 
-         return;
-      }
+            ValidatorFactory validatorFactory = getReference(beanManager, ValidatorFactory.class);
 
-      abd.addBean(new Bean<ValidatorFactory>()
-      {
-
-         @Override
-         public Class<?> getBeanClass()
-         {
-
-            return ValidatorFactory.class;
-         }
-
-         @Override
-         public Set<InjectionPoint> getInjectionPoints()
-         {
-
-            return Collections.emptySet();
-         }
-
-         @Override
-         public String getName()
-         {
-
-            return "validatorFactory";
-         }
-
-         @SuppressWarnings("serial")
-         @Override
-         public Set<Annotation> getQualifiers()
-         {
-
-            Set<Annotation> qualifiers = new HashSet<Annotation>();
-
-            qualifiers.add(new AnnotationLiteral<Default>()
-            {
-            });
-            qualifiers.add(new AnnotationLiteral<Any>()
-            {
-            });
-
-            return qualifiers;
-         }
-
-         @Override
-         public Class<? extends Annotation> getScope()
-         {
-
-            return ApplicationScoped.class;
-         }
-
-         @Override
-         public Set<Class<? extends Annotation>> getStereotypes()
-         {
-
-            return Collections.emptySet();
-         }
-
-         @Override
-         public Set<Type> getTypes()
-         {
-
-            Set<Type> types = new HashSet<Type>();
-
-            types.add(ValidatorFactory.class);
-            types.add(Object.class);
-
-            return types;
-         }
-
-         @Override
-         public boolean isAlternative()
-         {
-
-            return false;
-         }
-
-         @Override
-         public boolean isNullable()
-         {
-
-            return false;
-         }
-
-         @Override
-         public ValidatorFactory create(CreationalContext<ValidatorFactory> ctx)
-         {
-            
-            ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-            
             ConstraintValidatorFactory constraintValidatorFactory = validatorFactory.getConstraintValidatorFactory();
-            if(constraintValidatorFactory instanceof InjectingConstraintValidatorFactory) {
-               inject(beanManager, InjectingConstraintValidatorFactory.class, (InjectingConstraintValidatorFactory)constraintValidatorFactory);
+            if (constraintValidatorFactory instanceof InjectingConstraintValidatorFactory) {
+                inject(beanManager, InjectingConstraintValidatorFactory.class,
+                        (InjectingConstraintValidatorFactory) constraintValidatorFactory);
             }
-            
-            return validatorFactory;
-         }
 
-         @Override
-         public void destroy(ValidatorFactory instance, CreationalContext<ValidatorFactory> ctx)
-         {
+            return;
+        }
 
-         }
-      });
-   }
+        abd.addBean(new Bean<ValidatorFactory>() {
 
-   private void addValidatorIfRequired(AfterBeanDiscovery abd, final BeanManager bm)
-   {
+            @Override
+            public Class<?> getBeanClass() {
 
-      // do nothing, if Validator already exists
-      if (!bm.getBeans(Validator.class).isEmpty())
-      {
-         return;
-      }
+                return ValidatorFactory.class;
+            }
 
-      abd.addBean(new Bean<Validator>()
-      {
+            @Override
+            public Set<InjectionPoint> getInjectionPoints() {
 
-         @Override
-         public Class<?> getBeanClass()
-         {
+                return Collections.emptySet();
+            }
 
-            return Validator.class;
-         }
+            @Override
+            public String getName() {
 
-         @Override
-         public Set<InjectionPoint> getInjectionPoints()
-         {
+                return "validatorFactory";
+            }
 
-            return Collections.emptySet();
-         }
+            @SuppressWarnings("serial")
+            @Override
+            public Set<Annotation> getQualifiers() {
 
-         @Override
-         public String getName()
-         {
+                Set<Annotation> qualifiers = new HashSet<Annotation>();
 
-            return "validator";
-         }
+                qualifiers.add(new AnnotationLiteral<Default>() {
+                });
+                qualifiers.add(new AnnotationLiteral<Any>() {
+                });
 
-         @SuppressWarnings("serial")
-         @Override
-         public Set<Annotation> getQualifiers()
-         {
+                return qualifiers;
+            }
 
-            Set<Annotation> qualifiers = new HashSet<Annotation>();
+            @Override
+            public Class<? extends Annotation> getScope() {
 
-            qualifiers.add(new AnnotationLiteral<Default>()
-            {
-            });
-            qualifiers.add(new AnnotationLiteral<Any>()
-            {
-            });
+                return ApplicationScoped.class;
+            }
 
-            return qualifiers;
-         }
+            @Override
+            public Set<Class<? extends Annotation>> getStereotypes() {
 
-         @Override
-         public Class<? extends Annotation> getScope()
-         {
+                return Collections.emptySet();
+            }
 
-            return ApplicationScoped.class;
-         }
+            @Override
+            public Set<Type> getTypes() {
 
-         @Override
-         public Set<Class<? extends Annotation>> getStereotypes()
-         {
+                Set<Type> types = new HashSet<Type>();
 
-            return Collections.emptySet();
-         }
+                types.add(ValidatorFactory.class);
+                types.add(Object.class);
 
-         @Override
-         public Set<Type> getTypes()
-         {
+                return types;
+            }
 
-            Set<Type> types = new HashSet<Type>();
+            @Override
+            public boolean isAlternative() {
 
-            types.add(MethodValidator.class);
-            types.add(Validator.class);
-            types.add(Object.class);
+                return false;
+            }
 
-            return types;
-         }
+            @Override
+            public boolean isNullable() {
 
-         @Override
-         public boolean isAlternative()
-         {
+                return false;
+            }
 
-            return false;
-         }
+            @Override
+            public ValidatorFactory create(CreationalContext<ValidatorFactory> ctx) {
 
-         @Override
-         public boolean isNullable()
-         {
+                ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
 
-            return false;
-         }
+                ConstraintValidatorFactory constraintValidatorFactory = validatorFactory.getConstraintValidatorFactory();
+                if (constraintValidatorFactory instanceof InjectingConstraintValidatorFactory) {
+                    inject(beanManager, InjectingConstraintValidatorFactory.class,
+                            (InjectingConstraintValidatorFactory) constraintValidatorFactory);
+                }
 
-         @Override
-         public Validator create(CreationalContext<Validator> ctx)
-         {
+                return validatorFactory;
+            }
 
-            ValidatorFactory validatorFactory = getReference(bm, ValidatorFactory.class);
-            
-            return validatorFactory.getValidator();
-         }
+            @Override
+            public void destroy(ValidatorFactory instance, CreationalContext<ValidatorFactory> ctx) {
 
-         @Override
-         public void destroy(Validator instance, CreationalContext<Validator> ctx)
-         {
+            }
+        });
+    }
 
-         }
-      });
-   }
+    private void addValidatorIfRequired(AfterBeanDiscovery abd, final BeanManager bm) {
 
-   private void addMethodValidator(AfterBeanDiscovery abd, final BeanManager bm)
-   {
+        // do nothing, if Validator already exists
+        if (!bm.getBeans(Validator.class).isEmpty()) {
+            return;
+        }
 
-      abd.addBean(new Bean<MethodValidator>()
-      {
+        abd.addBean(new Bean<Validator>() {
 
-         @Override
-         public Class<?> getBeanClass()
-         {
+            @Override
+            public Class<?> getBeanClass() {
 
-            return MethodValidator.class;
-         }
+                return Validator.class;
+            }
 
-         @Override
-         public Set<InjectionPoint> getInjectionPoints()
-         {
+            @Override
+            public Set<InjectionPoint> getInjectionPoints() {
 
-            return Collections.emptySet();
-         }
+                return Collections.emptySet();
+            }
 
-         @Override
-         public String getName()
-         {
+            @Override
+            public String getName() {
 
-            return "methodValidator";
-         }
+                return "validator";
+            }
 
-         @SuppressWarnings("serial")
-         @Override
-         public Set<Annotation> getQualifiers()
-         {
+            @SuppressWarnings("serial")
+            @Override
+            public Set<Annotation> getQualifiers() {
 
-            Set<Annotation> qualifiers = new HashSet<Annotation>();
+                Set<Annotation> qualifiers = new HashSet<Annotation>();
 
-            qualifiers.add(new AnnotationLiteral<Default>()
-            {
-            });
-            qualifiers.add(new AnnotationLiteral<Any>()
-            {
-            });
+                qualifiers.add(new AnnotationLiteral<Default>() {
+                });
+                qualifiers.add(new AnnotationLiteral<Any>() {
+                });
 
-            return qualifiers;
-         }
+                return qualifiers;
+            }
 
-         @Override
-         public Class<? extends Annotation> getScope()
-         {
+            @Override
+            public Class<? extends Annotation> getScope() {
 
-            return ApplicationScoped.class;
-         }
+                return ApplicationScoped.class;
+            }
 
-         @Override
-         public Set<Class<? extends Annotation>> getStereotypes()
-         {
+            @Override
+            public Set<Class<? extends Annotation>> getStereotypes() {
 
-            return Collections.emptySet();
-         }
+                return Collections.emptySet();
+            }
 
-         @Override
-         public Set<Type> getTypes()
-         {
+            @Override
+            public Set<Type> getTypes() {
 
-            Set<Type> types = new HashSet<Type>();
+                Set<Type> types = new HashSet<Type>();
 
-            types.add(MethodValidator.class);
-            types.add(Object.class);
+                types.add(MethodValidator.class);
+                types.add(Validator.class);
+                types.add(Object.class);
 
-            return types;
-         }
+                return types;
+            }
 
-         @Override
-         public boolean isAlternative()
-         {
+            @Override
+            public boolean isAlternative() {
 
-            return false;
-         }
+                return false;
+            }
 
-         @Override
-         public boolean isNullable()
-         {
+            @Override
+            public boolean isNullable() {
 
-            return false;
-         }
+                return false;
+            }
 
-         @Override
-         public MethodValidator create(CreationalContext<MethodValidator> ctx)
-         {
+            @Override
+            public Validator create(CreationalContext<Validator> ctx) {
 
-            return getReference(bm, ValidatorFactory.class).getValidator().unwrap(MethodValidator.class);
-         }
+                ValidatorFactory validatorFactory = getReference(bm, ValidatorFactory.class);
 
-         @Override
-         public void destroy(MethodValidator instance, CreationalContext<MethodValidator> ctx)
-         {
+                return validatorFactory.getValidator();
+            }
 
-         }
-      });
-   }
+            @Override
+            public void destroy(Validator instance, CreationalContext<Validator> ctx) {
 
-   @SuppressWarnings("unchecked")
-   private <T> T getReference(BeanManager bm, Class<T> clazz)
-   {
+            }
+        });
+    }
 
-      Bean<T> bean = (Bean<T>) bm.getBeans(clazz).iterator().next();
-      CreationalContext<T> context = bm.createCreationalContext(bean);
+    private void addMethodValidator(AfterBeanDiscovery abd, final BeanManager bm) {
 
-      return (T) bm.getReference(bean, clazz, context);
-   }
-   
-   private <T> void inject(final BeanManager beanManager, Class<T> type, T constraintValidatorFactory)
-   {
+        abd.addBean(new Bean<MethodValidator>() {
 
-      AnnotatedType<T> annotatedType = beanManager.createAnnotatedType(type);
-      InjectionTarget<T> it = beanManager.createInjectionTarget(annotatedType);
-      CreationalContext<T> cvfCtx = beanManager.createCreationalContext(null);
+            @Override
+            public Class<?> getBeanClass() {
 
-      it.inject(constraintValidatorFactory, cvfCtx);
-      it.postConstruct(constraintValidatorFactory);
-   }
+                return MethodValidator.class;
+            }
+
+            @Override
+            public Set<InjectionPoint> getInjectionPoints() {
+
+                return Collections.emptySet();
+            }
+
+            @Override
+            public String getName() {
+
+                return "methodValidator";
+            }
+
+            @SuppressWarnings("serial")
+            @Override
+            public Set<Annotation> getQualifiers() {
+
+                Set<Annotation> qualifiers = new HashSet<Annotation>();
+
+                qualifiers.add(new AnnotationLiteral<Default>() {
+                });
+                qualifiers.add(new AnnotationLiteral<Any>() {
+                });
+
+                return qualifiers;
+            }
+
+            @Override
+            public Class<? extends Annotation> getScope() {
+
+                return ApplicationScoped.class;
+            }
+
+            @Override
+            public Set<Class<? extends Annotation>> getStereotypes() {
+
+                return Collections.emptySet();
+            }
+
+            @Override
+            public Set<Type> getTypes() {
+
+                Set<Type> types = new HashSet<Type>();
+
+                types.add(MethodValidator.class);
+                types.add(Object.class);
+
+                return types;
+            }
+
+            @Override
+            public boolean isAlternative() {
+
+                return false;
+            }
+
+            @Override
+            public boolean isNullable() {
+
+                return false;
+            }
+
+            @Override
+            public MethodValidator create(CreationalContext<MethodValidator> ctx) {
+
+                return getReference(bm, ValidatorFactory.class).getValidator().unwrap(MethodValidator.class);
+            }
+
+            @Override
+            public void destroy(MethodValidator instance, CreationalContext<MethodValidator> ctx) {
+
+            }
+        });
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> T getReference(BeanManager bm, Class<T> clazz) {
+
+        Bean<T> bean = (Bean<T>) bm.getBeans(clazz).iterator().next();
+        CreationalContext<T> context = bm.createCreationalContext(bean);
+
+        return (T) bm.getReference(bean, clazz, context);
+    }
+
+    private <T> void inject(final BeanManager beanManager, Class<T> type, T constraintValidatorFactory) {
+
+        AnnotatedType<T> annotatedType = beanManager.createAnnotatedType(type);
+        InjectionTarget<T> it = beanManager.createInjectionTarget(annotatedType);
+        CreationalContext<T> cvfCtx = beanManager.createCreationalContext(null);
+
+        it.inject(constraintValidatorFactory, cvfCtx);
+        it.postConstruct(constraintValidatorFactory);
+    }
 
 }

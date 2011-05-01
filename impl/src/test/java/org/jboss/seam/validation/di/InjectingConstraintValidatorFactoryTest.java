@@ -51,35 +51,33 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class InjectingConstraintValidatorFactoryTest
-{
+public class InjectingConstraintValidatorFactoryTest {
 
-   @Inject
-   private Validator validator;
+    @Inject
+    private Validator validator;
 
-   @Inject
-   private BeanManager beanManager;
-   
-   @Deployment
-   public static JavaArchive createTestArchive() throws Exception
-   {
-      return ShrinkWrap.create(JavaArchive.class, "test.jar").
-         addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml")).
-         addAsManifestResource(new File("src/main/resources/META-INF/services/javax.enterprise.inject.spi.Extension")).
-         addAsManifestResource(new File("src/test/resources/META-INF/services/org.jboss.seam.solder.beanManager.BeanManagerProvider")).
-         addPackage(InjectingConstraintValidatorFactoryTest.class.getPackage()).
-         addPackage(HelloWorldService.class.getPackage()).
-         addPackage(ValidHello.class.getPackage());
-   }
+    @Inject
+    private BeanManager beanManager;
 
-   @Test
-   public void constraintValidatorWithInjectedDependency()
-   {
+    @Deployment
+    public static JavaArchive createTestArchive() throws Exception {
+        return ShrinkWrap
+                .create(JavaArchive.class, "test.jar")
+                .addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
+                .addAsManifestResource(new File("src/main/resources/META-INF/services/javax.enterprise.inject.spi.Extension"))
+                .addAsManifestResource(
+                        new File("src/test/resources/META-INF/services/org.jboss.seam.solder.beanManager.BeanManagerProvider"))
+                .addPackage(InjectingConstraintValidatorFactoryTest.class.getPackage())
+                .addPackage(HelloWorldService.class.getPackage()).addPackage(ValidHello.class.getPackage());
+    }
 
-      Set<ConstraintViolation<Model>> violations = validator.validate(new Model());
-      assertEquals(2, violations.size());
-   }
-   
+    @Test
+    public void constraintValidatorWithInjectedDependency() {
+
+        Set<ConstraintViolation<Model>> violations = validator.validate(new Model());
+        assertEquals(2, violations.size());
+    }
+
     /**
      * <p>
      * The {@link Validator} is not retrieved via CDI, but using the plain Bean Validation API. Nevertheless
@@ -95,38 +93,36 @@ public class InjectingConstraintValidatorFactoryTest
      * 
      * @see SEAMVALIDATE-14
      */
-   @Test
-   public void unmanagedValidator()
-   {
-       //set the BM to be returned by BeanManagerLocator (normally the BM would be retrieved from JNDI)
-       StaticBeanManagerProvider.setBeanManager(beanManager);
-       
-       Validator unmanagedValidator = Validation.buildDefaultValidatorFactory().getValidator();
-       Set<ConstraintViolation<Model>> violations = unmanagedValidator.validate(new Model());
-       assertEquals(2, violations.size());
-       
-   }
-   
-   /**
-    * <p>
-    * The {@link Validator} is not retrieved via CDI, but using the plain Bean Validation API. Nevertheless
-    * {@link InjectingConstraintValidatorFactory} is configured in <code>validation.xml</code>.
-    * </p>
-    * <p>
-    * In this case the {@link BeanManager} used in <code>InjectingConstraintValidatorFactory</code> is obtained via
-    * {@link BeanManagerLocator}, but no <code>BeanManager</code> can be found there. An exception is expected in
-    * this case as <code>InjectingConstraintValidatorFactory</code> can't be used without a bean manager.
-    * </p>
-    * 
-    * @see SEAMVALIDATE-14
-    */
-   @Test(expected=IllegalStateException.class)
-   public void unmanagedValidatorWithoutBeanManager()
-   {
-       StaticBeanManagerProvider.setBeanManager(null);
-       
-       Validator unmanagedValidator = Validation.buildDefaultValidatorFactory().getValidator();
-       unmanagedValidator.validate(new Model());
-   }
+    @Test
+    public void unmanagedValidator() {
+        // set the BM to be returned by BeanManagerLocator (normally the BM would be retrieved from JNDI)
+        StaticBeanManagerProvider.setBeanManager(beanManager);
+
+        Validator unmanagedValidator = Validation.buildDefaultValidatorFactory().getValidator();
+        Set<ConstraintViolation<Model>> violations = unmanagedValidator.validate(new Model());
+        assertEquals(2, violations.size());
+
+    }
+
+    /**
+     * <p>
+     * The {@link Validator} is not retrieved via CDI, but using the plain Bean Validation API. Nevertheless
+     * {@link InjectingConstraintValidatorFactory} is configured in <code>validation.xml</code>.
+     * </p>
+     * <p>
+     * In this case the {@link BeanManager} used in <code>InjectingConstraintValidatorFactory</code> is obtained via
+     * {@link BeanManagerLocator}, but no <code>BeanManager</code> can be found there. An exception is expected in this case as
+     * <code>InjectingConstraintValidatorFactory</code> can't be used without a bean manager.
+     * </p>
+     * 
+     * @see SEAMVALIDATE-14
+     */
+    @Test(expected = IllegalStateException.class)
+    public void unmanagedValidatorWithoutBeanManager() {
+        StaticBeanManagerProvider.setBeanManager(null);
+
+        Validator unmanagedValidator = Validation.buildDefaultValidatorFactory().getValidator();
+        unmanagedValidator.validate(new Model());
+    }
 
 }

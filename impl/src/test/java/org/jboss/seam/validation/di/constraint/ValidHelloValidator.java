@@ -26,37 +26,33 @@ import javax.validation.ConstraintValidatorContext;
 import org.jboss.seam.validation.di.service.HelloWorldService;
 
 /**
- * Validator for the {@link ValidHello} constraint. This validator is not
- * portable between BV implementations, as it relies on dependency injection.
+ * Validator for the {@link ValidHello} constraint. This validator is not portable between BV implementations, as it relies on
+ * dependency injection.
  * 
  * @author Gunnar Morling
  * 
  */
-public class ValidHelloValidator implements ConstraintValidator<ValidHello, String>
-{
+public class ValidHelloValidator implements ConstraintValidator<ValidHello, String> {
 
-   private String name;
+    private String name;
 
-   @Inject
-   private HelloWorldService service;
+    @Inject
+    private HelloWorldService service;
 
-   @Override
-   public void initialize(ValidHello constraintAnnotation)
-   {
-      this.name = constraintAnnotation.value();
+    @Override
+    public void initialize(ValidHello constraintAnnotation) {
+        this.name = constraintAnnotation.value();
 
-   }
+    }
 
-   @Override
-   public boolean isValid(String value, ConstraintValidatorContext context)
-   {
+    @Override
+    public boolean isValid(String value, ConstraintValidatorContext context) {
 
-      if (value == null)
-      {
-         return true;
-      }
+        if (value == null) {
+            return true;
+        }
 
-      return value.equals(service.sayHello(this.name));
-   }
+        return value.equals(service.sayHello(this.name));
+    }
 
 }
