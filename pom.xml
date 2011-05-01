@@ -20,209 +20,210 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-   <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-   <parent>
-      <artifactId>seam-parent</artifactId>
-      <groupId>org.jboss.seam</groupId>
-      <version>10</version>
-   </parent>
+    <parent>
+        <artifactId>seam-parent</artifactId>
+        <groupId>org.jboss.seam</groupId>
+        <version>10</version>
+    </parent>
 
-   <groupId>org.jboss.seam.validation</groupId>
-   <artifactId>seam-validation-parent</artifactId>
-   <packaging>pom</packaging>
-   <version>3.0.1-SNAPSHOT</version>
+    <groupId>org.jboss.seam.validation</groupId>
+    <artifactId>seam-validation-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>3.0.1-SNAPSHOT</version>
 
-   <name>Seam Validation Module Parent</name>
-   <url>http://seamframework.org/Seam3/ValidationModule</url>
-   
-   <description>
+    <name>Seam Validation Module Parent</name>
+    <url>http://seamframework.org/Seam3/ValidationModule</url>
+
+    <description>
       The parent POM for all sub modules of the Seam Validation module.
    </description>
-   
-   <modules>
-      <module>api</module>
-      <module>impl</module>
-      <module>combined</module>      
-   </modules>
 
-   <organization>
-      <name>Seam Framework &amp; Gunnar Morling</name>
-      <url>http://seamframework.org</url>
-   </organization>
-  
-   <licenses>
-      <license>
-         <name>Apache License, Version 2.0</name>
-         <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-         <distribution>repo</distribution>
-      </license>
-   </licenses>
+    <modules>
+        <module>api</module>
+        <module>impl</module>
+        <module>combined</module>
+    </modules>
 
-   <developers>
-      <developer>
-         <name>Gunnar Morling</name>
-      </developer>
-   </developers>
+    <organization>
+        <name>Seam Framework &amp; Gunnar Morling</name>
+        <url>http://seamframework.org</url>
+    </organization>
 
-   <properties>
-      <seam.version>3.0.0.Final</seam.version>
-      <cdi-api.version>1.0-SP3</cdi-api.version>
-      <hibernate.validator.version>4.2.0.Beta2</hibernate.validator.version>
-   </properties>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Gunnar Morling</name>
+        </developer>
+    </developers>
+
+    <properties>
+        <seam.version>3.0.0.Final</seam.version>
+        <cdi-api.version>1.0-SP3</cdi-api.version>
+        <hibernate.validator.version>4.2.0.Beta2</hibernate.validator.version>
+    </properties>
 
    <!-- Declares dependency versions -->
-   <dependencyManagement>
-      <dependencies>
-         <dependency>
-            <groupId>org.jboss.seam</groupId>
-            <artifactId>seam-bom</artifactId>
-            <version>${seam.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-         </dependency>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.seam</groupId>
+                <artifactId>seam-bom</artifactId>
+                <version>${seam.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
          <!-- This project's module versions -->
-         <dependency>
-            <groupId>org.jboss.seam.validation</groupId>
-            <artifactId>seam-validation-api</artifactId>
-            <version>${project.version}</version>
-         </dependency>
-         <dependency>
-            <groupId>org.jboss.seam.validation</groupId>
-            <artifactId>seam-validation-impl</artifactId>
-            <version>${project.version}</version>
-         </dependency>
-         <dependency>
-            <groupId>org.jboss.seam.validation</groupId>
-            <artifactId>seam-validation</artifactId>
-            <version>${project.version}</version>
-         </dependency>
-         <dependency>
-            <groupId>org.jboss.seam.validation</groupId>
-            <artifactId>seam-validation-example-helloworld</artifactId>
-            <version>${project.version}</version>
-         </dependency>
-         <dependency>
-            <groupId>org.jboss.seam.validation</groupId>
-            <artifactId>seam-validation-reference-guide</artifactId>
-            <type>war</type>
-            <version>${project.version}</version>
-         </dependency>
-         
-         <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <version>${cdi-api.version}</version>
-            <exclusions>
-               <exclusion>
-                  <artifactId>jboss-interceptor-api</artifactId>
-                  <groupId>org.jboss.interceptor</groupId>
-               </exclusion>
-               <exclusion>
-                  <artifactId>jsr250-api</artifactId>
-                  <groupId>javax.annotation</groupId>
-               </exclusion>
-            </exclusions>
-         </dependency>
-      </dependencies>
-   </dependencyManagement>
+            <dependency>
+                <groupId>org.jboss.seam.validation</groupId>
+                <artifactId>seam-validation-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.seam.validation</groupId>
+                <artifactId>seam-validation-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.seam.validation</groupId>
+                <artifactId>seam-validation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.seam.validation</groupId>
+                <artifactId>seam-validation-example-helloworld</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.seam.validation</groupId>
+                <artifactId>seam-validation-reference-guide</artifactId>
+                <type>war</type>
+                <version>${project.version}</version>
+            </dependency>
 
-   <build>
+            <dependency>
+                <groupId>javax.enterprise</groupId>
+                <artifactId>cdi-api</artifactId>
+                <version>${cdi-api.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>jboss-interceptor-api</artifactId>
+                        <groupId>org.jboss.interceptor</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>jsr250-api</artifactId>
+                        <groupId>javax.annotation</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
       <!-- Common plug-in configuration for all modules -->
-      <pluginManagement>
-         <plugins>
-            <plugin>
-               <groupId>org.apache.maven.plugins</groupId>
-               <artifactId>maven-compiler-plugin</artifactId>
-               <configuration>
-                  <source>1.6</source>
-                  <target>1.6</target>
-               </configuration>
-            </plugin>
-            <plugin>
-               <groupId>com.mycila.maven-license-plugin</groupId>
-               <artifactId>maven-license-plugin</artifactId>
-               <version>1.9.0</version>
-               <configuration>
-                  <header>etc/license.txt</header>
-                  <excludes>
-                     <exclude>**/src/test/java/org/jboss/arquillian/**</exclude>
-                  </excludes>
-               </configuration>
-               <executions>
-                  <execution>
-                     <id>check</id>
-                     <goals>
-                        <goal>check</goal>
-                     </goals>
-                  </execution>
-               </executions>
-            </plugin>
-         </plugins>
-      </pluginManagement>
-   </build>
-   
-   <profiles>
-      <profile>
-         <id>distribution</id>
-         <activation>
-            <property>
-               <name>release</name>
-            </property>
-         </activation>
-         <modules>
-            <module>docs</module>
-            <module>examples/helloworld</module>
-            <module>dist</module>
-         </modules>
-      </profile>
-      <profile>
-         <id>jboss-public-repository</id>
-         <activation>
-            <property>
-               <name>jboss-public-repository</name>
-               <value>!false</value>
-            </property>
-         </activation>
-         <repositories>
-            <repository>
-               <id>jboss-public-repository-group</id>
-               <name>JBoss Public Maven Repository Group</name>
-               <url>http://repository.jboss.org/nexus/content/groups/public</url>
-               <releases>
-                  <enabled>true</enabled>
-                  <updatePolicy>never</updatePolicy>
-               </releases>
-               <snapshots>
-                  <enabled>false</enabled>
-                  <updatePolicy>never</updatePolicy>
-               </snapshots>
-            </repository>
-         </repositories>
-         <pluginRepositories>
-            <pluginRepository>
-               <id>jboss-public-repository-group</id>
-               <name>JBoss Public Maven Repository Group</name>
-               <url>http://repository.jboss.org/nexus/content/groups/public</url>
-               <releases>
-                  <enabled>true</enabled>
-                  <updatePolicy>never</updatePolicy>
-               </releases>
-               <snapshots>
-                  <enabled>false</enabled>
-                  <updatePolicy>never</updatePolicy>
-               </snapshots>
-            </pluginRepository>
-         </pluginRepositories>
-      </profile>
-   </profiles>   
-   
-   <scm>
-      <connection>scm:git:git://github.com/seam/validation.git</connection>
-      <developerConnection>scm:git:git@github.com:seam/validation.git</developerConnection>
-      <url>http://github.com/seam/validation</url>
-   </scm>   
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.6</source>
+                        <target>1.6</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>com.mycila.maven-license-plugin</groupId>
+                    <artifactId>maven-license-plugin</artifactId>
+                    <version>1.9.0</version>
+                    <configuration>
+                        <header>etc/license.txt</header>
+                        <excludes>
+                            <exclude>**/src/test/java/org/jboss/arquillian/**</exclude>
+                        </excludes>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>check</id>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>distribution</id>
+            <activation>
+                <property>
+                    <name>release</name>
+                </property>
+            </activation>
+            <modules>
+                <module>docs</module>
+                <module>examples/helloworld</module>
+                <module>dist</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>jboss-public-repository</id>
+            <activation>
+                <property>
+                    <name>jboss-public-repository</name>
+                    <value>!false</value>
+                </property>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>jboss-public-repository-group</id>
+                    <name>JBoss Public Maven Repository Group</name>
+                    <url>http://repository.jboss.org/nexus/content/groups/public</url>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>jboss-public-repository-group</id>
+                    <name>JBoss Public Maven Repository Group</name>
+                    <url>http://repository.jboss.org/nexus/content/groups/public</url>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+
+    <scm>
+        <connection>scm:git:git://github.com/seam/validation.git</connection>
+        <developerConnection>scm:git:git@github.com:seam/validation.git</developerConnection>
+        <url>http://github.com/seam/validation</url>
+    </scm>
 </project>
