@@ -25,31 +25,31 @@ import org.mortbay.jetty.nio.SelectChannelConnector;
 import org.mortbay.jetty.webapp.WebAppContext;
 import org.mortbay.resource.ResourceCollection;
 
-public class JettyRunner
-{
+public class JettyRunner {
 
-   public static void main(String[] args) throws Exception
-   {
-      Server server = new Server();
+    public static void main(String[] args) throws Exception {
+        Server server = new Server();
 
-      Connector connector = new SelectChannelConnector();
-      connector.setPort(8080);
-      connector.setHost("127.0.0.1");
-      server.addConnector(connector);
+        Connector connector = new SelectChannelConnector();
+        connector.setPort(8080);
+        connector.setHost("127.0.0.1");
+        server.addConnector(connector);
 
-      WebAppContext wac = new WebAppContext();
-      wac.setContextPath("/validation-helloworld");
-      wac.setBaseResource(new ResourceCollection(new String[] { "./src/main/webapp", "./src/main/webapp-jetty" }));
+        WebAppContext wac = new WebAppContext();
+        wac.setContextPath("/validation-helloworld");
+        wac.setBaseResource(new ResourceCollection(new String[] { "./src/main/webapp", "./src/main/webapp-jetty" }));
 
-      wac.setConfigurationClasses(new String[] {
+        wac.setConfigurationClasses(new String[] {
 
-      "org.mortbay.jetty.webapp.WebInfConfiguration", "org.mortbay.jetty.plus.webapp.EnvConfiguration", "org.mortbay.jetty.plus.webapp.Configuration", "org.mortbay.jetty.webapp.JettyWebXmlConfiguration" });
+        "org.mortbay.jetty.webapp.WebInfConfiguration", "org.mortbay.jetty.plus.webapp.EnvConfiguration",
+                "org.mortbay.jetty.plus.webapp.Configuration", "org.mortbay.jetty.webapp.JettyWebXmlConfiguration" });
 
-      server.setHandler(wac);
-      server.setStopAtShutdown(true);
-      server.start();
-      System.out.println("Started Seam Validation Example Application on http://localhost:8080/validation-helloworld/HelloWorld");
+        server.setHandler(wac);
+        server.setStopAtShutdown(true);
+        server.start();
+        System.out
+                .println("Started Seam Validation Example Application on http://localhost:8080/validation-helloworld/HelloWorld");
 
-      server.join();
-   }
+        server.join();
+    }
 }

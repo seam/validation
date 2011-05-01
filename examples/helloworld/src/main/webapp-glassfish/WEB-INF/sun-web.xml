@@ -29,5 +29,5 @@
       this module instead of the version shipping with GlassFish. This is
       not needed once GF itself comes with HV 4.2 or later.
    -->
-   <class-loader delegate="false" />
+    <class-loader delegate="false" />
 </sun-web-app>

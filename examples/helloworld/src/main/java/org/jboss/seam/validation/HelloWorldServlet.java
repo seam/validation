@@ -27,40 +27,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class HelloWorldServlet extends HttpServlet
-{
+public class HelloWorldServlet extends HttpServlet {
 
-   private static final long serialVersionUID = -8659615639253408826L;
+    private static final long serialVersionUID = -8659615639253408826L;
 
-   @Inject
-   private HelloWorldService service;
+    @Inject
+    private HelloWorldService service;
 
-   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-   {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-      response.setContentType("text/html");
-      response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("text/html");
+        response.setStatus(HttpServletResponse.SC_OK);
 
-      String name = request.getParameter("name");
-      if (name != null)
-      {
-         response.getWriter().println("<h1>" + service.sayHello(name) + "</h1>");
-      }
-      else
-      {
-         response.getWriter().println("<?xml version=\"1.0\" ?>");
-         response.getWriter().println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
-         response.getWriter().println("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
-         response.getWriter().println("   <head><title>Seam Validation Module Example</title></head>");
-         response.getWriter().println("   <body>");
-         response.getWriter().println("      <h1>Seam Validation Module Example - Method Validation</h1>");
-         response.getWriter().println("      <p>Hi, what's your name? Enter at least three characters.</p>");         
-         response.getWriter().println("      <form action=\"HelloWorld\">");
-         response.getWriter().println("         Name: <input name=\"name\" type=\"text\" size=\"30\">");
-         response.getWriter().println("         <input type=\"submit\" value=\" OK \">");
-         response.getWriter().println("      </form>");
-         response.getWriter().println("   </body>");
-         response.getWriter().println("</html>");
-      }
-   }
+        String name = request.getParameter("name");
+        if (name != null) {
+            response.getWriter().println("<h1>" + service.sayHello(name) + "</h1>");
+        } else {
+            response.getWriter().println("<?xml version=\"1.0\" ?>");
+            response.getWriter()
+                    .println(
+                            "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+            response.getWriter().println("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
+            response.getWriter().println("   <head><title>Seam Validation Module Example</title></head>");
+            response.getWriter().println("   <body>");
+            response.getWriter().println("      <h1>Seam Validation Module Example - Method Validation</h1>");
+            response.getWriter().println("      <p>Hi, what's your name? Enter at least three characters.</p>");
+            response.getWriter().println("      <form action=\"HelloWorld\">");
+            response.getWriter().println("         Name: <input name=\"name\" type=\"text\" size=\"30\">");
+            response.getWriter().println("         <input type=\"submit\" value=\" OK \">");
+            response.getWriter().println("      </form>");
+            response.getWriter().println("   </body>");
+            response.getWriter().println("</html>");
+        }
+    }
 }

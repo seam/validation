@@ -20,83 +20,84 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-   <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-   <parent>
-      <groupId>org.jboss.seam.validation</groupId>
-      <artifactId>seam-validation-parent</artifactId>
-      <version>3.0.1-SNAPSHOT</version>
-      <relativePath>../../pom.xml</relativePath>
-   </parent>
+    <parent>
+        <groupId>org.jboss.seam.validation</groupId>
+        <artifactId>seam-validation-parent</artifactId>
+        <version>3.0.1-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
 
-   <artifactId>seam-validation-example-helloworld</artifactId>
-   <packaging>war</packaging>
+    <artifactId>seam-validation-example-helloworld</artifactId>
+    <packaging>war</packaging>
 
-   <name>Seam Validation Module Example</name>
-   <url>${project.parent.url}</url>
-   
-   <description>
+    <name>Seam Validation Module Example</name>
+    <url>${project.parent.url}</url>
+
+    <description>
 		An example of using Seam Validation with a Servlet.
    </description>
 
-   <properties>
-      <finalName>validation-helloworld</finalName>
-   </properties>
-   
-   <dependencies>
+    <properties>
+        <finalName>validation-helloworld</finalName>
+    </properties>
 
-      <dependency>
-         <groupId>javax.enterprise</groupId>
-         <artifactId>cdi-api</artifactId>
-         <scope>provided</scope>
-      </dependency>
+    <dependencies>
 
-      <dependency>
-         <groupId>${project.groupId}</groupId>
-         <artifactId>seam-validation</artifactId>
-      </dependency>
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-      <dependency>
-         <groupId>org.hibernate</groupId>
-         <artifactId>hibernate-validator</artifactId>
-      </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>seam-validation</artifactId>
+        </dependency>
 
-      <dependency>
-        <groupId>org.jboss.spec.javax.servlet</groupId>
-        <artifactId>jboss-servlet-api_3.0_spec</artifactId>
-        <scope>provided</scope>
-      </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.spec.javax.servlet</groupId>
+            <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
       
       <!-- Using Jetty 6 for now, as Servlet injection does not yet work on 7 (see WELD-784) -->
-      <dependency>
-         <groupId>org.mortbay.jetty</groupId>
-         <artifactId>jetty</artifactId>
-         <scope>test</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.mortbay.jetty</groupId>
-         <artifactId>jetty-plus</artifactId>
-         <scope>test</scope>         
-      </dependency>
-      <dependency>
-         <groupId>org.mortbay.jetty</groupId>
-         <artifactId>jetty-naming</artifactId>
-         <scope>test</scope>         
-      </dependency>
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-plus</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-naming</artifactId>
+            <scope>test</scope>
+        </dependency>
       
       <!-- required by Weld's servlet listener -->
-      <dependency>
-         <groupId>org.jboss.spec.javax.servlet.jsp</groupId>
-         <artifactId>jboss-jsp-api_2.2_spec</artifactId>
-         <scope>test</scope>
-      </dependency>
-   </dependencies>
-   
+        <dependency>
+            <groupId>org.jboss.spec.javax.servlet.jsp</groupId>
+            <artifactId>jboss-jsp-api_2.2_spec</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-   <build>
-      <finalName>validation-helloworld</finalName>
+
+    <build>
+        <finalName>validation-helloworld</finalName>
       
       <!-- We don't force license headers -->
       <!--plugins>
@@ -105,147 +106,147 @@
             <artifactId>maven-license-plugin</artifactId>
          </plugin>      
       </plugins-->
-   </build>
-   
-   <profiles>
-      <profile>
-         <id>distribution</id>
-         <activation>
-            <property>
-               <name>release</name>
-            </property>
-         </activation>
-         <build>
-            <plugins>
-               <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-assembly-plugin</artifactId>
-               </plugin>
-            </plugins>
-         </build>
-      </profile>     
-   
-      <profile>
-         <id>servlet</id>
-         <dependencies>
-            <dependency>
-               <groupId>org.jboss.weld.servlet</groupId>
-               <artifactId>weld-servlet</artifactId>
-            </dependency>
-         </dependencies>
-         <build>
-            <plugins>
-               <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-war-plugin</artifactId>
-                  <configuration>
-                     <webResources>
-                        <resource>
-                           <directory>src/main/webapp</directory>
-                        </resource>
-                        <resource>
-                           <directory>src/main/webapp-jetty</directory>
-                        </resource>                        
-                     </webResources>
-                  </configuration>
-               </plugin>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>distribution</id>
+            <activation>
+                <property>
+                    <name>release</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>servlet</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.weld.servlet</groupId>
+                    <artifactId>weld-servlet</artifactId>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <webResources>
+                                <resource>
+                                    <directory>src/main/webapp</directory>
+                                </resource>
+                                <resource>
+                                    <directory>src/main/webapp-jetty</directory>
+                                </resource>
+                            </webResources>
+                        </configuration>
+                    </plugin>
       
                <!-- use 'mvn jetty:run' or 'mvn jetty:run-war' to run example on command line -->
-               <plugin>
-                  <groupId>org.mortbay.jetty</groupId>
-                  <artifactId>maven-jetty-plugin</artifactId>
-                  <version>${mortbay.jetty.version}</version>
-                  <configuration>
-                     <contextPath>${finalName}</contextPath>
-                     <jettyEnvXml>${basedir}/src/main/webapp-jetty/WEB-INF/jetty-env.xml</jettyEnvXml>
-                     <webAppConfig>
-                        <baseResource implementation="org.mortbay.resource.ResourceCollection">
+                    <plugin>
+                        <groupId>org.mortbay.jetty</groupId>
+                        <artifactId>maven-jetty-plugin</artifactId>
+                        <version>${mortbay.jetty.version}</version>
+                        <configuration>
+                            <contextPath>${finalName}</contextPath>
+                            <jettyEnvXml>${basedir}/src/main/webapp-jetty/WEB-INF/jetty-env.xml</jettyEnvXml>
+                            <webAppConfig>
+                                <baseResource implementation="org.mortbay.resource.ResourceCollection">
                            
                            <!-- use this for 'mvn jetty:run' -->
-                           <resourcesAsCSV>src/main/webapp-jetty,src/main/webapp</resourcesAsCSV>
+                                    <resourcesAsCSV>src/main/webapp-jetty,src/main/webapp</resourcesAsCSV>
                            
                            <!-- OR use this for 'mvn jetty:run-war' -->
                            <!-- <resourcesAsCSV>src/main/webapp-jetty,src/main/webapp,${project.build.directory}/${project.build.finalName}</resourcesAsCSV>  -->
-                        </baseResource>
-                     </webAppConfig>
-                     <connectors>
-                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-                           <port>8080</port>
-                        </connector>
-                     </connectors>
-                  </configuration>
-               </plugin>
-            </plugins>
-         </build>         
-      </profile>
-      
-      <profile>
-         <id>glassfish</id>
-         <dependencies>
+                                </baseResource>
+                            </webAppConfig>
+                            <connectors>
+                                <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                                    <port>8080</port>
+                                </connector>
+                            </connectors>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>glassfish</id>
+            <dependencies>
             <!-- Put a binding for slf4j into the resulting WAR as this example
                bundles Hibernate Validator instead of using the version provided
                by GlassFish. -->
-            <dependency>
-               <groupId>org.slf4j</groupId>
-               <artifactId>slf4j-jdk14</artifactId>
-               <version>${slf4j.version}</version>
-               <scope>runtime</scope>
-            </dependency>
-         </dependencies>         
-         <build>
-            <plugins>
-               <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-war-plugin</artifactId>
-                  <configuration>
-                     <webResources>
-                        <resource>
-                           <directory>src/main/webapp</directory>
-                        </resource>                     
-                        <resource>
-                           <directory>src/main/webapp-jee</directory>
-                        </resource>
-                        <resource>
-                           <directory>src/main/webapp-glassfish</directory>
-                        </resource>                        
-                     </webResources>
-                  </configuration>
-               </plugin>
-            </plugins>
-         </build>         
-      </profile>      
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-jdk14</artifactId>
+                    <version>${slf4j.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <webResources>
+                                <resource>
+                                    <directory>src/main/webapp</directory>
+                                </resource>
+                                <resource>
+                                    <directory>src/main/webapp-jee</directory>
+                                </resource>
+                                <resource>
+                                    <directory>src/main/webapp-glassfish</directory>
+                                </resource>
+                            </webResources>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 
-      <profile>
-         <id>jbossas</id>
+        <profile>
+            <id>jbossas</id>
          <!--activation>
             <activeByDefault>true</activeByDefault>
-         </activation-->         
-         <dependencies>
+         </activation-->
+            <dependencies>
             <!-- Don't put slf4j into the resulting WAR, as JBoss contains it already -->
-            <dependency>
-               <groupId>org.slf4j</groupId>
-               <artifactId>slf4j-api</artifactId>
-               <scope>provided</scope>
-            </dependency>
-         </dependencies>
-         <build>
-            <plugins>
-               <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-war-plugin</artifactId>
-                  <configuration>
-                     <webResources>
-                        <resource>
-                           <directory>src/main/webapp</directory>
-                        </resource>                     
-                        <resource>
-                           <directory>src/main/webapp-jee</directory>
-                        </resource>
-                     </webResources>
-                  </configuration>
-               </plugin>
-            </plugins>
-         </build>         
-      </profile>      
-   </profiles>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <webResources>
+                                <resource>
+                                    <directory>src/main/webapp</directory>
+                                </resource>
+                                <resource>
+                                    <directory>src/main/webapp-jee</directory>
+                                </resource>
+                            </webResources>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
