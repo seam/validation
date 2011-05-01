@@ -30,16 +30,13 @@ import javax.validation.constraints.Size;
  * 
  */
 @ApplicationScoped
-public class HelloWorldService
-{
+public class HelloWorldService {
 
-   public HelloWorldService()
-   {
-   }
+    public HelloWorldService() {
+    }
 
-   public String sayHello(@NotNull @Size(min = 3) String name)
-   {
-      return "Hello, " + name + "!";
-   }
+    public String sayHello(@NotNull @Size(min = 3) String name) {
+        return "Hello, " + name + "!";
+    }
 
 }

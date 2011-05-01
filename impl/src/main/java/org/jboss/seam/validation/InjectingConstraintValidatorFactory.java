@@ -31,61 +31,54 @@ import javax.validation.Validation;
 import org.jboss.seam.solder.beanManager.BeanManagerAware;
 
 /**
- * A {@link ConstraintValidatorFactory} which enables CDI based dependency
- * injection for the created {@link ConstraintValidator}s. Validator types must
- * be valid CDI beans - in particular they must be defined in a bean deployment
- * archive (BDA) - in order to make use of DI services.
+ * A {@link ConstraintValidatorFactory} which enables CDI based dependency injection for the created {@link ConstraintValidator}
+ * s. Validator types must be valid CDI beans - in particular they must be defined in a bean deployment archive (BDA) - in order
+ * to make use of DI services.
  * 
  * @author Gunnar Morling
  * 
  */
-public class InjectingConstraintValidatorFactory extends BeanManagerAware implements ConstraintValidatorFactory
-{
+public class InjectingConstraintValidatorFactory extends BeanManagerAware implements ConstraintValidatorFactory {
 
-   /**
-    * The default constraint validator factory. The creation of validators which
-    * are no compliant CDI bean (not contained in a BDA etc.) will be delegated
-    * to this factory.
-    */
-   private final ConstraintValidatorFactory delegate;
+    /**
+     * The default constraint validator factory. The creation of validators which are no compliant CDI bean (not contained in a
+     * BDA etc.) will be delegated to this factory.
+     */
+    private final ConstraintValidatorFactory delegate;
 
-   public InjectingConstraintValidatorFactory()
-   {
+    public InjectingConstraintValidatorFactory() {
 
-      delegate = Validation.byDefaultProvider().configure().getDefaultConstraintValidatorFactory();
-   }
+        delegate = Validation.byDefaultProvider().configure().getDefaultConstraintValidatorFactory();
+    }
 
-   @SuppressWarnings("unchecked")
-   public <T extends ConstraintValidator<?, ?>> T getInstance(Class<T> key)
-   {
+    @SuppressWarnings("unchecked")
+    public <T extends ConstraintValidator<?, ?>> T getInstance(Class<T> key) {
 
-      T theValue;
+        T theValue;
 
-      if (!isBeanManagerAvailable()) {
-         throw new IllegalStateException(
-            "No bean manager is available. In order to use InjectingConstraintValidatorFactory, the javax.validation.Validator " +
-            "must either be retrieved via dependency injection or a bean manager must be available via JNDI.");
-      }
+        if (!isBeanManagerAvailable()) {
+            throw new IllegalStateException(
+                    "No bean manager is available. In order to use InjectingConstraintValidatorFactory, the javax.validation.Validator "
+                            + "must either be retrieved via dependency injection or a bean manager must be available via JNDI.");
+        }
 
-      BeanManager beanManager = getBeanManager();
-  
-      Set<Bean<?>> beans = beanManager.getBeans(key);
+        BeanManager beanManager = getBeanManager();
 
-      //The given type is a CDI bean, so the container will deal with injection etc.
-      if (!beans.isEmpty())
-      {
-         Bean<?> bean = beanManager.resolve(beans);
-         CreationalContext<?> ctx = beanManager.createCreationalContext(bean);
-     
-         theValue = (T) beanManager.getReference(bean, key, ctx);
-      }
-      //The given type is no CDI bean, so delegate the creation to the default factory
-      else
-      {
-         theValue = delegate.getInstance(key);
-      }
+        Set<Bean<?>> beans = beanManager.getBeans(key);
 
-      return theValue;
-   }
+        // The given type is a CDI bean, so the container will deal with injection etc.
+        if (!beans.isEmpty()) {
+            Bean<?> bean = beanManager.resolve(beans);
+            CreationalContext<?> ctx = beanManager.createCreationalContext(bean);
+
+            theValue = (T) beanManager.getReference(bean, key, ctx);
+        }
+        // The given type is no CDI bean, so delegate the creation to the default factory
+        else {
+            theValue = delegate.getInstance(key);
+        }
+
+        return theValue;
+    }
 
 }

@@ -33,47 +33,41 @@ import org.jboss.seam.validation.AutoValidating;
 import org.jboss.seam.validation.method.domain.Movie;
 
 /**
- * An exemplary business service for which automatic method-level validation is
- * enabled.
+ * An exemplary business service for which automatic method-level validation is enabled.
  * 
  * @author Gunnar Morling
  * 
  */
 @AutoValidating
-public class MovieRepository
-{
+public class MovieRepository {
 
-   private final Map<Long, Movie> sampleMovies = new TreeMap<Long, Movie>();
+    private final Map<Long, Movie> sampleMovies = new TreeMap<Long, Movie>();
 
-   public MovieRepository()
-   {
+    public MovieRepository() {
 
-      Movie movie = new Movie(1, "The Usual Suspects", 106, "Bryan Singer", new GregorianCalendar(1995, 7, 16).getTime());
+        Movie movie = new Movie(1, "The Usual Suspects", 106, "Bryan Singer", new GregorianCalendar(1995, 7, 16).getTime());
 
-      sampleMovies.put(movie.getId(), movie);
+        sampleMovies.put(movie.getId(), movie);
 
-      movie = new Movie(2, "The Road", 160, "John Hillcoat", null);
+        movie = new Movie(2, "The Road", 160, "John Hillcoat", null);
 
-      sampleMovies.put(movie.getId(), movie);
-   }
+        sampleMovies.put(movie.getId(), movie);
+    }
 
-   public @NotNull
-   @Valid
-   Set<Movie> findMoviesByDirector(@NotNull @Size(min = 3) String director)
-   {
+    public @NotNull
+    @Valid
+    Set<Movie> findMoviesByDirector(@NotNull @Size(min = 3) String director) {
 
-      Set<Movie> theValue = new HashSet<Movie>();
+        Set<Movie> theValue = new HashSet<Movie>();
 
-      for (Movie oneMovie : sampleMovies.values())
-      {
-         if (oneMovie.getDirector().equals(director))
-         {
-            theValue.add(oneMovie);
-         }
+        for (Movie oneMovie : sampleMovies.values()) {
+            if (oneMovie.getDirector().equals(director)) {
+                theValue.add(oneMovie);
+            }
 
-      }
+        }
 
-      return theValue;
-   }
+        return theValue;
+    }
 
 }
