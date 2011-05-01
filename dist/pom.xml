@@ -20,94 +20,95 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-   <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-   <parent>
-      <groupId>org.jboss.seam.validation</groupId>
-      <artifactId>seam-validation-parent</artifactId>
-      <version>3.0.1-SNAPSHOT</version>
-      <relativePath>../pom.xml</relativePath>
-   </parent>
+    <parent>
+        <groupId>org.jboss.seam.validation</groupId>
+        <artifactId>seam-validation-parent</artifactId>
+        <version>3.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
-   <artifactId>seam-validation-distribution</artifactId>
-   <name>Seam Validation Module Distribution</name>
-   <url>${project.parent.url}</url>
-   <description>Builds the Seam Validation module release distribution</description>
-   <packaging>pom</packaging>
+    <artifactId>seam-validation-distribution</artifactId>
+    <name>Seam Validation Module Distribution</name>
+    <url>${project.parent.url}</url>
+    <description>Builds the Seam Validation module release distribution</description>
+    <packaging>pom</packaging>
 
-   <properties>
-      <maven.deploy.skip>true</maven.deploy.skip>
-   </properties>
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
 
-   <dependencies>
+    <dependencies>
 
-      <dependency>
-         <groupId>org.jboss.seam.validation</groupId>
-         <artifactId>seam-validation-api</artifactId>
-         <optional>true</optional>
-      </dependency>
+        <dependency>
+            <groupId>org.jboss.seam.validation</groupId>
+            <artifactId>seam-validation-api</artifactId>
+            <optional>true</optional>
+        </dependency>
 
-      <dependency>
-         <groupId>org.jboss.seam.validation</groupId>
-         <artifactId>seam-validation-impl</artifactId>
-         <optional>true</optional>
-      </dependency>
+        <dependency>
+            <groupId>org.jboss.seam.validation</groupId>
+            <artifactId>seam-validation-impl</artifactId>
+            <optional>true</optional>
+        </dependency>
 
-      <dependency>
-         <groupId>org.jboss.seam.validation</groupId>
-         <artifactId>seam-validation</artifactId>
-         <optional>true</optional>
-      </dependency>
+        <dependency>
+            <groupId>org.jboss.seam.validation</groupId>
+            <artifactId>seam-validation</artifactId>
+            <optional>true</optional>
+        </dependency>
 
-      <dependency>
-         <groupId>org.jboss.seam.validation</groupId>
-         <artifactId>seam-validation-api</artifactId>
-         <version>${project.version}</version>
-         <classifier>sources</classifier>
-         <optional>true</optional>
-      </dependency>
+        <dependency>
+            <groupId>org.jboss.seam.validation</groupId>
+            <artifactId>seam-validation-api</artifactId>
+            <version>${project.version}</version>
+            <classifier>sources</classifier>
+            <optional>true</optional>
+        </dependency>
 
-      <dependency>
-         <groupId>org.jboss.seam.validation</groupId>
-         <artifactId>seam-validation-impl</artifactId>
-         <version>${project.version}</version>
-         <classifier>sources</classifier>
-         <optional>true</optional>
-      </dependency>
- 
-      <dependency>
-         <groupId>org.jboss.seam.validation</groupId>
-         <artifactId>seam-validation-api</artifactId>
-         <version>${project.version}</version>
-         <classifier>javadoc</classifier>
-      </dependency>
+        <dependency>
+            <groupId>org.jboss.seam.validation</groupId>
+            <artifactId>seam-validation-impl</artifactId>
+            <version>${project.version}</version>
+            <classifier>sources</classifier>
+            <optional>true</optional>
+        </dependency>
 
-      <dependency>
-         <groupId>org.jboss.seam.validation</groupId>
-         <artifactId>seam-validation-example-helloworld</artifactId>
-         <version>${project.version}</version>
-         <type>zip</type>         
-         <optional>true</optional>
-      </dependency>
+        <dependency>
+            <groupId>org.jboss.seam.validation</groupId>
+            <artifactId>seam-validation-api</artifactId>
+            <version>${project.version}</version>
+            <classifier>javadoc</classifier>
+        </dependency>
 
-      <dependency>
-         <groupId>org.jboss.seam.validation</groupId>
-         <artifactId>seam-validation-reference-guide</artifactId>
-         <type>war</type>
-         <optional>true</optional>
-      </dependency>
-      
-   </dependencies>
+        <dependency>
+            <groupId>org.jboss.seam.validation</groupId>
+            <artifactId>seam-validation-example-helloworld</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+            <optional>true</optional>
+        </dependency>
 
-   <build>
-      <finalName>seam-validation</finalName>
-      <plugins>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-assembly-plugin</artifactId>
-         </plugin>
-      </plugins>
-   </build>
+        <dependency>
+            <groupId>org.jboss.seam.validation</groupId>
+            <artifactId>seam-validation-reference-guide</artifactId>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>seam-validation</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

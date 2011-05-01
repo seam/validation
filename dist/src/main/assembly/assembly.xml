@@ -21,110 +21,110 @@
 
 -->
 <assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
 
-   <formats>
-      <format>zip</format>
-   </formats>
+    <formats>
+        <format>zip</format>
+    </formats>
 
-   <baseDirectory>${project.build.finalName}-${project.version}</baseDirectory>
+    <baseDirectory>${project.build.finalName}-${project.version}</baseDirectory>
 
    <!-- Add distribution files -->
-   <fileSets>
-      <fileSet>
-         <directory>src/main/assembly</directory>
-         <outputDirectory>.</outputDirectory>
-         <filtered>true</filtered>
-         <includes>
-            <include>readme.txt</include>
-            <include>license.txt</include>
-            <include>notice.txt</include>
-            <include>copyright.txt</include>
-         </includes>
-      </fileSet>
-   </fileSets>
+    <fileSets>
+        <fileSet>
+            <directory>src/main/assembly</directory>
+            <outputDirectory>.</outputDirectory>
+            <filtered>true</filtered>
+            <includes>
+                <include>readme.txt</include>
+                <include>license.txt</include>
+                <include>notice.txt</include>
+                <include>copyright.txt</include>
+            </includes>
+        </fileSet>
+    </fileSets>
 
-   <dependencySets>
+    <dependencySets>
 
       <!-- Add necessary binaries -->
-      <dependencySet>
-         <outputDirectory>artifacts</outputDirectory>
-         <useProjectArtifact>false</useProjectArtifact>
-         <includes>
-            <include>org.jboss.seam.validation:seam-validation</include>
-         </includes>
-         <excludes>
-            <exclude>org.jboss.seam.validation:*:*:javadoc</exclude>
-            <exclude>org.jboss.seam.validation:*:*:sources</exclude>
-         </excludes>
-         <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
-      </dependencySet>
+        <dependencySet>
+            <outputDirectory>artifacts</outputDirectory>
+            <useProjectArtifact>false</useProjectArtifact>
+            <includes>
+                <include>org.jboss.seam.validation:seam-validation</include>
+            </includes>
+            <excludes>
+                <exclude>org.jboss.seam.validation:*:*:javadoc</exclude>
+                <exclude>org.jboss.seam.validation:*:*:sources</exclude>
+            </excludes>
+            <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+        </dependencySet>
 
       <!-- Add necessary dependencies -->
-      <dependencySet>
-         <outputDirectory>lib</outputDirectory>
-         <useProjectArtifact>false</useProjectArtifact>
-         <useTransitiveDependencies>true</useTransitiveDependencies>
-         <excludes>
-            <exclude>org.jboss.seam.validation:*</exclude>
-         </excludes>
-         <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
-      </dependencySet>
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useTransitiveDependencies>true</useTransitiveDependencies>
+            <excludes>
+                <exclude>org.jboss.seam.validation:*</exclude>
+            </excludes>
+            <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+        </dependencySet>
 
       <!-- Pull in the example projects -->
-      <dependencySet>
-         <outputDirectory>examples</outputDirectory>
-         <unpack>true</unpack>
-         <useProjectArtifact>false</useProjectArtifact>
-         <includes>
-            <include>org.jboss.seam.validation:seam-validation-example</include>
-         </includes>
-      </dependencySet>
+        <dependencySet>
+            <outputDirectory>examples</outputDirectory>
+            <unpack>true</unpack>
+            <useProjectArtifact>false</useProjectArtifact>
+            <includes>
+                <include>org.jboss.seam.validation:seam-validation-example</include>
+            </includes>
+        </dependencySet>
 
       <!-- Pull in JavaDoc -->
-      <dependencySet>
-         <outputDirectory>docs/api</outputDirectory>
-         <unpack>true</unpack>
-         <useProjectArtifact>false</useProjectArtifact>
-         <includes>
-            <include>org.jboss.seam.validation:seam-validation-api:jar:javadoc</include>
-         </includes>
-         <unpackOptions>
-            <excludes>
-               <exclude>META-INF/</exclude>
-            </excludes>
-         </unpackOptions>
-      </dependencySet>
+        <dependencySet>
+            <outputDirectory>docs/api</outputDirectory>
+            <unpack>true</unpack>
+            <useProjectArtifact>false</useProjectArtifact>
+            <includes>
+                <include>org.jboss.seam.validation:seam-validation-api:jar:javadoc</include>
+            </includes>
+            <unpackOptions>
+                <excludes>
+                    <exclude>META-INF/</exclude>
+                </excludes>
+            </unpackOptions>
+        </dependencySet>
 
       <!-- Pull in docbook artifacts -->
-      <dependencySet>
-         <outputDirectory>docs/reference</outputDirectory>
-         <unpack>true</unpack>
-         <useProjectArtifact>false</useProjectArtifact>
-         <includes>
-            <include>org.jboss.seam.validation:seam-validation-reference-guide</include>
-         </includes>
-         <unpackOptions>
-            <excludes>
-               <exclude>META-INF/</exclude>
-            </excludes>
-         </unpackOptions>
-      </dependencySet>
+        <dependencySet>
+            <outputDirectory>docs/reference</outputDirectory>
+            <unpack>true</unpack>
+            <useProjectArtifact>false</useProjectArtifact>
+            <includes>
+                <include>org.jboss.seam.validation:seam-validation-reference-guide</include>
+            </includes>
+            <unpackOptions>
+                <excludes>
+                    <exclude>META-INF/</exclude>
+                </excludes>
+            </unpackOptions>
+        </dependencySet>
       
       <!-- Source code -->
-      <dependencySet>
-         <outputDirectory>source</outputDirectory>
-         <unpack>true</unpack>
-         <useProjectArtifact>false</useProjectArtifact>
-         <includes>
-            <include>org.jboss.seam.validation:seam-validation-api:*:sources</include>
-            <include>org.jboss.seam.validation:seam-validation-impl:*:sources</include>
-         </includes>
-         <unpackOptions>
-            <excludes>
-               <exclude>META-INF/</exclude>
-            </excludes>
-         </unpackOptions>
-      </dependencySet>        
-   </dependencySets>
+        <dependencySet>
+            <outputDirectory>source</outputDirectory>
+            <unpack>true</unpack>
+            <useProjectArtifact>false</useProjectArtifact>
+            <includes>
+                <include>org.jboss.seam.validation:seam-validation-api:*:sources</include>
+                <include>org.jboss.seam.validation:seam-validation-impl:*:sources</include>
+            </includes>
+            <unpackOptions>
+                <excludes>
+                    <exclude>META-INF/</exclude>
+                </excludes>
+            </unpackOptions>
+        </dependencySet>
+    </dependencySets>
 </assembly>
