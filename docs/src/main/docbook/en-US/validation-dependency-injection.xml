@@ -51,7 +51,7 @@
     instances via dependency injection in any Java EE 6 container.</para>
 
     <para>The Seam Validation module provides the same service for non-Java EE
-    environements such as for instance stand-alone web containers. Just
+    environments such as for instance stand-alone web containers. Just
     annotate any field of type
     <classname>javax.validation.ValidatorFactory</classname> with
     <classname>@Inject</classname> to have the default validator factory
@@ -161,7 +161,7 @@ public class MyBean {
     </example>
 
     <para>Having configured the constraint validator factory you can inject
-    arbitrary CDI beans into you validator implementions. Listing <xref
+    arbitrary CDI beans into you validator implementations. Listing <xref
     linkend="example-di-in-constraintvalidator" /> shows a
     <classname>ConstraintValidator</classname> implementation for the
     <classname>@Past</classname> constraint which uses an injected time
