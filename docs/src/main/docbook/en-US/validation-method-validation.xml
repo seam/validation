@@ -100,7 +100,7 @@ public class CustomerRepository {
   two characters long), a
   <classname>MethodConstraintViolationException</classname> is thrown. That
   way it is ensured that all parameter constraints are fulfilled when the call
-  flow comes to the method implementation (so it is not neccessary to perform
+  flow comes to the method implementation (so it is not necessary to perform
   any parameter null checks manually for instance) and all return value
   constraints are fulfilled when the call flow returns to the caller of the
   method.</para>
@@ -144,6 +144,6 @@ Constraint violations:
   <para>It is recommended that you consult the Hibernate Validator <ulink
   url="http://docs.jboss.org/hibernate/stable/validator/reference/en-US/html/">reference
   guide</ulink> to learn more about the method validation feature in general
-  or for instance the rules that apply for constraining methods in inheritence
+  or for instance the rules that apply for constraining methods in inheritance
   hierarchies in particular.</para>
 </chapter>
