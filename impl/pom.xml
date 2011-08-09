@@ -32,7 +32,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>seam-validation-impl</artifactId>
+    <artifactId>seam-validation</artifactId>
 
     <name>Seam Validation Module Implementation</name>
     <url>${project.parent.url}</url>

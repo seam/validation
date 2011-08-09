@@ -46,7 +46,6 @@
     <modules>
         <module>api</module>
         <module>impl</module>
-        <module>combined</module>
     </modules>
 
     <organization>
@@ -89,11 +88,6 @@
             <dependency>
                 <groupId>org.jboss.seam.validation</groupId>
                 <artifactId>seam-validation-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.seam.validation</groupId>
-                <artifactId>seam-validation-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
