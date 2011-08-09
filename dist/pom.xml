@@ -51,7 +51,7 @@
 
         <dependency>
             <groupId>org.jboss.seam.validation</groupId>
-            <artifactId>seam-validation-impl</artifactId>
+            <artifactId>seam-validation</artifactId>
             <optional>true</optional>
         </dependency>
 
@@ -71,7 +71,7 @@
 
         <dependency>
             <groupId>org.jboss.seam.validation</groupId>
-            <artifactId>seam-validation-impl</artifactId>
+            <artifactId>seam-validation</artifactId>
             <version>${project.version}</version>
             <classifier>sources</classifier>
             <optional>true</optional>
