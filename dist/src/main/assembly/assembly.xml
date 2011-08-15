@@ -119,7 +119,7 @@
             <useProjectArtifact>false</useProjectArtifact>
             <includes>
                 <include>org.jboss.seam.validation:seam-validation-api:*:sources</include>
-                <include>org.jboss.seam.validation:seam-validation-impl:*:sources</include>
+                <include>org.jboss.seam.validation:seam-validation:*:sources</include>
             </includes>
             <unpackOptions>
                 <excludes>
