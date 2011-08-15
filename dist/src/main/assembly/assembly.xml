@@ -51,6 +51,7 @@
             <outputDirectory>artifacts</outputDirectory>
             <useProjectArtifact>false</useProjectArtifact>
             <includes>
+                <include>org.jboss.seam.validation:seam-validation-api</include>
                 <include>org.jboss.seam.validation:seam-validation</include>
             </includes>
             <excludes>
