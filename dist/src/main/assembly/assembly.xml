@@ -80,7 +80,7 @@
             <unpack>true</unpack>
             <useProjectArtifact>false</useProjectArtifact>
             <includes>
-                <include>org.jboss.seam.validation:seam-validation-example</include>
+                <include>org.jboss.seam.validation:seam-validation-example-helloworld</include>
             </includes>
         </dependencySet>
 
