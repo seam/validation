@@ -78,16 +78,17 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jdk14</artifactId>
+            <version>1.5.10</version>
             <scope>provided</scope>
         </dependency>
 
       <!-- Arquillian -->
         <dependency>
-            <groupId>org.jboss.arquillian</groupId>
-            <artifactId>arquillian-junit</artifactId>
-            <version>1.0.0.Alpha5</version>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-weld-se-embedded-1.1</artifactId>
@@ -100,6 +101,7 @@
             <artifactId>weld-core</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.jboss.weld</groupId>
             <artifactId>weld-api</artifactId>
@@ -110,6 +112,14 @@
             <artifactId>jboss-el-api_2.2_spec</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+           <groupId>org.slf4j</groupId>
+           <artifactId>slf4j-api</artifactId>
+           <version>1.5.10</version>
+           <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <profiles>
