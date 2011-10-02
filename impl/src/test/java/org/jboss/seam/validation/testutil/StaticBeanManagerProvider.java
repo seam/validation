@@ -21,7 +21,7 @@ package org.jboss.seam.validation.testutil;
 
 import javax.enterprise.inject.spi.BeanManager;
 
-import org.jboss.seam.solder.beanManager.BeanManagerProvider;
+import org.jboss.solder.beanManager.BeanManagerProvider;
 
 /**
  * A {@link BeanManagerProvider} implementation which provides access to an externally set {@link BeanManager}. This is useful

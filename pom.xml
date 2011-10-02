@@ -67,7 +67,7 @@
     </developers>
 
     <properties>
-        <seam.version>3.1.0.Beta2</seam.version>
+        <seam.version>3.1.0.Beta3</seam.version>
         <cdi-api.version>1.0-SP3</cdi-api.version>
         <hibernate.validator.version>4.2.0.Beta2</hibernate.validator.version>
     </properties>
