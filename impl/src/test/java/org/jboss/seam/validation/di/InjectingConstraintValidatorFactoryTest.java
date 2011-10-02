@@ -32,7 +32,7 @@ import javax.validation.Validator;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.solder.beanManager.BeanManagerLocator;
+import org.jboss.solder.beanManager.BeanManagerLocator;
 import org.jboss.seam.validation.InjectingConstraintValidatorFactory;
 import org.jboss.seam.validation.di.constraint.ValidHello;
 import org.jboss.seam.validation.di.service.HelloWorldService;
@@ -66,7 +66,7 @@ public class InjectingConstraintValidatorFactoryTest {
                 .addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
                 .addAsManifestResource(new File("src/main/resources/META-INF/services/javax.enterprise.inject.spi.Extension"))
                 .addAsManifestResource(
-                        new File("src/test/resources/META-INF/services/org.jboss.seam.solder.beanManager.BeanManagerProvider"))
+                        new File("src/test/resources/META-INF/services/org.jboss.solder.beanManager.BeanManagerProvider"))
                 .addPackage(InjectingConstraintValidatorFactoryTest.class.getPackage())
                 .addPackage(HelloWorldService.class.getPackage()).addPackage(ValidHello.class.getPackage());
     }

@@ -49,19 +49,29 @@
         </plugins>
     </build>
     <dependencies>
+
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>seam-validation-api</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.jboss.seam.solder</groupId>
-            <artifactId>seam-solder</artifactId>
+            <groupId>org.jboss.solder</groupId>
+            <artifactId>solder-api</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.jboss.solder</groupId>
+            <artifactId>solder-impl</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>

@@ -28,7 +28,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorFactory;
 import javax.validation.Validation;
 
-import org.jboss.seam.solder.beanManager.BeanManagerAware;
+import org.jboss.solder.beanManager.BeanManagerAware;
 
 /**
  * A {@link ConstraintValidatorFactory} which enables CDI based dependency injection for the created {@link ConstraintValidator}
