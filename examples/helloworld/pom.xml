@@ -125,59 +125,87 @@
             </build>
         </profile>
 
-        <profile>
-            <id>servlet</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.weld.servlet</groupId>
-                    <artifactId>weld-servlet</artifactId>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <configuration>
-                            <webResources>
-                                <resource>
-                                    <directory>src/main/webapp</directory>
-                                </resource>
-                                <resource>
-                                    <directory>src/main/webapp-jetty</directory>
-                                </resource>
-                            </webResources>
-                        </configuration>
-                    </plugin>
-      
-               <!-- use 'mvn jetty:run' or 'mvn jetty:run-war' to run example on command line -->
-                    <plugin>
-                        <groupId>org.mortbay.jetty</groupId>
-                        <artifactId>maven-jetty-plugin</artifactId>
-                        <version>${mortbay.jetty.version}</version>
-                        <configuration>
-                            <contextPath>${finalName}</contextPath>
-                            <jettyEnvXml>${basedir}/src/main/webapp-jetty/WEB-INF/jetty-env.xml</jettyEnvXml>
-                            <webAppConfig>
-                                <baseResource implementation="org.mortbay.resource.ResourceCollection">
-                           
-                           <!-- use this for 'mvn jetty:run' -->
-                                    <resourcesAsCSV>src/main/webapp-jetty,src/main/webapp</resourcesAsCSV>
-                           
-                           <!-- OR use this for 'mvn jetty:run-war' -->
-                           <!-- <resourcesAsCSV>src/main/webapp-jetty,src/main/webapp,${project.build.directory}/${project.build.finalName}</resourcesAsCSV>  -->
-                                </baseResource>
-                            </webAppConfig>
-                            <connectors>
-                                <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-                                    <port>8080</port>
-                                </connector>
-                            </connectors>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+		<profile>
+			<id>servlet</id>
+			<properties>
+				<slf4j.version>1.5.11</slf4j.version>
+			</properties>
+			<!-- Jetty required SLF4j 1.5 while both Weld and Hibernate Validator use 
+				1.6 -->
+			<!-- Therefore, we must exclude all the 1.6 dependencies and declare 1.5 
+				instead. -->
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.weld.servlet</groupId>
+					<artifactId>weld-servlet</artifactId>
+					<exclusions>
+						<exclusion>
+							<groupId>org.slf4j</groupId>
+							<artifactId>slf4j-jdk14</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+				<dependency>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-validator</artifactId>
+					<exclusions>
+						<exclusion>
+							<groupId>org.slf4j</groupId>
+							<artifactId>slf4j-api</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+				<dependency>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-jdk14</artifactId>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<webResources>
+								<resource>
+									<directory>src/main/webapp</directory>
+								</resource>
+								<resource>
+									<directory>src/main/webapp-jetty</directory>
+								</resource>
+							</webResources>
+						</configuration>
+					</plugin>
+	
+					<!-- use 'mvn jetty:run' or 'mvn jetty:run-war' to run example on command 
+						line -->
+					<plugin>
+						<groupId>org.mortbay.jetty</groupId>
+						<artifactId>maven-jetty-plugin</artifactId>
+						<version>${mortbay.jetty.version}</version>
+						<configuration>
+							<contextPath>${finalName}</contextPath>
+							<jettyEnvXml>${basedir}/src/main/webapp-jetty/WEB-INF/jetty-env.xml</jettyEnvXml>
+							<webAppConfig>
+								<baseResource implementation="org.mortbay.resource.ResourceCollection">
+	
+									<!-- use this for 'mvn jetty:run' -->
+									<resourcesAsCSV>src/main/webapp-jetty,src/main/webapp</resourcesAsCSV>
+	
+									<!-- OR use this for 'mvn jetty:run-war' -->
+									<!-- <resourcesAsCSV>src/main/webapp-jetty,src/main/webapp,${project.build.directory}/${project.build.finalName}</resourcesAsCSV> -->
+								</baseResource>
+							</webAppConfig>
+							<connectors>
+								<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+									<port>8080</port>
+								</connector>
+							</connectors>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 
         <profile>
             <id>glassfish</id>
@@ -188,7 +216,6 @@
                 <dependency>
                     <groupId>org.slf4j</groupId>
                     <artifactId>slf4j-jdk14</artifactId>
-                    <version>${slf4j.version}</version>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
@@ -217,9 +244,6 @@
 
         <profile>
             <id>jbossas</id>
-         <!--activation>
-            <activeByDefault>true</activeByDefault>
-         </activation-->
             <dependencies>
             <!-- Don't put slf4j into the resulting WAR, as JBoss contains it already -->
                 <dependency>
