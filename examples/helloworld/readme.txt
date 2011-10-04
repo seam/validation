@@ -11,9 +11,15 @@ Running the example on Jetty
 =========================================
 mvn clean jetty:run -Pservlet
 
+Running the example on JBoss AS 7
+=========================================
+mvn clean package -Pjbossas
+$JBOSS_HOME/bin/standalone.sh
+deploy the example
+
 Running the example on JBoss AS 6
 =========================================
-mvn clean package jboss:hard-deploy
+mvn clean package -Pjbossas jboss:hard-deploy
 $JBOSS_HOME/bin/run.sh
 
 Running the example on GlassFish V3
