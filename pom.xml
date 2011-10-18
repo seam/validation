@@ -45,6 +45,7 @@
     <modules>
         <module>api</module>
         <module>impl</module>
+        <module>testsuite</module>
     </modules>
 
     <organization>

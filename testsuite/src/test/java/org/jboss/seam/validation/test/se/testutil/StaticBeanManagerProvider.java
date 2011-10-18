@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.validation.testutil;
+package org.jboss.seam.validation.test.se.testutil;
 
 import javax.enterprise.inject.spi.BeanManager;
 

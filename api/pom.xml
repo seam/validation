@@ -49,6 +49,7 @@
     </dependencies>
 
     <build>
+        <finalName>seam-validation-api</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>

@@ -41,6 +41,7 @@
    </description>
 
     <build>
+        <finalName>seam-validation</finalName>
         <plugins>
             <plugin>
                 <groupId>com.mycila.maven-license-plugin</groupId>
@@ -77,91 +78,6 @@
             <artifactId>hibernate-validator</artifactId>
         </dependency>
 
-      <!-- ### Test dependencies ### -->
-
-      <!-- Misc. -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-jdk14</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-      <!-- Arquillian -->
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-weld-se-embedded-1.1</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-      <!-- Weld -->
-        <dependency>
-            <groupId>org.jboss.weld</groupId>
-            <artifactId>weld-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.weld</groupId>
-            <artifactId>weld-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.spec.javax.el</groupId>
-            <artifactId>jboss-el-api_2.2_spec</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-           <groupId>org.slf4j</groupId>
-           <artifactId>slf4j-api</artifactId>
-           <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>code-coverage</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>emma-maven-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.sonatype.maven.plugin</groupId>
-                        <artifactId>emma4it-maven-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-clean-plugin</artifactId>
-                        <configuration>
-                            <filesets>
-                                <fileset>
-                                    <directory>${basedir}/</directory>
-                                    <includes>
-                                        <include>**/*.ec</include>
-                                    </includes>
-                                </fileset>
-                            </filesets>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
