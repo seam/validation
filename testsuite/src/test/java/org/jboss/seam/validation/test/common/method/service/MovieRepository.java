@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.validation.method.service;
+package org.jboss.seam.validation.test.common.method.service;
 
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -30,7 +30,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.jboss.seam.validation.AutoValidating;
-import org.jboss.seam.validation.method.domain.Movie;
+import org.jboss.seam.validation.test.common.method.domain.Movie;
 
 /**
  * An exemplary business service for which automatic method-level validation is enabled.

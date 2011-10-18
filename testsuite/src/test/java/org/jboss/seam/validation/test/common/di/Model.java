@@ -17,26 +17,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.validation.di.service;
+package org.jboss.seam.validation.test.common.di;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Max;
+
+import org.jboss.seam.validation.test.common.di.constraint.ValidHello;
 
 /**
- * An exemplary business service for testing purposes.
+ * An exemplary domain class for testing purposes.
  * 
  * @author Gunnar Morling
  * 
  */
-@ApplicationScoped
-public class HelloWorldService {
+public class Model {
 
-    public HelloWorldService() {
-    }
+    /**
+     * Validation of this field fails, "Hello, Bob" would be the valid value.
+     */
+    @ValidHello("Bob")
+    public String helloTest = "Hello, Bill";
 
-    public String sayHello(@NotNull @Size(min = 3) String name) {
-        return "Hello, " + name + "!";
-    }
+    @Max(5)
+    public int integer = 10;
 
 }
