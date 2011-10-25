@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.validation.method;
+package org.jboss.seam.validation.test.common.method;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -33,8 +33,8 @@ import org.hibernate.validator.method.MethodConstraintViolationException;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.validation.ValidationInterceptor;
-import org.jboss.seam.validation.method.domain.Movie;
-import org.jboss.seam.validation.method.service.MovieRepository;
+import org.jboss.seam.validation.test.common.method.domain.Movie;
+import org.jboss.seam.validation.test.common.method.service.MovieRepository;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -57,7 +57,7 @@ public class CdiMethodValidationTest {
     public static JavaArchive createTestArchive() throws Exception {
         return ShrinkWrap.create(JavaArchive.class, "test.jar")
                 .addAsManifestResource("META-INF/beans.xml", ArchivePaths.create("beans.xml"))
-                .addAsManifestResource(new File("src/main/resources/META-INF/services/javax.enterprise.inject.spi.Extension"))
+                .addAsManifestResource(new File("../impl/src/main/resources/META-INF/services/javax.enterprise.inject.spi.Extension"))
                 .addPackage(MovieRepository.class.getPackage()).addPackage(ValidationInterceptor.class.getPackage())
                 .addPackage(Movie.class.getPackage());
     }

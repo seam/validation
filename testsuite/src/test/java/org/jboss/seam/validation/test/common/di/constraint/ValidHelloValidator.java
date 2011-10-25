@@ -17,13 +17,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.validation.di.constraint;
+package org.jboss.seam.validation.test.common.di.constraint;
 
 import javax.inject.Inject;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import org.jboss.seam.validation.di.service.HelloWorldService;
+import org.jboss.seam.validation.test.common.di.service.HelloWorldService;
 
 /**
  * Validator for the {@link ValidHello} constraint. This validator is not portable between BV implementations, as it relies on
