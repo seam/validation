@@ -31,7 +31,7 @@
 
     <servlet>
         <servlet-name>Seam Validation Example Servlet</servlet-name>
-        <servlet-class>org.jboss.seam.validation.HelloWorldServlet</servlet-class>
+        <servlet-class>org.jboss.seam.validation.examples.helloworld.HelloWorldServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
