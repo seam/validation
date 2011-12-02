@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.validation.di.constraint;
+package org.jboss.seam.validation.test.common.di.constraint;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
@@ -47,7 +47,7 @@ import javax.validation.Payload;
 @Retention(RUNTIME)
 public @interface ValidHello {
 
-    String message() default "{org.jboss.seam.validation.ValidHello.message}";
+    String message() default "{org.jboss.seam.validation.test.common.ValidHello.message}";
 
     Class<?>[] groups() default {};
 

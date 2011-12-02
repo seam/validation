@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.validation.method.domain;
+package org.jboss.seam.validation.test.common.method.domain;
 
 import java.util.Date;
 
