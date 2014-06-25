@@ -23,15 +23,33 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @ApplicationScoped
 @AutoValidating
 public class HelloWorldService {
 
     public HelloWorldService() {
     }
-
-    public String sayHello(@NotNull @Size(min = 3) String name) {
-        return "Hello, " + name + "!";
+    
+    @Size(max = 16)
+    public String composeName(@NotNull @NotEmpty String firstName, @NotNull String middleName, @NotNull String lastName) {
+        StringBuffer name = new StringBuffer(firstName);
+        
+        if (middleName.length() > 0) {
+            name.append(' ');
+            name.append(middleName);           
+        }
+        
+        if (lastName.length() > 0) {
+            name.append(' ');
+            name.append(lastName);
+        }
+        
+        return name.toString();
     }
 
+    public String sayHello(@NotNull @Size(min = 3) @NotBanned String name) {
+        return "Hello, " + name + "!";
+    }
 }

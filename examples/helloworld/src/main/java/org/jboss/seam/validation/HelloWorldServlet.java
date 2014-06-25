@@ -20,6 +20,7 @@
 package org.jboss.seam.validation;
 
 import java.io.IOException;
+import java.util.Collection;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -33,15 +34,21 @@ public class HelloWorldServlet extends HttpServlet {
 
     @Inject
     private HelloWorldService service;
+    
+    @Inject
+    @BannedNames
+    private Collection<String> bannedNames;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
 
-        String name = request.getParameter("name");
-        if (name != null) {
-            response.getWriter().println("<h1>" + service.sayHello(name) + "</h1>");
+        String firstName = request.getParameter("firstName");
+        String middleName = request.getParameter("middleName");
+        String lastName = request.getParameter("lastName");
+        if (firstName != null && middleName != null && lastName != null) {
+            response.getWriter().println("<h1>" + service.sayHello(service.composeName(firstName, middleName, lastName)) + "</h1>");
         } else {
             response.getWriter().println("<?xml version=\"1.0\" ?>");
             response.getWriter()
@@ -51,11 +58,22 @@ public class HelloWorldServlet extends HttpServlet {
             response.getWriter().println("   <head><title>Seam Validation Module Example</title></head>");
             response.getWriter().println("   <body>");
             response.getWriter().println("      <h1>Seam Validation Module Example - Method Validation</h1>");
-            response.getWriter().println("      <p>Hi, what's your name? Enter at least three characters.</p>");
+            response.getWriter().println("      <p>Hi, what's your name? </p>");
+            response.getWriter().println("      <p>Your First Name must not be empty.</p>");
+            response.getWriter().println("      <p>Your whole name must have at least three and at most sixteen characters.</p>");
+            response.getWriter().println("      <p>Your name must not contain any of the banned names list (see below).</p>");
             response.getWriter().println("      <form action=\"HelloWorld\">");
-            response.getWriter().println("         Name: <input name=\"name\" type=\"text\" size=\"30\">");
-            response.getWriter().println("         <input type=\"submit\" value=\" OK \">");
+            response.getWriter().println("         <div>First Name: <input name=\"firstName\" type=\"text\" size=\"15\"></div>");
+            response.getWriter().println("         <div>Middle Name: <input name=\"middleName\" type=\"text\" size=\"15\"></div>");
+            response.getWriter().println("         <div>Last Name: <input name=\"lastName\" type=\"text\" size=\"15\"></div>");
+            response.getWriter().println("         <div><input type=\"submit\" value=\" OK \"></div>");
             response.getWriter().println("      </form>");
+            
+            response.getWriter().println("<h2>Banned names list</h2>");
+            for (String name : bannedNames) {
+                response.getWriter().println("<div>" + name + "</div>");
+            }
+            
             response.getWriter().println("   </body>");
             response.getWriter().println("</html>");
         }
